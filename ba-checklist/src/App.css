@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+.form-main__header-container {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  height: 6.25rem;
+  position: relative;
+  justify-content: center;
+}
+
+.form-main_header-image {
+  height: 1.625rem;
+  width: 7.5625rem;
+}
