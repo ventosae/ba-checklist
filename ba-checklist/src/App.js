@@ -22,23 +22,30 @@ class App extends Component {
             className="form-main_header-image"
           />
         </div>
-        <div className="form-main__wrapper">
-          <h1 className="page-header form-main__header">
-            {" "}
-            SEO compatibility check{" "}
-          </h1>
-          <button
-            type="button"
-            className="btn btn-secondary mr-1 form-main__button"
-          >
-            Secondary
-          </button>
-        </div>
-        <button type="button" className="btn btn-secondary form-main__button">
-          Secondary
-        </button>
+        <div className="form-main__wrapper-m">
+          <div className="form-main__wrapper-m__second">
+            <div className="form-main__wrapper">
+              <h1 className="page-header form-main__header">
+                {" "}
+                SEO compatibility check{" "}
+              </h1>
+              <button
+                type="button"
+                className="btn btn-secondary mr-1 form-main__button"
+              >
+                Secondary
+              </button>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary form-main__button"
+            >
+              Secondary
+            </button>
 
-        <Form />
+            <Form />
+          </div>
+        </div>
       </main>
     );
   }

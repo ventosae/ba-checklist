@@ -34,6 +34,27 @@
     transform: rotate(360deg);
   }
 }
+.form-main {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-main__wrapper-m {
+  background-color: #fff;
+  max-width: 800px;
+  border-radius: 5px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.form-main__wrapper-m__second {
+  padding: 10px 20px;
+}
 
 .form-main__header-container {
   align-items: center;

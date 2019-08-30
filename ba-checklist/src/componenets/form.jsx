@@ -3,7 +3,11 @@ import React, { Component } from "react";
 class Form extends Component {
   state = {
     projectName: " ",
-    email: " "
+    email: " ",
+    domain: " ",
+    urlKeyword: "unchecked",
+    urlStrucutre: "unchecked",
+    urlCapital: "unchecked"
   };
 
   handleInputChange = event => {
@@ -18,6 +22,22 @@ class Form extends Component {
     });
   };
 
+  handleDomainChange = event => {
+    this.setState({
+      domain: event.target.value
+    });
+  };
+
+  handleUrlChange = event => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
   render() {
     return (
       <form className="form-b">
@@ -29,8 +49,9 @@ class Form extends Component {
             class="form-control form-b__input"
             id="project-input"
             placeholder="Project Name"
-            onChange={this.handleInputChange}
+            onChange={this.handleUrlChange}
             value={this.state.projectName}
+            name="projectName"
           />
           <label for="email-input form-b__lable">Your Email Address</label>
           <input
@@ -48,7 +69,12 @@ class Form extends Component {
             Subdomain/new domain: is this new content/feature located on a
             separate domain/subdomain
           </label>
-          <select class="form-control form-b__select" id="question1">
+          <select
+            class="form-control form-b__select"
+            id="question1"
+            value={this.state.domain}
+            onChange={this.handleDomainChange}
+          >
             <option>is located on separate subdomain/domain</option>
             <option>is NOT located on subdomain/domain </option>
           </select>
@@ -62,6 +88,8 @@ class Form extends Component {
               type="checkbox"
               value=""
               id="check1"
+              onChange={this.handleUrlChange}
+              name="urlKeyword"
             />
             <label
               className="form-check-label form-b__check-lable"
