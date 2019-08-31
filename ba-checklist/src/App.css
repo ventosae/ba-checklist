@@ -69,3 +69,7 @@
   height: 1.625rem;
   width: 7.5625rem;
 }
+
+.form-b_text {
+  resize: none;
+}
