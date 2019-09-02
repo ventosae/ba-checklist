@@ -1,20 +1,82 @@
 import React, { Component } from "react";
 
+const emailRegex = RegExp(
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+
+// const formValid = ({ formErrors, ...rest }) => {
+//   let valid = true;
+
+//   // validate form errors being empty
+//   Object.values(formErrors).forEach(val => {
+//     val.length > 0 && (valid = false);
+//   });
+
+//   // validate the form was filled out
+//   Object.values(rest).forEach(val => {
+//     val.length <= 0 && (valid = false);
+//   });
+
+//   return valid;
+// };
+
 class Form extends Component {
-  state = {
-    projectName: "",
-    email: "",
-    domain: "",
-    urlKeyword: "",
-    urlStrucutre: "",
-    urlCapital: "",
-    rendering: "",
-    title: "",
-    description: "",
-    h1: "",
-    schema: "",
-    pagespeed: "",
-    content: ""
+  constructor(props) {
+    super(props);
+    this.state = {
+      projectName: "",
+      email: "",
+      domain: "",
+      urlKeyword: "",
+      urlStrucutre: "",
+      urlCapital: "",
+      rendering: "",
+      title: "",
+      description: "",
+      h1: "",
+      schema: "",
+      pagespeed: "",
+      content: "",
+      formErrors: {
+        projectName: "",
+        email: "",
+        domain: "",
+        urlKeyword: "",
+        urlStrucutre: "",
+        urlCapital: "",
+        rendering: "",
+        title: "",
+        description: "",
+        h1: "",
+        schema: "",
+        pagespeed: "",
+        content: ""
+      }
+    };
+  }
+
+  formValid = () => {
+    let valid = true;
+
+    // // validate form errors being empty
+    // Object.values(this.formErrors).forEach(val => {
+    //   val.length > 0 && (valid = false);
+    // });
+
+    // validate the form was filled out
+    Object.values(this.state).forEach((val, index) => {
+      console.log(`fields ${index}`, val);
+      val.length <= 0 && (valid = false);
+    });
+    console.log("----------------------------------------------");
+
+    const fields = this.state;
+
+    for (let key in fields) {
+      console.log(`value for the key ${key} is `, fields[key]);
+    }
+
+    return valid;
   };
 
   handleInputChange = event => {
@@ -27,14 +89,19 @@ class Form extends Component {
     });
   };
 
+  handleSubmit = event => {
+    event.preventDefault();
+
+    if (this.formValid()) {
+      console.log("valid");
+    } else {
+      console.log("invalid");
+    }
+  };
+
   render() {
     return (
-      <form
-        className="form-b"
-        onSubmit={e => {
-          e.preventDefault();
-        }}
-      >
+      <form className="form-b" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
           <label className="form-b__lable" for="project-input">
             Project Name
