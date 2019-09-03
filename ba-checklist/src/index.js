@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import Form from "./componenets/form";
+import Error from "./componenets/error";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

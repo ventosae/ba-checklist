@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
+// import Error from "./componenets/error";
 
 // const formValid = ({ formErrors, ...rest }) => {
 //   let valid = true;
@@ -21,8 +18,8 @@ const emailRegex = RegExp(
 // };
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       projectName: "",
       email: "",
@@ -32,14 +29,15 @@ class Form extends Component {
       urlCapital: "",
       rendering: "",
       title: "",
-      description: "",
+      description: "lol",
       h1: "",
       schema: "",
       pagespeed: "",
       content: "",
+      isEmailValid: true,
       formErrors: {
         projectName: "",
-        email: "",
+        email: "Your email sucks, sorry ",
         domain: "",
         urlKeyword: "",
         urlStrucutre: "",
@@ -55,25 +53,36 @@ class Form extends Component {
     };
   }
 
+  emailValid(key) {
+    const emailRegex = RegExp(
+      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    );
+    // const target = event.target;
+    // const value = target.type === "checkbox" ? target.checked : target.value;
+
+    let result = emailRegex.test(key);
+    console.log("emailValid", result);
+    return result;
+  }
+
   formValid = () => {
     let valid = true;
-
-    // // validate form errors being empty
-    // Object.values(this.formErrors).forEach(val => {
-    //   val.length > 0 && (valid = false);
-    // });
-
-    // validate the form was filled out
-    Object.values(this.state).forEach((val, index) => {
-      console.log(`fields ${index}`, val);
-      val.length <= 0 && (valid = false);
-    });
-    console.log("----------------------------------------------");
-
     const fields = this.state;
 
     for (let key in fields) {
-      console.log(`value for the key ${key} is `, fields[key]);
+      if (key === "email") {
+        const emailValidationStatus = this.emailValid(fields[key]);
+        if (!emailValidationStatus) {
+          this.setState({ isEmailValid: emailValidationStatus });
+        } else {
+          this.setState({ isEmailValid: emailValidationStatus });
+        }
+      }
+
+      // if( key === 'name') {
+      //   // the lenghthh should be more than five
+      // }
+      // console.log(`value for the key ${key} is `, fields[key]);
     }
 
     return valid;
@@ -100,6 +109,8 @@ class Form extends Component {
   };
 
   render() {
+    const { isInvalid } = this.state;
+
     return (
       <form className="form-b" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
@@ -116,14 +127,16 @@ class Form extends Component {
           />
           <label for="email-input form-b__lable">Your Email Address</label>
           <input
-            className="form-control form-b__input"
-            id="email-input"
+            className={`form-control form-b__input ${
+              this.state.isEmailValid ? "is-valid" : "is-invalid"
+            }`}
             onChange={this.handleInputChange}
             placeholder="example@sportsbet.com.au"
             value={this.state.email}
-            type="email"
+            type="input"
             name="email"
           />
+          {/* <Error></Error> */}
         </div>
 
         <div className="form-group form-b__group">
