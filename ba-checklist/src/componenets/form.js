@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Error from "./componenets/error";
+import Error from "./error.js";
 
 // const formValid = ({ formErrors, ...rest }) => {
 //   let valid = true;
@@ -18,51 +18,54 @@ import React, { Component } from "react";
 // };
 
 class Form extends Component {
-  constructor() {
-    super();
-    this.state = {
-      projectName: "",
-      email: "",
-      domain: "",
-      urlKeyword: "",
-      urlStrucutre: "",
-      urlCapital: "",
-      rendering: "",
-      title: "",
-      description: "lol",
-      h1: "",
-      schema: "",
-      pagespeed: "",
-      content: "",
-      isEmailValid: true,
-      formErrors: {
-        projectName: "",
-        email: "Your email sucks, sorry ",
-        domain: "",
-        urlKeyword: "",
-        urlStrucutre: "",
-        urlCapital: "",
-        rendering: "",
-        title: "",
-        description: "",
-        h1: "",
-        schema: "",
-        pagespeed: "",
-        content: ""
-      }
-    };
-  }
+  state = {
+    projectName: "",
+    email: "",
+    domain: "",
+    urlKeyword: "",
+    urlStrucutre: "",
+    urlCapital: "",
+    rendering: "",
+    title: "",
+    description: "",
+    h1: "",
+    schema: "",
+    pagespeed: "",
+    content: "",
+    isProjectValid: true,
+    isEmailValid: true,
+    formErrors: {
+      projectName: "You sucks",
+      email: "Your email sucks, sorry ",
+      domain: "You sucks",
+      urlKeyword: "You sucks",
+      urlStrucutre: "You sucks",
+      urlCapital: "You sucks",
+      rendering: "You sucks",
+      title: "You sucks",
+      description: "You sucks",
+      h1: "You sucks",
+      schema: "You sucks",
+      pagespeed: "You sucks",
+      content: "You sucks"
+    }
+  };
 
   emailValid(key) {
     const emailRegex = RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
-    // const target = event.target;
-    // const value = target.type === "checkbox" ? target.checked : target.value;
 
     let result = emailRegex.test(key);
     console.log("emailValid", result);
     return result;
+  }
+
+  lenghValid(key) {
+    let keyValue = key;
+    let keyValueLength = keyValue.length;
+    console.log("keyValueLength", keyValueLength);
+    return keyValueLength > 0 ? true : false;
   }
 
   formValid = () => {
@@ -70,10 +73,20 @@ class Form extends Component {
     const fields = this.state;
 
     for (let key in fields) {
+      if (key === "projectName") {
+        const projectNameStatus = this.lenghValid(fields[key]);
+        if (!projectNameStatus) {
+          this.setState({ isProjectValid: projectNameStatus });
+          valid = false;
+        } else {
+          this.setState({ isEmailValid: projectNameStatus });
+        }
+      }
       if (key === "email") {
         const emailValidationStatus = this.emailValid(fields[key]);
         if (!emailValidationStatus) {
           this.setState({ isEmailValid: emailValidationStatus });
+          valid = false;
         } else {
           this.setState({ isEmailValid: emailValidationStatus });
         }
@@ -109,8 +122,6 @@ class Form extends Component {
   };
 
   render() {
-    const { isInvalid } = this.state;
-
     return (
       <form className="form-b" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
@@ -118,13 +129,16 @@ class Form extends Component {
             Project Name
           </label>
           <input
-            className="form-control form-b__input"
+            className={`form-control form-b__input ${
+              this.state.isProjectValid ? "is-valid" : "is-invalid"
+            }`}
             id="project-input"
             placeholder="Project Name"
             onChange={this.handleInputChange}
             value={this.state.projectName}
             name="projectName"
           />
+          <Error errorMessage={this.state.formErrors.projectName} />
           <label for="email-input form-b__lable">Your Email Address</label>
           <input
             className={`form-control form-b__input ${
@@ -136,7 +150,7 @@ class Form extends Component {
             type="input"
             name="email"
           />
-          {/* <Error></Error> */}
+          <Error errorMessage={this.state.formErrors.email} />
         </div>
 
         <div className="form-group form-b__group">

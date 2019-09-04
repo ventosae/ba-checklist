@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Form from "./componenets/form";
+import Form from "./componenets/form.js";
 import { Helmet } from "react-helmet";
 import Logo from "./componenets/sportsbet_logo.png";
 import Bstroke from "./componenets/brush_stroke.png";
