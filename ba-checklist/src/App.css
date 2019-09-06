@@ -73,3 +73,7 @@
 .form-b_text {
   resize: none;
 }
+
+.form-b__option--select {
+  display: none;
+}

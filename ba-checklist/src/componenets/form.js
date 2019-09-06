@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Error from "./error.js";
+import "../App.css";
 
 // const formValid = ({ formErrors, ...rest }) => {
 //   let valid = true;
@@ -34,6 +35,10 @@ class Form extends Component {
     content: "",
     isProjectValid: true,
     isEmailValid: true,
+    isDomainValid: true,
+    isRenderingValid: true,
+    isPageSpeedValid: true,
+    isSchemaValid: true,
     formErrors: {
       projectName: "You sucks",
       email: "Your email sucks, sorry ",
@@ -68,6 +73,8 @@ class Form extends Component {
     return keyValueLength > 0 ? true : false;
   }
 
+  // need to be refactored
+
   formValid = () => {
     let valid = true;
     const fields = this.state;
@@ -79,7 +86,7 @@ class Form extends Component {
           this.setState({ isProjectValid: projectNameStatus });
           valid = false;
         } else {
-          this.setState({ isEmailValid: projectNameStatus });
+          this.setState({ isProjectValid: projectNameStatus });
         }
       }
       if (key === "email") {
@@ -89,6 +96,56 @@ class Form extends Component {
           valid = false;
         } else {
           this.setState({ isEmailValid: emailValidationStatus });
+        }
+      }
+
+      if (key === "domain") {
+        const domainValidationStatus = this.lenghValid(fields[key]);
+        if (!domainValidationStatus) {
+          this.setState({ isDomainValid: domainValidationStatus });
+          valid = false;
+        } else {
+          this.setState({ isDomainValid: domainValidationStatus });
+        }
+      }
+
+      if (key === "schema") {
+        const validationStatus = this.lenghValid(fields[key]);
+        if (!validationStatus) {
+          this.setState({ isSchemaValid: validationStatus });
+          valid = false;
+        } else {
+          this.setState({ isSchemaValid: validationStatus });
+        }
+      }
+
+      if (key === "pagespeed") {
+        const validationStatus = this.lenghValid(fields[key]);
+        if (!validationStatus) {
+          this.setState({ isPageSpeedValid: validationStatus });
+          valid = false;
+        } else {
+          this.setState({ isPageSpeedValid: validationStatus });
+        }
+      }
+
+      if (key === "rendering") {
+        const validationStatus = this.lenghValid(fields[key]);
+        if (!validationStatus) {
+          this.setState({ isRenderingValid: validationStatus });
+          valid = false;
+        } else {
+          this.setState({ isRenderingValid: validationStatus });
+        }
+      }
+
+      if (key === "rendering") {
+        const validationStatus = this.lenghValid(fields[key]);
+        if (!validationStatus) {
+          this.setState({ isRenderingValid: validationStatus });
+          valid = false;
+        } else {
+          this.setState({ isRenderingValid: validationStatus });
         }
       }
 
@@ -105,6 +162,7 @@ class Form extends Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    console.log(`HandleInputChange is Running for ${name}`);
 
     this.setState({
       [name]: value
@@ -159,12 +217,16 @@ class Form extends Component {
             separate domain/subdomain
           </label>
           <select
-            className="form-control form-b__select"
+            className={`form-control form-b__select ${
+              this.state.isEmailValid ? "is-valid" : "is-invalid"
+            }`}
             id="question1"
-            value={this.state.domain}
             onChange={this.handleInputChange}
             name="domain"
           >
+            <option default className={"form-b__option--select"} value="">
+              Select...
+            </option>
             <option value="is located on separate subdomain/domain">
               is located on separate subdomain/domain
             </option>
@@ -186,7 +248,7 @@ class Form extends Component {
               name="urlKeyword"
             />
             <label
-              className="form-check-label form-b__check-lable"
+              className="form-check-label form-b__check-lable "
               for="check1"
             >
               Make sure the new URL(s) are using keywords relevant to the page
@@ -232,12 +294,17 @@ class Form extends Component {
             Engine Crawlers
           </label>
           <select
-            className="form-control form-b__select"
+            className={`form-control form-b__select ${
+              this.state.isProjectValid ? "is-valid" : "is-invalid"
+            }`}
             id="question2"
             value={this.state.rendering}
             onChange={this.handleInputChange}
             name="rendering"
           >
+            <option default className={"form-b__option--select"} value="">
+              Select...
+            </option>
             <option value="Feature is using client side rendering">
               Feature is using client side rendering
             </option>
@@ -299,12 +366,17 @@ class Form extends Component {
             Schema Markups
           </label>
           <select
-            className="form-control form-b__select"
+            className={`form-control form-b__select ${
+              this.state.isEmailValid ? "is-valid" : "is-invalid"
+            }`}
             id="schema"
-            value={this.state.schema}
+            // value={this.state.schema}
             onChange={this.handleInputChange}
             name="schema"
           >
+            <option default className={"form-b__option--select"} value="">
+              Select...
+            </option>
             <option value="Schema Markups are implemeted">
               Schema Markups are implemeted
             </option>
@@ -320,12 +392,17 @@ class Form extends Component {
             Page Load Speed
           </label>
           <select
-            className="form-control form-b__select"
+            className={`form-control form-b__select ${
+              this.state.isEmailValid ? "is-valid" : "is-invalid"
+            }`}
             id="pagespeed"
             value={this.state.pagespeed}
             onChange={this.handleInputChange}
             name="pagespeed"
           >
+            <option default className={"form-b__option--select"} value="">
+              Select...
+            </option>
             <option value="Page load speed is considered as per overall Sportsbet standard">
               Page load speed is considered as per overall Sportsbet standard{" "}
             </option>
