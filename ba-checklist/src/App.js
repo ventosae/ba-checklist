@@ -29,19 +29,22 @@ class App extends Component {
                 {" "}
                 SEO compatibility check{" "}
               </h1>
-              <button
-                type="button"
-                className="btn btn-secondary mr-1 form-main__button"
-              >
-                Secondary
-              </button>
+              <div className="form-main__wrapper--button">
+                <button
+                  type="button"
+                  className="btn btn btn-outline-info mr-1 form-main__button"
+                >
+                  CXP Web
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn btn-outline-info form-main__button"
+                >
+                  APP
+                </button>
+              </div>
             </div>
-            <button
-              type="button"
-              className="btn btn-secondary form-main__button"
-            >
-              Secondary
-            </button>
 
             <Form />
           </div>

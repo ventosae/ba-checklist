@@ -23,7 +23,7 @@ class Form extends Component {
     projectName: "",
     email: "",
     domain: "",
-    urlKeyword: "",
+    urlKeyword: false,
     urlStrucutre: "",
     urlCapital: "",
     rendering: "",
@@ -39,6 +39,12 @@ class Form extends Component {
     isRenderingValid: true,
     isPageSpeedValid: true,
     isSchemaValid: true,
+    // isUrlKeywordValid: true,
+    // isUrlStrucutreValid: true,
+    // isUrlCapitalValid: true,
+    // isTitleValid: true,
+    // isDescriptionValid: true,
+    // isH1Valid: true,
     formErrors: {
       projectName: "You sucks",
       email: "Your email sucks, sorry ",
@@ -139,20 +145,65 @@ class Form extends Component {
         }
       }
 
-      if (key === "rendering") {
-        const validationStatus = this.lenghValid(fields[key]);
-        if (!validationStatus) {
-          this.setState({ isRenderingValid: validationStatus });
-          valid = false;
-        } else {
-          this.setState({ isRenderingValid: validationStatus });
-        }
-      }
-
-      // if( key === 'name') {
-      //   // the lenghthh should be more than five
+      // if (key === "urlKeyword") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isUrlKeywordValid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isUrlKeywordValid: validationStatus });
+      //   }
       // }
-      // console.log(`value for the key ${key} is `, fields[key]);
+
+      // if (key === "urlStrucutre") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isUrlStrucutreValid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isUrlStrucutreValid: validationStatus });
+      //   }
+      // }
+
+      // if (key === "urlCapital") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isUrlCapitalValid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isUrlCapitalValid: validationStatus });
+      //   }
+      // }
+
+      // if (key === "title") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isTitleValid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isTitleValid: validationStatus });
+      //   }
+      // }
+
+      // if (key === "description") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isDescriptionValid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isDescriptionValid: validationStatus });
+      //   }
+      // }
+
+      // if (key === "h1") {
+      //   const validationStatus = this.lenghValid(fields[key]);
+      //   if (!validationStatus) {
+      //     this.setState({ isH1Valid: validationStatus });
+      //     valid = false;
+      //   } else {
+      //     this.setState({ isH1Valid: validationStatus });
+      //   }
+      // }
     }
 
     return valid;
@@ -160,7 +211,7 @@ class Form extends Component {
 
   handleInputChange = event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.value : target.value;
     const name = target.name;
     console.log(`HandleInputChange is Running for ${name}`);
 
@@ -181,7 +232,7 @@ class Form extends Component {
 
   render() {
     return (
-      <form className="form-b" onSubmit={this.handleSubmit}>
+      <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
           <label className="form-b__lable" for="project-input">
             Project Name
@@ -238,25 +289,25 @@ class Form extends Component {
 
         <div className="form-b__check-main">
           <label className="form-b__lable">Web Page URL</label>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
-              value={this.state.urlKeyword}
+              value="test"
               id="check1"
               onChange={this.handleInputChange}
               name="urlKeyword"
             />
             <label
-              className="form-check-label form-b__check-lable "
+              className="form-check-label form-b__check-lable custom-control-label "
               for="check1"
             >
               Make sure the new URL(s) are using keywords relevant to the page
             </label>
           </div>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
               id="check2"
               onChange={this.handleInputChange}
@@ -264,15 +315,15 @@ class Form extends Component {
               value={this.state.urlCapital}
             />
             <label
-              className="form-check-label form-b__check-lable"
+              className="form-check-label form-b__check-lable custom-control-label"
               for="check2"
             >
               URL is within the structure of the website category
             </label>
           </div>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
               id="check3"
               onChange={this.handleInputChange}
@@ -280,7 +331,7 @@ class Form extends Component {
               value={this.state.urlStrucutre}
             />
             <label
-              className="form-check-label form-b__check-lable"
+              className="form-check-label form-b__check-lable custom-control-label"
               for="check3"
             >
               URL doesn’t have capital letters or special symbols
@@ -317,22 +368,25 @@ class Form extends Component {
 
         <div className="form-b__check-main">
           <label className="form-b__lable">Meta Data</label>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
               value={this.state.title}
               id="title"
               onChange={this.handleInputChange}
               name="title"
             />
-            <label className="form-check-label form-b__check-lable" for="title">
+            <label
+              className="form-check-label form-b__check-lable custom-control-label"
+              for="title"
+            >
               Title tag requirements are fulfilled
             </label>
           </div>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
               id="description"
               onChange={this.handleInputChange}
@@ -340,22 +394,25 @@ class Form extends Component {
               value={this.state.description}
             />
             <label
-              className="form-check-label form-b__check-lable"
+              className="form-check-label form-b__check-lable custom-control-label"
               for="description"
             >
               Description tag requirements are fulfilled
             </label>
           </div>
-          <div className="form-check form-b__check">
+          <div className=" form-check form-b__check custom-control custom-checkbox">
             <input
-              className="form-check-input"
+              className="form-check-input custom-control-input"
               type="checkbox"
               id="h1"
               onChange={this.handleInputChange}
               name="h1"
               value={this.state.h1}
             />
-            <label className="form-check-label form-b__check-lable" for="h1">
+            <label
+              className="form-check-label form-b__check-lable custom-control-label"
+              for="h1"
+            >
               Description tag requirements are fulfilled
             </label>
           </div>
@@ -366,10 +423,7 @@ class Form extends Component {
             Schema Markups
           </label>
           <select
-            className={`form-control form-b__select ${
-              this.state.isEmailValid ? "is-valid" : "is-invalid"
-            }`}
-            id="schema"
+            className="form-check-input custom-control-input"
             // value={this.state.schema}
             onChange={this.handleInputChange}
             name="schema"

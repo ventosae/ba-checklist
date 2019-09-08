@@ -56,6 +56,15 @@
   padding: 10px 20px;
 }
 
+.form-main__wrapper--button {
+  display: flex;
+}
+
+.form-main__wrapper--button button {
+  flex: 1;
+  flex-grow: 1;
+}
+
 .form-main__header-container {
   align-items: center;
   display: flex;
