@@ -49,9 +49,7 @@ class Form extends Component {
       projectName: "You sucks",
       email: "Your email sucks, sorry ",
       domain: "You sucks",
-      urlKeyword: "You sucks",
-      urlStrucutre: "You sucks",
-      urlCapital: "You sucks",
+      urlChecklist: "You sucks",
       rendering: "You sucks",
       title: "You sucks",
       description: "You sucks",
@@ -239,7 +237,7 @@ class Form extends Component {
           </label>
           <input
             className={`form-control form-b__input ${
-              this.state.isProjectValid ? "is-valid" : "is-invalid"
+              this.state.isProjectValid ? "" : "is-invalid"
             }`}
             id="project-input"
             placeholder="Project Name"
@@ -251,7 +249,7 @@ class Form extends Component {
           <label for="email-input form-b__lable">Your Email Address</label>
           <input
             className={`form-control form-b__input ${
-              this.state.isEmailValid ? "is-valid" : "is-invalid"
+              this.state.isEmailValid ? "" : "is-invalid"
             }`}
             onChange={this.handleInputChange}
             placeholder="example@sportsbet.com.au"
@@ -269,7 +267,7 @@ class Form extends Component {
           </label>
           <select
             className={`form-control form-b__select ${
-              this.state.isEmailValid ? "is-valid" : "is-invalid"
+              this.state.isEmailValid ? "" : "is-invalid"
             }`}
             id="question1"
             onChange={this.handleInputChange}
@@ -285,6 +283,7 @@ class Form extends Component {
               is NOT located on subdomain/domain{" "}
             </option>
           </select>
+          <Error errorMessage={this.state.formErrors.domain} />
         </div>
 
         <div className="form-b__check-main">
@@ -346,7 +345,7 @@ class Form extends Component {
           </label>
           <select
             className={`form-control form-b__select ${
-              this.state.isProjectValid ? "is-valid" : "is-invalid"
+              this.state.isProjectValid ? "" : "is-invalid"
             }`}
             id="question2"
             value={this.state.rendering}
@@ -364,6 +363,7 @@ class Form extends Component {
             </option>
             <option value="Not Sure">Not Sure</option>
           </select>
+          <Error errorMessage={this.state.formErrors.rendering} />
         </div>
 
         <div className="form-b__check-main">
@@ -447,7 +447,7 @@ class Form extends Component {
           </label>
           <select
             className={`form-control form-b__select ${
-              this.state.isEmailValid ? "is-valid" : "is-invalid"
+              this.state.isEmailValid ? "" : "is-invalid"
             }`}
             id="pagespeed"
             value={this.state.pagespeed}
@@ -469,6 +469,7 @@ class Form extends Component {
             </option>
             <option value="Not Sure">Not Sure</option>
           </select>
+          <Error errorMessage={this.state.formErrors.pagespeed} />
         </div>
         <div className="form-group form-b__group">
           <label for="content">

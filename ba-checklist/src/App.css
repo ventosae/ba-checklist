@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web:400,700,900&display=swap");
 
 .App {
   text-align: center;
@@ -50,14 +51,17 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  margin-bottom: 10px;
 }
 
 .form-main__wrapper-m__second {
-  padding: 10px 20px;
+  padding: 20px 20px;
 }
 
 .form-main__wrapper--button {
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .form-main__wrapper--button button {
@@ -85,4 +89,66 @@
 
 .form-b__option--select {
   display: none;
+}
+
+.btn-outline-info {
+  border-color: #00549e !important;
+  color: #212529 !important;
+}
+
+.btn-outline-info:hover {
+  color: #fff !important;
+  background-color: #00549e !important;
+  border-color: #00549e !important;
+}
+
+.btn-outline-info:focus,
+.btn-outline-info.focus {
+  box-shadow: 0 0 0 0.2rem #00549e !important;
+}
+
+.btn-outline-info.disabled,
+.btn-outline-info:disabled {
+  color: #00549e !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-info:not(:disabled):not(.disabled):active,
+.btn-outline-info:not(:disabled):not(.disabled).active,
+.show > .btn-outline-info.dropdown-toggle {
+  color: #fff !important;
+  background-color: #00549e !important;
+  border-color: #00549e !important;
+}
+
+.btn-outline-info:not(:disabled):not(.disabled):active:focus,
+.btn-outline-info:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #00549e !important;
+}
+
+.page-header--wrapper {
+  background: no-repeat;
+  background-position: center center;
+  background-image: url("./componenets/brush_stroke.png");
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* background-size: contain; */
+  padding: 60px;
+  margin-top: -40px;
+}
+
+.page-header {
+  font-size: 1.625rem;
+  color: #fad701;
+  line-height: 1.6875rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 900;
 }
