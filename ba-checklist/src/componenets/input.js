@@ -2,29 +2,24 @@ import React, { Component } from "react";
 import Error from "./error.js";
 
 class Inputfield extends Component {
-  state = {
-    projectName: "Please enter project name",
-    email: "Email is invalid",
-    isProjectValid: this.props.validation
-  };
+  state = {};
 
   render() {
     return (
       <div className="form-b__input-container">
         <label className="form-b__lable" for="project-input">
-          Project Name
+          {this.props.inputLabel}
         </label>
         <input
           className={`form-control form-b__input ${
-            this.state.isProjectValid ? "" : "is-invalid"
+            this.props.isInputValid ? "" : "is-invalid"
           }`}
-          id="project-input"
-          placeholder="Project Name"
+          id={this.props.inputId}
+          placeholder={this.props.inputPlaceholder}
           onChange={this.props.inputChange}
-          value={this.state.projectName}
-          name="projectName"
+          name={this.props.inputId}
         />
-        <Error errorMessage={this.state.projectName} />
+        <Error errorMessage={this.props.errorMessage} />
       </div>
     );
   }

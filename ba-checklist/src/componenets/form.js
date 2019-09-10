@@ -41,6 +41,9 @@ class Form extends Component {
       h1: "Please pick an answer",
       schema: "Please pick an answer, COME ON",
       pagespeed: "Please pick an answer"
+    },
+    formLables: {
+      projectName: "Project Name"
     }
   };
 
@@ -126,66 +129,6 @@ class Form extends Component {
           this.setState({ isRenderingValid: validationStatus });
         }
       }
-
-      // if (key === "urlKeyword") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isUrlKeywordValid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isUrlKeywordValid: validationStatus });
-      //   }
-      // }
-
-      // if (key === "urlStrucutre") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isUrlStrucutreValid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isUrlStrucutreValid: validationStatus });
-      //   }
-      // }
-
-      // if (key === "urlCapital") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isUrlCapitalValid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isUrlCapitalValid: validationStatus });
-      //   }
-      // }
-
-      // if (key === "title") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isTitleValid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isTitleValid: validationStatus });
-      //   }
-      // }
-
-      // if (key === "description") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isDescriptionValid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isDescriptionValid: validationStatus });
-      //   }
-      // }
-
-      // if (key === "h1") {
-      //   const validationStatus = this.lenghValid(fields[key]);
-      //   if (!validationStatus) {
-      //     this.setState({ isH1Valid: validationStatus });
-      //     valid = false;
-      //   } else {
-      //     this.setState({ isH1Valid: validationStatus });
-      //   }
-      // }
     }
 
     return valid;
@@ -206,9 +149,9 @@ class Form extends Component {
     event.preventDefault();
 
     if (this.formValid()) {
-      console.log("valid");
+      console.log("form is valid");
     } else {
-      console.log("invalid");
+      console.log("form is invalid");
     }
   };
 
@@ -218,34 +161,21 @@ class Form extends Component {
         <div className="form-group form-b__group">
           <Inputfield
             inputChange={this.handleInputChange}
-            validation={this.state.isProjectValid}
+            inputLabel={this.state.formLables.projectName}
+            isInputValid={this.state.isProjectValid}
+            inputId="project-input"
+            inputPlaceholder="Project Name"
+            errorMessage={this.state.formErrors.projectName}
           ></Inputfield>
-          {/* <label className="form-b__lable" for="project-input">
-            Project Name
-          </label>
-          <input
-            className={`form-control form-b__input ${
-              this.state.isProjectValid ? "" : "is-invalid"
-            }`}
-            id="project-input"
-            placeholder="Project Name"
-            onChange={this.handleInputChange}
-            value={this.state.projectName}
-            name="projectName"
-          />
-          <Error errorMessage={this.state.formErrors.projectName} /> */}
-          <label for="email-input form-b__lable">Your Email Address</label>
-          <input
-            className={`form-control form-b__input ${
-              this.state.isEmailValid ? "" : "is-invalid"
-            }`}
-            onChange={this.handleInputChange}
-            placeholder="example@sportsbet.com.au"
-            value={this.state.email}
-            type="input"
-            name="email"
-          />
-          <Error errorMessage={this.state.formErrors.email} />
+
+          <Inputfield
+            inputChange={this.handleInputChange}
+            inputLabel="Your Email Address"
+            isInputValid={this.state.isEmailValid}
+            inputId="email"
+            inputPlaceholder="example@sportsbet.com.au"
+            errorMessage={this.state.formErrors.email}
+          ></Inputfield>
         </div>
 
         <div className="form-group form-b__group">
@@ -260,16 +190,12 @@ class Form extends Component {
             id="question1"
             onChange={this.handleInputChange}
             name="domain"
+            multiple={true}
+            option={["a", "fd"]}
           >
-            <option default className={"form-b__option--select"} value="">
+            {/* <option default className="form-b__option--select" value="">
               Select...
-            </option>
-            <option value="is located on separate subdomain/domain">
-              is located on separate subdomain/domain
-            </option>
-            <option value="is NOT located on subdomain/domain">
-              is NOT located on subdomain/domain{" "}
-            </option>
+            </option> */}
           </select>
           <Error errorMessage={this.state.formErrors.domain} />
         </div>
