@@ -1,22 +1,7 @@
 import React, { Component } from "react";
 import Error from "./error.js";
 import "../App.css";
-
-// const formValid = ({ formErrors, ...rest }) => {
-//   let valid = true;
-
-//   // validate form errors being empty
-//   Object.values(formErrors).forEach(val => {
-//     val.length > 0 && (valid = false);
-//   });
-
-//   // validate the form was filled out
-//   Object.values(rest).forEach(val => {
-//     val.length <= 0 && (valid = false);
-//   });
-
-//   return valid;
-// };
+import Inputfield from "./input.js";
 
 class Form extends Component {
   state = {
@@ -46,17 +31,16 @@ class Form extends Component {
     // isDescriptionValid: true,
     // isH1Valid: true,
     formErrors: {
-      projectName: "You sucks",
-      email: "Your email sucks, sorry ",
-      domain: "You sucks",
-      urlChecklist: "You sucks",
-      rendering: "You sucks",
-      title: "You sucks",
-      description: "You sucks",
-      h1: "You sucks",
-      schema: "You sucks",
-      pagespeed: "You sucks",
-      content: "You sucks"
+      projectName: "Plese enter project name",
+      email: "Email is invalid",
+      domain: "Please pick an answer",
+      urlChecklist: "Please pick an answer",
+      rendering: "Please pick an answer",
+      title: "Please pick an answer",
+      description: "Please pick an answer",
+      h1: "Please pick an answer",
+      schema: "Please pick an answer, COME ON",
+      pagespeed: "Please pick an answer"
     }
   };
 
@@ -232,7 +216,11 @@ class Form extends Component {
     return (
       <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
-          <label className="form-b__lable" for="project-input">
+          <Inputfield
+            inputChange={this.handleInputChange}
+            validation={this.state.isProjectValid}
+          ></Inputfield>
+          {/* <label className="form-b__lable" for="project-input">
             Project Name
           </label>
           <input
@@ -245,7 +233,7 @@ class Form extends Component {
             value={this.state.projectName}
             name="projectName"
           />
-          <Error errorMessage={this.state.formErrors.projectName} />
+          <Error errorMessage={this.state.formErrors.projectName} /> */}
           <label for="email-input form-b__lable">Your Email Address</label>
           <input
             className={`form-control form-b__input ${

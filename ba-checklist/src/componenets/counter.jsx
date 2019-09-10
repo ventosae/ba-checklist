@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Error from "./error.js";
 
 class Counter extends Component {
   state = {
