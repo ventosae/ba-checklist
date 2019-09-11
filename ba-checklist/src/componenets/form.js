@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Error from "./error.js";
 import "../App.css";
+import Error from "./error.js";
 import Inputfield from "./input.js";
 
 class Form extends Component {
@@ -8,13 +8,7 @@ class Form extends Component {
     projectName: "",
     email: "",
     domain: "",
-    urlKeyword: false,
-    urlStrucutre: "",
-    urlCapital: "",
     rendering: "",
-    title: "",
-    description: "",
-    h1: "",
     schema: "",
     pagespeed: "",
     content: "",
@@ -24,12 +18,14 @@ class Form extends Component {
     isRenderingValid: true,
     isPageSpeedValid: true,
     isSchemaValid: true,
-    // isUrlKeywordValid: true,
-    // isUrlStrucutreValid: true,
-    // isUrlCapitalValid: true,
-    // isTitleValid: true,
-    // isDescriptionValid: true,
-    // isH1Valid: true,
+    formStatus: {
+      isProjectValid: true,
+      isEmailValid: true,
+      isDomainValid: true,
+      isRenderingValid: true,
+      isPageSpeedValid: true,
+      isSchemaValid: true
+    },
     formErrors: {
       projectName: "Plese enter project name",
       email: "Email is invalid",
@@ -69,7 +65,16 @@ class Form extends Component {
   formValid = () => {
     let valid = true;
     const fields = this.state;
-
+    const {
+      projectName,
+      email,
+      domain,
+      rendering,
+      schema,
+      pagespeed,
+      content
+    } = this.state;
+    console.log(projectName);
     for (let key in fields) {
       if (key === "projectName") {
         const projectNameStatus = this.lenghValid(fields[key]);
