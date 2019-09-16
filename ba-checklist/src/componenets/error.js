@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Error extends Component {
   render() {
-    return <div className="invalid-feedback">{this.props.errorMessage}</div>;
+    return <p className="invalid-feedback">{this.props.errorMessage}</p>;
   }
 }
 

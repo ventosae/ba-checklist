@@ -5,31 +5,30 @@ class Selectfield extends Component {
   state = {};
 
   render() {
+    const options = this.props.options;
     return (
       <div className="form-group form-b__group">
         <label className="form-b__lable" for="question1">
-          Subdomain/new domain: is this new content/feature located on a
-          separate domain/subdomain
+          {this.props.inputLabel}
         </label>
         <select
           className={`form-control form-b__select ${
-            this.state.isEmailValid ? "" : "is-invalid"
+            this.props.isInputValid ? "" : "is-invalid"
           }`}
-          id="question1"
-          onChange={this.handleInputChange}
-          name="domain"
+          id={this.props.inputId}
+          onChange={this.props.inputChange}
+          name={this.props.inputId}
         >
           <option default className={"form-b__option--select"} value="">
             Select...
           </option>
-          <option value="is located on separate subdomain/domain">
-            is located on separate subdomain/domain
-          </option>
-          <option value="is NOT located on subdomain/domain">
-            is NOT located on subdomain/domain{" "}
-          </option>
+          {options.map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
-        <Error errorMessage={this.state.formErrors.domain} />
+        <Error errorMessage={this.props.errorMessage} />
       </div>
     );
   }
