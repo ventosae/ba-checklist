@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "../App.css";
-import Error from "./error.js";
 import Inputfield from "./input.js";
 import Selectfield from "./select.js";
 import Checklistfield from "./checklist.js";
+import Tooltip from "./checklist.js";
 
 class Form extends Component {
   state = {
