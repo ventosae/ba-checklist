@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ToolTip from "./tooltip";
+import Tooltip from "./tooltip";
 
 class Btn extends Component {
   events = {};
@@ -14,7 +14,7 @@ class Btn extends Component {
   render() {
     return (
       <>
-        <ToolTip />
+        <Tooltip />
         <button type="button" id={this.state.id}>
           {this.state.text}
         </button>
