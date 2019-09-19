@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Error from "./error.js";
+import Info from "./info.js";
 
 class Inputfield extends Component {
   state = {};
@@ -18,7 +19,9 @@ class Inputfield extends Component {
           placeholder={this.props.inputPlaceholder}
           onChange={this.props.inputChange}
           name={this.props.inputId}
+          tooltiptext={this.props.tooltiptext}
         />
+        <Info id={this.props.inputId} tooltiptext={this.props.tooltiptext} />
         <Error errorMessage={this.props.errorMessage} />
       </div>
     );
