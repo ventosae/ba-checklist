@@ -20,8 +20,14 @@ class Inputfield extends Component {
           onChange={this.props.inputChange}
           name={this.props.inputId}
           tooltiptext={this.props.tooltiptext}
+          tooltipgoodex={this.props.tooltipgoodex}
+          tooltipbadex={this.props.tooltipbadex}
         />
-        <Info id={this.props.inputId} tooltiptext={this.props.tooltiptext} />
+        <Info
+          id={this.props.inputId}
+          tooltiptext={this.props.tooltiptext}
+          goodexample={this.props.tooltipgoodex}
+        />
         <Error errorMessage={this.props.errorMessage} />
       </div>
     );

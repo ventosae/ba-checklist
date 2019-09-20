@@ -29,7 +29,11 @@ class ToolTip extends Component {
         className={`tooltip-fade ${Object.keys(classNames).join(" ")}`}
       >
         <div className="tooltip-arrow"></div>
-        <div className="tooltip-inner">{this.props.ttext}</div>
+        <div className="tooltip-inner">
+          <span className="tooltip-good">{this.props.goodexample}</span>
+          <span className="tooltip-bad">{this.props.badexample}</span>
+          <span className="tooltip-regular">{this.props.tolltipcomment}</span>
+        </div>
       </div>
     );
   }
@@ -38,6 +42,7 @@ class ToolTip extends Component {
 
   show(hoverRect) {
     let { pastShow } = this;
+    console.log(hoverRect);
 
     // setState will execute the pastShow with hoverRect as the tool tip becomes visible
     this.setState({ visible: true }, pastShow.bind(this, hoverRect));
@@ -55,8 +60,11 @@ class ToolTip extends Component {
       let x = 0,
         y = 0;
 
-      const docWidth = document.documentElement.clientWidth,
-        docHeight = document.documentElement.clientHeight;
+      const docWidth = document.querySelector(".form-main__wrapper-m")
+          .clientWidth,
+        docHeight = document.querySelector(".form-b__group").clientHeight;
+
+      console.log(document.documentElement.clientWidth);
 
       let rx = hoverRect.x + hoverRect.width, // most right x
         lx = hoverRect.x, // most left x
@@ -65,6 +73,8 @@ class ToolTip extends Component {
 
       // tool tip rectange
       let ttRect = ttNode.getBoundingClientRect();
+
+      console.log(ttRect);
 
       let bRight = rx + ttRect.width <= window.scrollX + docWidth;
       let bLeft = lx - ttRect.width >= 0;
@@ -98,7 +108,7 @@ class ToolTip extends Component {
       } else if (bLeft) {
         x = lx - ttRect.width;
 
-        y = ty + (hoverRect.height - ttRect.height);
+        y = ty + (hoverRect.height - ttRect.height) + 20;
 
         if (y < 0) {
           y = ty;

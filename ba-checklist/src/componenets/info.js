@@ -36,12 +36,19 @@ class Info extends Component {
         <MdInfo
           className="info-icon"
           id={this.props.id}
+          key={this.props.id}
           onMouseOver={this.handleOnMouseOver}
           onMouseLeave={this.handleOnMouseOut}
           tooltiptext={this.props.tooltiptext}
-          key={this.props.id}
+          tooltipgoodex={this.props.tooltipgoodex}
+          tooltipbadex={this.props.tooltipbadex}
         />
-        <Tooltip ref={this.toolTip} ttext={this.props.tooltiptext} />
+        <Tooltip
+          ref={this.toolTip}
+          tolltipcomment={this.props.tooltiptext}
+          goodexample={this.props.tooltipgoodex}
+          badexample={this.props.tooltipbadex}
+        />
       </>
     );
   }

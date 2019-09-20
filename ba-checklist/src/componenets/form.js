@@ -112,7 +112,6 @@ class Form extends Component {
     return (
       <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
-          <Info id="1re" tooltiptext="rere" />
           <Inputfield
             inputChange={this.handleInputChange}
             inputLabel="Domain"
@@ -120,9 +119,11 @@ class Form extends Component {
             inputId="projectName"
             inputPlaceholder="Project Name"
             errorMessage={this.state.formErrors.projectName}
-            tooltiptext="Good Example: https://www.sportsbet.com.au/betting/rugby-league
-            Bad Example: https://www.sportsbet.com.au/betting/novelty/rugby-league
-            "
+            tooltiptext="test"
+            tooltipgoodex="21321412"
+            tooltipbadex={
+              "Bad Example: https://www.sportsbet.com.au/betting/novelty/rugby-league"
+            }
           />
 
           <Inputfield
