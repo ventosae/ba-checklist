@@ -8,7 +8,10 @@ class Checklistfield extends Component {
       <div className="form-b__check-main">
         <label className="form-b__lable">{this.props.inputLabel}</label>
         {options.map(option => (
-          <div className=" form-check form-b__check custom-control custom-checkbox">
+          <div
+            className=" form-check form-b__check custom-control custom-checkbox"
+            key={option.optionState}
+          >
             <input
               className="form-check-input custom-control-input"
               type="checkbox"

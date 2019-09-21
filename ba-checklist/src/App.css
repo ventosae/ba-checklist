@@ -202,9 +202,10 @@
   white-space: normal;
   word-break: normal;
   word-spacing: normal;
-  word-wrap: normal;
+  word-wrap: break-word;
   font-size: 12px;
   max-width: inherit;
+  /* padding: 5px; */
 
   display: inline-block;
 }
@@ -227,7 +228,7 @@
 
 #tooltip .tooltip-label {
   max-width: inherit;
-  padding: 3px 8px;
+  /* padding: 3px 8px; */
   color: #fff;
   text-align: center;
   background-color: var(--sb-gray);
@@ -235,12 +236,33 @@
 }
 
 #tooltip .tooltip-inner {
-  max-width: 300px;
-  padding: 3px 8px;
+  max-width: 400px;
+  padding: 6px;
   color: #fff;
   text-align: center;
   background-color: var(--sb-blue);
   border-radius: 4px;
+}
+
+@media only screen and (max-width: 530px) {
+  #tooltip .tooltip-inner {
+    max-width: 300px;
+    opacity: 0.9;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #tooltip .tooltip-inner {
+    max-width: 250px;
+    opacity: 0.9;
+  }
+}
+
+@media only screen and (max-width: 321px) {
+  #tooltip .tooltip-inner {
+    max-width: 230px;
+    opacity: 0.9;
+  }
 }
 
 #tooltip.on {
@@ -253,6 +275,37 @@
 #tooltip.off {
   opacity: 0;
   transition: all 0.5s ease;
+}
+
+.tooltip-header {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.tooltip-good,
+.tooltip-bad,
+.tooltip-comment {
+  padding-bottom: 5px;
+  width: inherit;
+}
+
+.tooltip-good::before {
+  content: "\1F44D";
+  font-size: 16px;
+  margin-left: -5px;
+}
+
+.tooltip-bad::before {
+  content: "\1F44E";
+  font-size: 16px;
+  margin-left: -5px;
+  padding-top: 3px;
+}
+
+.tooltip-comment::before {
+  content: "\1F449";
+  font-size: 16px;
+  margin-left: -5px;
 }
 
 .info-icon {

@@ -21,18 +21,23 @@ class ToolTip extends Component {
     }
 
     classNames[visibility] = true;
+    let tooltiptext = this.props.tooltiptext;
 
     return (
       <div
         id="tooltip"
         style={style}
+        key={this.props.key}
         className={`tooltip-fade ${Object.keys(classNames).join(" ")}`}
       >
         <div className="tooltip-arrow"></div>
         <div className="tooltip-inner">
-          <span className="tooltip-good">{this.props.goodexample}</span>
-          <span className="tooltip-bad">{this.props.badexample}</span>
-          <span className="tooltip-regular">{this.props.tolltipcomment}</span>
+          {tooltiptext.map(text => (
+            <>
+              <span className={text.class}>{text.tolltipcomment}</span>
+              <br />
+            </>
+          ))}
         </div>
       </div>
     );
@@ -62,9 +67,10 @@ class ToolTip extends Component {
 
       const docWidth = document.querySelector(".form-main__wrapper-m")
           .clientWidth,
-        docHeight = document.querySelector(".form-b__group").clientHeight;
+        docHeight = 25;
 
-      console.log(document.documentElement.clientWidth);
+      console.log("height", document.documentElement.clientHeight);
+      console.log("width", docHeight);
 
       let rx = hoverRect.x + hoverRect.width, // most right x
         lx = hoverRect.x, // most left x

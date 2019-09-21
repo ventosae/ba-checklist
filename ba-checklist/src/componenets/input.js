@@ -19,14 +19,11 @@ class Inputfield extends Component {
           placeholder={this.props.inputPlaceholder}
           onChange={this.props.inputChange}
           name={this.props.inputId}
-          tooltiptext={this.props.tooltiptext}
-          tooltipgoodex={this.props.tooltipgoodex}
-          tooltipbadex={this.props.tooltipbadex}
+          tooltipmessage={this.props.tooltipmessage}
         />
         <Info
           id={this.props.inputId}
-          tooltiptext={this.props.tooltiptext}
-          goodexample={this.props.tooltipgoodex}
+          tooltiptextvalue={this.props.tooltipmessage}
         />
         <Error errorMessage={this.props.errorMessage} />
       </div>

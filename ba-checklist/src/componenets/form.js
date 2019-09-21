@@ -114,16 +114,18 @@ class Form extends Component {
         <div className="form-group form-b__group">
           <Inputfield
             inputChange={this.handleInputChange}
-            inputLabel="Domain"
+            inputLabel="Project Name"
             isInputValid={this.state.projectNameValid}
             inputId="projectName"
             inputPlaceholder="Project Name"
+            //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+            tooltipmessage={[
+              {
+                tolltipcomment: "Please provi",
+                class: "123"
+              }
+            ]}
             errorMessage={this.state.formErrors.projectName}
-            tooltiptext="test"
-            tooltipgoodex="21321412"
-            tooltipbadex={
-              "Bad Example: https://www.sportsbet.com.au/betting/novelty/rugby-league"
-            }
           />
 
           <Inputfield
@@ -133,6 +135,23 @@ class Form extends Component {
             inputId="email"
             inputPlaceholder="example@sportsbet.com.au"
             errorMessage={this.state.formErrors.email}
+            //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
+            tooltipmessage={[
+              {
+                tolltipcomment: "Some Examples Below",
+                class: "tooltip-header"
+              },
+              {
+                tolltipcomment:
+                  "https://www.sportsbet.com.au/betting/rugby-league",
+                class: "tooltip-good"
+              },
+              {
+                tolltipcomment:
+                  "https://www.sportsbet.com.au/betting/rugby-league",
+                class: "tooltip-bad"
+              }
+            ]}
           />
         </div>
 

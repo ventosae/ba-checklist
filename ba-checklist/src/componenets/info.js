@@ -39,15 +39,12 @@ class Info extends Component {
           key={this.props.id}
           onMouseOver={this.handleOnMouseOver}
           onMouseLeave={this.handleOnMouseOut}
-          tooltiptext={this.props.tooltiptext}
-          tooltipgoodex={this.props.tooltipgoodex}
-          tooltipbadex={this.props.tooltipbadex}
+          tooltiptextvalue={this.props.tooltiptextvalue}
         />
         <Tooltip
           ref={this.toolTip}
-          tolltipcomment={this.props.tooltiptext}
-          goodexample={this.props.tooltipgoodex}
-          badexample={this.props.tooltipbadex}
+          key={this.props.tooltiptextvalue}
+          tooltiptext={this.props.tooltiptextvalue}
         />
       </>
     );
