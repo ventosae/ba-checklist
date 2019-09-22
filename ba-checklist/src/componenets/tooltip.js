@@ -35,7 +35,6 @@ class ToolTip extends Component {
           {tooltiptext.map(text => (
             <>
               <span className={text.class}>{text.tolltipcomment}</span>
-              <br />
             </>
           ))}
         </div>
@@ -74,9 +73,11 @@ class ToolTip extends Component {
 
       let rx = hoverRect.x + hoverRect.width, // most right x
         lx = hoverRect.x, // most left x
-        ty = hoverRect.y, // most top y
+        ty = hoverRect.y + 5, // most top y
         by = hoverRect.y + hoverRect.height; // most bottom y
 
+      console.log("most left y", ty);
+      console.log("hover rect height", hoverRect.height);
       // tool tip rectange
       let ttRect = ttNode.getBoundingClientRect();
 
@@ -114,7 +115,7 @@ class ToolTip extends Component {
       } else if (bLeft) {
         x = lx - ttRect.width;
 
-        y = ty + (hoverRect.height - ttRect.height) + 20;
+        y = ty + (hoverRect.height - ttRect.height);
 
         if (y < 0) {
           y = ty;

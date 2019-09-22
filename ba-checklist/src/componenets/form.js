@@ -121,7 +121,7 @@ class Form extends Component {
             //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
             tooltipmessage={[
               {
-                tolltipcomment: "Please provi",
+                tolltipcomment: "Please provide info here",
                 class: "123"
               }
             ]}
@@ -166,6 +166,13 @@ class Form extends Component {
           inputId="domain"
           inputChange={this.handleInputChange}
           errorMessage={this.state.formErrors.domain}
+          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+          tooltipmessage={[
+            {
+              tolltipcomment: "Please provide info here",
+              class: "123"
+            }
+          ]}
         />
 
         <Checklistfield
@@ -202,6 +209,13 @@ class Form extends Component {
           inputId="rendering"
           inputChange={this.handleInputChange}
           errorMessage={this.state.formErrors.rendering}
+          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+          tooltipmessage={[
+            {
+              tolltipcomment: "Please provide info here",
+              class: "123"
+            }
+          ]}
         />
 
         <Checklistfield
@@ -234,6 +248,13 @@ class Form extends Component {
           inputId="schema"
           inputChange={this.handleInputChange}
           errorMessage={this.state.formErrors.schema}
+          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+          tooltipmessage={[
+            {
+              tolltipcomment: "Please provide info here",
+              class: "123"
+            }
+          ]}
         />
 
         <Selectfield
@@ -247,6 +268,13 @@ class Form extends Component {
           inputId="pagespeed"
           inputChange={this.handleInputChange}
           errorMessage={this.state.formErrors.pagespeed}
+          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+          tooltipmessage={[
+            {
+              tolltipcomment: "Please provide info here",
+              class: "123"
+            }
+          ]}
         />
 
         <div className="form-group form-b__group">
