@@ -212,6 +212,45 @@ class Form extends Component {
       }
     };
 
+    const checklistValues = {
+      inputChange: this.handleInputChange,
+      pageUrl: {
+        label: "Web Page URL",
+        options: [
+          {
+            optionLable:
+              "Make sure the new URL(s) are using keywords relevant to the page",
+            optionState: "urlKeyword"
+          },
+          {
+            optionLable: "URL is within the structure of the website category",
+            optionState: "urlStrucutre"
+          },
+          {
+            optionLable: "URL doesn’t have capital letters or special symbols",
+            optionState: "urlCapital"
+          }
+        ]
+      },
+      metaData: {
+        label: "Meta Data",
+        options: [
+          {
+            optionLable: "Title tag requirements are fulfilled",
+            optionState: "titleRequirements"
+          },
+          {
+            optionLable: "Description tag requirements are fulfilled",
+            optionState: "descriptionRequirements"
+          },
+          {
+            optionLable: "H1 tag requirements are fulfilled",
+            optionState: "h1Requirements"
+          }
+        ]
+      }
+    };
+
     return (
       <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
@@ -250,25 +289,9 @@ class Form extends Component {
         />
 
         <Checklistfield
-          options={[
-            {
-              optionLable:
-                "Make sure the new URL(s) are using keywords relevant to the page",
-              optionState: "urlKeyword"
-            },
-            {
-              optionLable:
-                "URL is within the structure of the website category",
-              optionState: "urlStrucutre"
-            },
-            {
-              optionLable:
-                "URL doesn’t have capital letters or special symbols",
-              optionState: "urlCapital"
-            }
-          ]}
-          inputLabel="Web Page URL"
-          inputChange={this.handleInputChange}
+          options={checklistValues.pageUrl.options}
+          inputLabel={checklistValues.pageUrl.label}
+          inputChange={checklistValues.inputChange}
         />
 
         <Selectfield
@@ -283,22 +306,9 @@ class Form extends Component {
         />
 
         <Checklistfield
-          options={[
-            {
-              optionLable: "Title tag requirements are fulfilled",
-              optionState: "titleRequirements"
-            },
-            {
-              optionLable: "Description tag requirements are fulfilled",
-              optionState: "descriptionRequirements"
-            },
-            {
-              optionLable: "H1 tag requirements are fulfilled",
-              optionState: "h1Requirements"
-            }
-          ]}
-          inputLabel="Meta Data"
-          inputChange={this.handleInputChange}
+          options={checklistValues.metaData.options}
+          inputLabel={checklistValues.metaData.label}
+          inputChange={checklistValues.inputChange}
         />
 
         <Selectfield
