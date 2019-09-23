@@ -1,25 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 import Error from "./error.js";
 import Info from "./info.js";
 
-class Selectfield extends Component {
-  state = {};
-
-  render() {
-    const options = this.props.options;
+function Selectfield(props) {
+  {
+    const options = props.options;
     return (
       <div className="form-group form-b__group form-b__group--select">
         <label className="form-b__lable" for="question1">
-          {this.props.inputLabel}
+          {props.inputLabel}
         </label>
         <select
           className={`form-control form-b__select ${
-            this.props.isInputValid ? "" : "is-invalid"
+            props.isInputValid ? "" : "is-invalid"
           }`}
-          id={this.props.inputId}
-          onChange={this.props.inputChange}
-          name={this.props.inputId}
-          tooltipmessage={this.props.tooltipmessage}
+          id={props.inputId}
+          onChange={props.inputChange}
+          name={props.inputId}
+          tooltipmessage={props.tooltipmessage}
         >
           <option default className={"form-b__option--select"} value="">
             Select...
@@ -30,11 +28,8 @@ class Selectfield extends Component {
             </option>
           ))}
         </select>
-        <Info
-          id={this.props.inputId}
-          tooltiptextvalue={this.props.tooltipmessage}
-        />
-        <Error errorMessage={this.props.errorMessage} />
+        <Info id={props.inputId} tooltiptextvalue={props.tooltipmessage} />
+        <Error errorMessage={props.errorMessage} />
       </div>
     );
   }

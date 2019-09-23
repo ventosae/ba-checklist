@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Checklistfield extends Component {
-  state = {};
-  render() {
-    const options = this.props.options;
+function Checklistfield(props) {
+  {
+    const options = props.options;
     return (
       <div className="form-b__check-main">
-        <label className="form-b__lable">{this.props.inputLabel}</label>
+        <label className="form-b__lable">{props.inputLabel}</label>
         {options.map(option => (
           <div
             className=" form-check form-b__check custom-control custom-checkbox"
@@ -15,7 +14,7 @@ class Checklistfield extends Component {
             <input
               className="form-check-input custom-control-input"
               type="checkbox"
-              onChange={this.props.inputChange}
+              onChange={props.inputChange}
               name={option.optionState}
               id={option.optionState}
             />

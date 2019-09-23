@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Error extends Component {
-  render() {
-    return <p className="invalid-feedback">{this.props.errorMessage}</p>;
+function Error(props) {
+  {
+    return <p className="invalid-feedback">{props.errorMessage}</p>;
   }
 }
 

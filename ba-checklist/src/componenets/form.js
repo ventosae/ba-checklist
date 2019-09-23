@@ -3,8 +3,6 @@ import "../App.css";
 import Inputfield from "./input.js";
 import Selectfield from "./select.js";
 import Checklistfield from "./checklist.js";
-// import Tooltip from "./checklist.js";
-import Info from "./info.js";
 
 class Form extends Component {
   state = {
@@ -109,70 +107,146 @@ class Form extends Component {
   };
 
   render() {
+    const inputValues = {
+      inputChange: this.handleInputChange,
+      projectName: {
+        inputLabel: "Project Name",
+        isInputValid: this.state.projectNameValid,
+        inputId: "projectName",
+        inputPlaceholder: "Project Name",
+        tooltip: [
+          {
+            tolltipcomment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      clientEmail: {
+        inputLabel: "Your Email Address",
+        isInputValid: this.state.emailValid,
+        inputId: "email",
+        inputPlaceholder: "example@sportsbet.com.au",
+        tooltip: [
+          {
+            tolltipcomment: "Some Examples Below",
+            class: "tooltip-header"
+          },
+          {
+            tolltipcomment: "https://www.sportsbet.com.au/betting/rugby-league",
+            class: "tooltip-good"
+          },
+          {
+            tolltipcomment: "https://www.sportsbet.com.au/betting/rugby-league",
+            class: "tooltip-bad"
+          }
+        ]
+      }
+    };
+
+    const selectValues = {
+      inputChange: this.handleInputChange,
+      domainSubdomain: {
+        inputLabel:
+          "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
+        isInputValid: this.state.domainValid,
+        inputId: "domain",
+        options: [
+          "is located on separate subdomain/domain",
+          "is NOT located on subdomain/domain"
+        ],
+        tooltip: [
+          {
+            tolltipcomment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      rendering: {
+        inputLabel:
+          "Rendering – confirm the web page is rendering fully for Search Engine Crawlers",
+        isInputValid: this.state.renderingValid,
+        inputId: "rendering",
+        options: [
+          "Feature is using client side rendering",
+          "Feature is NOT using client side rendering",
+          "Not Sure"
+        ],
+        tooltip: [
+          {
+            tolltipcomment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      schemaMarkups: {
+        inputLabel: "Schema Markups",
+        isInputValid: this.state.schemaValid,
+        inputId: "schema",
+        options: [
+          "Schema Markups are implemented",
+          "Schema Markups are NOT implemented",
+          "Not Sure"
+        ],
+        tooltip: [
+          {
+            tolltipcomment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      PageLoadSpeed: {
+        inputLabel: "Page Load Speed",
+        isInputValid: this.state.pagespeedValid,
+        inputId: "pagespeed",
+        options: [
+          "Page load speed is considered as per overall Sportsbet standard",
+          "Page load speed is NOT considered as per overall Sportsbet standard",
+          "Not Sure"
+        ],
+        tooltip: [
+          {
+            tolltipcomment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      }
+    };
+
     return (
       <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
         <div className="form-group form-b__group">
           <Inputfield
-            inputChange={this.handleInputChange}
-            inputLabel="Project Name"
-            isInputValid={this.state.projectNameValid}
-            inputId="projectName"
-            inputPlaceholder="Project Name"
-            //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-            tooltipmessage={[
-              {
-                tolltipcomment: "Please provide info here",
-                class: "123"
-              }
-            ]}
+            inputChange={inputValues.inputChange}
+            inputLabel={inputValues.projectName.inputLabel}
+            isInputValid={inputValues.projectName.isInputValid}
+            inputId={inputValues.projectName.inputId}
+            inputPlaceholder={inputValues.projectName.inputPlaceholder}
+            //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
+            tooltipmessage={inputValues.projectName.tooltip}
             errorMessage={this.state.formErrors.projectName}
           />
 
           <Inputfield
-            inputChange={this.handleInputChange}
-            inputLabel="Your Email Address"
-            isInputValid={this.state.emailValid}
-            inputId="email"
-            inputPlaceholder="example@sportsbet.com.au"
-            errorMessage={this.state.formErrors.email}
+            inputChange={inputValues.inputChange}
+            inputLabel={inputValues.clientEmail.inputLabel}
+            isInputValid={inputValues.clientEmail.isInputValid}
+            inputId={inputValues.clientEmail.inputId}
+            inputPlaceholder={inputValues.clientEmail.inputPlaceholder}
             //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
-            tooltipmessage={[
-              {
-                tolltipcomment: "Some Examples Below",
-                class: "tooltip-header"
-              },
-              {
-                tolltipcomment:
-                  "https://www.sportsbet.com.au/betting/rugby-league",
-                class: "tooltip-good"
-              },
-              {
-                tolltipcomment:
-                  "https://www.sportsbet.com.au/betting/rugby-league",
-                class: "tooltip-bad"
-              }
-            ]}
+            tooltipmessage={inputValues.clientEmail.tooltip}
+            errorMessage={this.state.formErrors.email}
           />
         </div>
 
         <Selectfield
-          options={[
-            "is located on separate subdomain/domain",
-            "is NOT located on subdomain/domain"
-          ]}
-          inputLabel="Subdomain/new domain: is this new content/feature located on a
-          separate domain/subdomain"
-          isInputValid={this.state.domainValid}
-          inputId="domain"
-          inputChange={this.handleInputChange}
+          options={selectValues.domainSubdomain.options}
+          inputLabel={selectValues.domainSubdomain.inputLabel}
+          isInputValid={selectValues.domainSubdomain.isInputValid}
+          inputId={selectValues.domainSubdomain.inputId}
+          inputChange={selectValues.inputChange}
           errorMessage={this.state.formErrors.domain}
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={[
-            {
-              tolltipcomment: "Please provide info here",
-              class: "123"
-            }
-          ]}
+          tooltipmessage={selectValues.domainSubdomain.tooltip}
         />
 
         <Checklistfield
@@ -198,24 +272,14 @@ class Form extends Component {
         />
 
         <Selectfield
-          options={[
-            "Feature is using client side rendering",
-            "Feature is NOT using client side rendering",
-            "Not Sure"
-          ]}
-          inputLabel="Rendering – confirm the web page is rendering fully for Search
-          Engine Crawlers"
-          isInputValid={this.state.renderingValid}
-          inputId="rendering"
-          inputChange={this.handleInputChange}
+          options={selectValues.rendering.options}
+          inputLabel={selectValues.rendering.inputLabel}
+          isInputValid={selectValues.rendering.isInputValid}
+          inputId={selectValues.rendering.inputId}
+          inputChange={selectValues.inputChange}
           errorMessage={this.state.formErrors.rendering}
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={[
-            {
-              tolltipcomment: "Please provide info here",
-              class: "123"
-            }
-          ]}
+          tooltipmessage={selectValues.rendering.tooltip}
         />
 
         <Checklistfield
@@ -238,43 +302,25 @@ class Form extends Component {
         />
 
         <Selectfield
-          options={[
-            "Schema Markups are implemented",
-            "Schema Markups are NOT implemented",
-            "Not Sure"
-          ]}
-          inputLabel="Schema Markups"
-          isInputValid={this.state.schemaValid}
-          inputId="schema"
-          inputChange={this.handleInputChange}
+          options={selectValues.schemaMarkups.options}
+          inputLabel={selectValues.schemaMarkups.inputLabel}
+          isInputValid={selectValues.schemaMarkups.isInputValid}
+          inputId={selectValues.schemaMarkups.inputId}
+          inputChange={selectValues.inputChange}
           errorMessage={this.state.formErrors.schema}
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={[
-            {
-              tolltipcomment: "Please provide info here",
-              class: "123"
-            }
-          ]}
+          tooltipmessage={selectValues.schemaMarkups.tooltip}
         />
 
         <Selectfield
-          options={[
-            "Page load speed is considered as per overall Sportsbet standard",
-            "Page load speed is NOT considered as per overall Sportsbet standard",
-            "Not Sure"
-          ]}
-          inputLabel="Page Load Speed"
-          isInputValid={this.state.pagespeedValid}
-          inputId="pagespeed"
-          inputChange={this.handleInputChange}
+          options={selectValues.PageLoadSpeed.options}
+          inputLabel={selectValues.PageLoadSpeed.inputLabel}
+          isInputValid={selectValues.PageLoadSpeed.isInputValid}
+          inputId={selectValues.PageLoadSpeed.inputId}
+          inputChange={selectValues.inputChange}
           errorMessage={this.state.formErrors.pagespeed}
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={[
-            {
-              tolltipcomment: "Please provide info here",
-              class: "123"
-            }
-          ]}
+          tooltipmessage={selectValues.PageLoadSpeed.tooltip}
         />
 
         <div className="form-group form-b__group">
