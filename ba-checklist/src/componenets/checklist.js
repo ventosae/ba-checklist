@@ -1,4 +1,5 @@
 import React from "react";
+import Info from "./info.js";
 
 function Checklistfield(props) {
   {
@@ -23,8 +24,12 @@ function Checklistfield(props) {
               className="form-check-label form-b__check-lable custom-control-label "
               for={option.optionState}
             >
-              {option.optionLable}
+              {option.optionLabel}
             </label>
+            {/* <Info
+              id={option.optionLabel}
+              tooltiptextvalue={option.optionLabel}
+            /> */}
           </div>
         ))}
       </div>

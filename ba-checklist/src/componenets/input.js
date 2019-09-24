@@ -10,7 +10,7 @@ function Inputfield(props) {
           {props.inputLabel}
         </label>
         <input
-          className={`form-control form-b__input ${
+          className={`form-control form-b__input form-b__input--input ${
             props.isInputValid ? "" : "is-invalid"
           }`}
           id={props.inputId}
@@ -19,7 +19,7 @@ function Inputfield(props) {
           name={props.inputId}
           tooltipmessage={props.tooltipmessage}
         />
-        <Info id={props.inputId} tooltiptextvalue={props.tooltipmessage} />
+        {/* <Info id={props.inputId} tooltiptextvalue={props.tooltipmessage} /> */}
         <Error errorMessage={props.errorMessage} />
       </div>
     );

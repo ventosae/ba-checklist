@@ -21,7 +21,7 @@ class ToolTip extends Component {
     }
 
     classNames[visibility] = true;
-    let tooltiptext = this.props.tooltiptext;
+    let tooltipText = this.props.tooltiptext;
 
     return (
       <div
@@ -32,9 +32,9 @@ class ToolTip extends Component {
       >
         <div className="tooltip-arrow"></div>
         <div className="tooltip-inner">
-          {tooltiptext.map(text => (
+          {tooltipText.map(text => (
             <>
-              <span className={text.class}>{text.tolltipcomment}</span>
+              <span className={text.class}>{text.tooltipComment}</span>
             </>
           ))}
         </div>

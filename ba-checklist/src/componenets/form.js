@@ -6,6 +6,7 @@ import Checklistfield from "./checklist.js";
 
 class Form extends Component {
   state = {
+    formTitle: "Project Checklist",
     projectName: "",
     email: "",
     domain: "",
@@ -13,7 +14,6 @@ class Form extends Component {
     schema: "",
     pagespeed: "",
     content: "",
-
     projectNameValid: true,
     emailValid: true,
     domainValid: true,
@@ -107,42 +107,6 @@ class Form extends Component {
   };
 
   render() {
-    const inputValues = {
-      inputChange: this.handleInputChange,
-      projectName: {
-        inputLabel: "Project Name",
-        isInputValid: this.state.projectNameValid,
-        inputId: "projectName",
-        inputPlaceholder: "Project Name",
-        tooltip: [
-          {
-            tolltipcomment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      clientEmail: {
-        inputLabel: "Your Email Address",
-        isInputValid: this.state.emailValid,
-        inputId: "email",
-        inputPlaceholder: "example@sportsbet.com.au",
-        tooltip: [
-          {
-            tolltipcomment: "Some Examples Below",
-            class: "tooltip-header"
-          },
-          {
-            tolltipcomment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-good"
-          },
-          {
-            tolltipcomment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-bad"
-          }
-        ]
-      }
-    };
-
     const selectValues = {
       inputChange: this.handleInputChange,
       domainSubdomain: {
@@ -156,7 +120,7 @@ class Form extends Component {
         ],
         tooltip: [
           {
-            tolltipcomment: "Please provide info here",
+            tooltipComment: "Please provide info here",
             class: "123"
           }
         ]
@@ -173,7 +137,7 @@ class Form extends Component {
         ],
         tooltip: [
           {
-            tolltipcomment: "Please provide info here",
+            tooltipComment: "Please provide info here",
             class: "123"
           }
         ]
@@ -189,7 +153,7 @@ class Form extends Component {
         ],
         tooltip: [
           {
-            tolltipcomment: "Please provide info here",
+            tooltipComment: "Please provide info here",
             class: "123"
           }
         ]
@@ -205,7 +169,7 @@ class Form extends Component {
         ],
         tooltip: [
           {
-            tolltipcomment: "Please provide info here",
+            tooltipComment: "Please provide info here",
             class: "123"
           }
         ]
@@ -218,16 +182,16 @@ class Form extends Component {
         label: "Web Page URL",
         options: [
           {
-            optionLable:
+            optionLabel:
               "Make sure the new URL(s) are using keywords relevant to the page",
             optionState: "urlKeyword"
           },
           {
-            optionLable: "URL is within the structure of the website category",
+            optionLabel: "URL is within the structure of the website category",
             optionState: "urlStrucutre"
           },
           {
-            optionLable: "URL doesn’t have capital letters or special symbols",
+            optionLabel: "URL doesn’t have capital letters or special symbols",
             optionState: "urlCapital"
           }
         ]
@@ -236,15 +200,15 @@ class Form extends Component {
         label: "Meta Data",
         options: [
           {
-            optionLable: "Title tag requirements are fulfilled",
+            optionLabel: "Title tag requirements are fulfilled",
             optionState: "titleRequirements"
           },
           {
-            optionLable: "Description tag requirements are fulfilled",
+            optionLabel: "Description tag requirements are fulfilled",
             optionState: "descriptionRequirements"
           },
           {
-            optionLable: "H1 tag requirements are fulfilled",
+            optionLabel: "H1 tag requirements are fulfilled",
             optionState: "h1Requirements"
           }
         ]
@@ -252,105 +216,88 @@ class Form extends Component {
     };
 
     return (
-      <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
-        <div className="form-group form-b__group">
-          <Inputfield
-            inputChange={inputValues.inputChange}
-            inputLabel={inputValues.projectName.inputLabel}
-            isInputValid={inputValues.projectName.isInputValid}
-            inputId={inputValues.projectName.inputId}
-            inputPlaceholder={inputValues.projectName.inputPlaceholder}
-            //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
-            tooltipmessage={inputValues.projectName.tooltip}
-            errorMessage={this.state.formErrors.projectName}
-          />
+      <section className="form-main__wrapper-m form-main__wrapper--form">
+        <div className="form-main__wrapper-m__second">
+          <h2 className="page-header page-header--h2">
+            {this.state.formTitle}
+          </h2>
+          <form className="form-b was-invalidated" onSubmit={this.handleSubmit}>
+            <Selectfield
+              options={selectValues.domainSubdomain.options}
+              inputLabel={selectValues.domainSubdomain.inputLabel}
+              isInputValid={selectValues.domainSubdomain.isInputValid}
+              inputId={selectValues.domainSubdomain.inputId}
+              inputChange={selectValues.inputChange}
+              errorMessage={this.state.formErrors.domain}
+              //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+              tooltipmessage={selectValues.domainSubdomain.tooltip}
+            />
 
-          <Inputfield
-            inputChange={inputValues.inputChange}
-            inputLabel={inputValues.clientEmail.inputLabel}
-            isInputValid={inputValues.clientEmail.isInputValid}
-            inputId={inputValues.clientEmail.inputId}
-            inputPlaceholder={inputValues.clientEmail.inputPlaceholder}
-            //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
-            tooltipmessage={inputValues.clientEmail.tooltip}
-            errorMessage={this.state.formErrors.email}
-          />
+            <Checklistfield
+              options={checklistValues.pageUrl.options}
+              inputLabel={checklistValues.pageUrl.label}
+              inputChange={checklistValues.inputChange}
+            />
+
+            <Selectfield
+              options={selectValues.rendering.options}
+              inputLabel={selectValues.rendering.inputLabel}
+              isInputValid={selectValues.rendering.isInputValid}
+              inputId={selectValues.rendering.inputId}
+              inputChange={selectValues.inputChange}
+              errorMessage={this.state.formErrors.rendering}
+              //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+              tooltipmessage={selectValues.rendering.tooltip}
+            />
+
+            <Checklistfield
+              options={checklistValues.metaData.options}
+              inputLabel={checklistValues.metaData.label}
+              inputChange={checklistValues.inputChange}
+            />
+
+            <Selectfield
+              options={selectValues.schemaMarkups.options}
+              inputLabel={selectValues.schemaMarkups.inputLabel}
+              isInputValid={selectValues.schemaMarkups.isInputValid}
+              inputId={selectValues.schemaMarkups.inputId}
+              inputChange={selectValues.inputChange}
+              errorMessage={this.state.formErrors.schema}
+              //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+              tooltipmessage={selectValues.schemaMarkups.tooltip}
+            />
+
+            <Selectfield
+              options={selectValues.PageLoadSpeed.options}
+              inputLabel={selectValues.PageLoadSpeed.inputLabel}
+              isInputValid={selectValues.PageLoadSpeed.isInputValid}
+              inputId={selectValues.PageLoadSpeed.inputId}
+              inputChange={selectValues.inputChange}
+              errorMessage={this.state.formErrors.pagespeed}
+              //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
+              tooltipmessage={selectValues.PageLoadSpeed.tooltip}
+            />
+
+            <div className="form-group form-b__group">
+              <label for="content">
+                Any onther information which might be usefull for the team?
+              </label>
+              <textarea
+                className="form-control form-b_text"
+                id="content"
+                rows="3"
+                value={this.state.content}
+                onChange={this.handleInputChange}
+                name="content"
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary form-main__button">
+              Submit
+            </button>
+          </form>
         </div>
-
-        <Selectfield
-          options={selectValues.domainSubdomain.options}
-          inputLabel={selectValues.domainSubdomain.inputLabel}
-          isInputValid={selectValues.domainSubdomain.isInputValid}
-          inputId={selectValues.domainSubdomain.inputId}
-          inputChange={selectValues.inputChange}
-          errorMessage={this.state.formErrors.domain}
-          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={selectValues.domainSubdomain.tooltip}
-        />
-
-        <Checklistfield
-          options={checklistValues.pageUrl.options}
-          inputLabel={checklistValues.pageUrl.label}
-          inputChange={checklistValues.inputChange}
-        />
-
-        <Selectfield
-          options={selectValues.rendering.options}
-          inputLabel={selectValues.rendering.inputLabel}
-          isInputValid={selectValues.rendering.isInputValid}
-          inputId={selectValues.rendering.inputId}
-          inputChange={selectValues.inputChange}
-          errorMessage={this.state.formErrors.rendering}
-          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={selectValues.rendering.tooltip}
-        />
-
-        <Checklistfield
-          options={checklistValues.metaData.options}
-          inputLabel={checklistValues.metaData.label}
-          inputChange={checklistValues.inputChange}
-        />
-
-        <Selectfield
-          options={selectValues.schemaMarkups.options}
-          inputLabel={selectValues.schemaMarkups.inputLabel}
-          isInputValid={selectValues.schemaMarkups.isInputValid}
-          inputId={selectValues.schemaMarkups.inputId}
-          inputChange={selectValues.inputChange}
-          errorMessage={this.state.formErrors.schema}
-          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={selectValues.schemaMarkups.tooltip}
-        />
-
-        <Selectfield
-          options={selectValues.PageLoadSpeed.options}
-          inputLabel={selectValues.PageLoadSpeed.inputLabel}
-          isInputValid={selectValues.PageLoadSpeed.isInputValid}
-          inputId={selectValues.PageLoadSpeed.inputId}
-          inputChange={selectValues.inputChange}
-          errorMessage={this.state.formErrors.pagespeed}
-          //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-          tooltipmessage={selectValues.PageLoadSpeed.tooltip}
-        />
-
-        <div className="form-group form-b__group">
-          <label for="content">
-            Any onther information which might be usefull for the team?
-          </label>
-          <textarea
-            className="form-control form-b_text"
-            id="content"
-            rows="3"
-            value={this.state.content}
-            onChange={this.handleInputChange}
-            name="content"
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary form-main__button">
-          Submit
-        </button>
-      </form>
+      </section>
     );
   }
 }

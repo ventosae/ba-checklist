@@ -3,7 +3,8 @@ import "./App.css";
 import Form from "./componenets/form.js";
 import { Helmet } from "react-helmet";
 import Logo from "./componenets/sportsbet_logo.png";
-import Bstroke from "./componenets/brush_stroke.png";
+import ProjectInfo from "./componenets/projectInfo.js";
+import AppSelector from "./componenets/appselector.js";
 
 class App extends Component {
   render() {
@@ -28,29 +29,10 @@ class App extends Component {
             SEO compatibility <br></br>check{" "}
           </h1>
         </div>
-        <div className="form-main__wrapper-m">
-          <div className="form-main__wrapper-m__second">
-            <div className="form-main__wrapper">
-              <div className="form-main__wrapper--button">
-                <button
-                  type="button"
-                  className="btn btn btn-outline-info mr-1 form-main__button"
-                >
-                  CXP Web
-                </button>
 
-                <button
-                  type="button"
-                  className="btn btn btn-outline-info form-main__button"
-                >
-                  APP
-                </button>
-              </div>
-            </div>
-
-            <Form />
-          </div>
-        </div>
+        <ProjectInfo />
+        <AppSelector />
+        <Form />
       </main>
     );
   }
