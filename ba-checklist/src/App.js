@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Form from "./componenets/form.js";
 import { Helmet } from "react-helmet";
 import Logo from "./componenets/sportsbet_logo.png";
-import ProjectInfo from "./componenets/projectInfo.js";
-import AppSelector from "./componenets/appselector.js";
+import Form from "./componenets/form.js";
 
 class App extends Component {
   render() {
@@ -15,6 +13,7 @@ class App extends Component {
             style:
               "background: linear-gradient(to bottom, #00549E, #1C75BC); min-height: 100vh;"
           }}
+          title="BA SEO Checklist - SEO Team"
         />
         <div className="form-main__header-container">
           <img
@@ -30,8 +29,6 @@ class App extends Component {
           </h1>
         </div>
 
-        <ProjectInfo />
-        <AppSelector />
         <Form />
       </main>
     );
