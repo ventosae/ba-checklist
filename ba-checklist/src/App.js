@@ -25,7 +25,7 @@ class App extends Component {
         <div className="page-header--wrapper">
           <h1 className="page-header">
             {" "}
-            SEO compatibility <br></br>check{" "}
+            SEOs compatibility <br></br>check{" "}
           </h1>
         </div>
 
