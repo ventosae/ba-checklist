@@ -28,7 +28,11 @@ function Selectfield(props) {
             </option>
           ))}
         </select>
-        <Info id={props.inputId} tooltiptextvalue={props.tooltipmessage} />
+        <Info
+          id={props.inputId}
+          tooltiptextvalue={props.tooltipmessage}
+          type="select"
+        />
         <Error errorMessage={props.errorMessage} />
       </div>
     );

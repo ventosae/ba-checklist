@@ -26,10 +26,11 @@ function Checklistfield(props) {
             >
               {option.optionLabel}
             </label>
-            {/* <Info
+            <Info
               id={option.optionLabel}
-              tooltiptextvalue={option.optionLabel}
-            /> */}
+              tooltiptextvalue={option.tooltiptext}
+              type="checklist"
+            />
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MdInfo } from "react-icons/md";
 import Tooltip from "./tooltip";
+import { IoIosInformation } from "react-icons/io";
 
 class Info extends Component {
   events = {};
@@ -31,8 +32,22 @@ class Info extends Component {
   };
 
   render() {
-    return (
-      <>
+    let toolTipType = this.props.type;
+    console.log(toolTipType);
+    let icon;
+    if (toolTipType === "checklist") {
+      icon = (
+        <IoIosInformation
+          className="info-icon"
+          id={this.props.id}
+          key={this.props.id}
+          onMouseOver={this.handleOnMouseOver}
+          onMouseLeave={this.handleOnMouseOut}
+          tooltiptextvalue={this.props.tooltiptextvalue}
+        />
+      );
+    } else {
+      icon = (
         <MdInfo
           className="info-icon"
           id={this.props.id}
@@ -41,6 +56,12 @@ class Info extends Component {
           onMouseLeave={this.handleOnMouseOut}
           tooltiptextvalue={this.props.tooltiptextvalue}
         />
+      );
+    }
+
+    return (
+      <>
+        {icon}
         <Tooltip
           ref={this.toolTip}
           key={this.props.tooltiptextvalue}

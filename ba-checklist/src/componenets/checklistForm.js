@@ -193,6 +193,12 @@ class ChecklistForm extends Component {
             optionLabel: "URL doesn’t have capital letters or special symbols",
             optionState: "urlCapital"
           }
+        ],
+        tooltip: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
         ]
       },
       metaData: {
@@ -200,15 +206,33 @@ class ChecklistForm extends Component {
         options: [
           {
             optionLabel: "Title tag requirements are fulfilled",
-            optionState: "titleRequirements"
+            optionState: "titleRequirements",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           },
           {
             optionLabel: "Description tag requirements are fulfilled",
-            optionState: "descriptionRequirements"
+            optionState: "descriptionRequirements",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           },
           {
             optionLabel: "H1 tag requirements are fulfilled",
-            optionState: "h1Requirements"
+            optionState: "h1Requirements",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           }
         ]
       }
@@ -232,11 +256,12 @@ class ChecklistForm extends Component {
               tooltipmessage={selectValues.domainSubdomain.tooltip}
             />
 
-            <Checklistfield
+            {/* <Checklistfield
               options={checklistValues.pageUrl.options}
               inputLabel={checklistValues.pageUrl.label}
               inputChange={checklistValues.inputChange}
-            />
+              tooltipmessage={checklistValues.pageUrl.tooltip}
+            /> */}
 
             <Selectfield
               options={selectValues.rendering.options}
@@ -253,6 +278,7 @@ class ChecklistForm extends Component {
               options={checklistValues.metaData.options}
               inputLabel={checklistValues.metaData.label}
               inputChange={checklistValues.inputChange}
+              tooltipmessage={checklistValues.metaData.tooltip}
             />
 
             <Selectfield
