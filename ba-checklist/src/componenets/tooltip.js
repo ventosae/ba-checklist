@@ -46,8 +46,6 @@ class ToolTip extends Component {
 
   show(hoverRect) {
     let { pastShow } = this;
-    console.log(hoverRect);
-
     // setState will execute the pastShow with hoverRect as the tool tip becomes visible
     this.setState({ visible: true }, pastShow.bind(this, hoverRect));
   }
@@ -57,9 +55,10 @@ class ToolTip extends Component {
   }
 
   pastShow(hoverRect) {
+    console.log("1 hoverRect", hoverRect);
     // position the tooltip after showing it
     let ttNode = ReactDOM.findDOMNode(this); // anton: is it still relevant
-
+    console.log("2 ttNode - finddomenode", ttNode);
     if (ttNode != null) {
       let x = 0,
         y = 0;
@@ -68,20 +67,22 @@ class ToolTip extends Component {
           .clientWidth,
         docHeight = 25;
 
-      console.log("height", document.documentElement.clientHeight);
-      console.log("width", docHeight);
+      console.log("3 width", docWidth);
+      console.log("4 height", docHeight);
+
+      // document.documentElement.clientHeight
 
       let rx = hoverRect.x + hoverRect.width, // most right x
         lx = hoverRect.x, // most left x
         ty = hoverRect.y + 5, // most top y
         by = hoverRect.y + hoverRect.height; // most bottom y
 
-      console.log("most left y", ty);
-      console.log("hover rect height", hoverRect.height);
+      console.log("5 hoverRect.width", hoverRect.width);
+      console.log("6 hover rect height", hoverRect.height);
       // tool tip rectange
       let ttRect = ttNode.getBoundingClientRect();
 
-      console.log(ttRect);
+      console.log("7 getBoundingClientRect", ttRect);
 
       let bRight = rx + ttRect.width <= window.scrollX + docWidth;
       let bLeft = lx - ttRect.width >= 0;

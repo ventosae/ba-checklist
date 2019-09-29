@@ -13,9 +13,9 @@ class Info extends Component {
 
     this.setupRefs();
   }
-  setupRefs() {
+  setupRefs = () => {
     this.toolTip = React.createRef();
-  }
+  };
 
   handleOnMouseOut = () => {
     this.toolTip.current.hide();
@@ -23,22 +23,21 @@ class Info extends Component {
 
   handleOnMouseOver = evt => {
     let el = evt.currentTarget;
-
+    console.log("el", evt);
     if (el != null) {
       let rect = el.getBoundingClientRect();
-
+      console.log("rect", rect);
       this.toolTip.current.show(rect);
     }
   };
 
   render() {
     let toolTipType = this.props.type;
-    console.log(toolTipType);
     let icon;
     if (toolTipType === "checklist") {
       icon = (
         <IoIosInformation
-          className="info-icon"
+          className="info-icon info-icon--checklist"
           id={this.props.id}
           key={this.props.id}
           onMouseOver={this.handleOnMouseOver}

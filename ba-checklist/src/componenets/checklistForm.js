@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import Selectfield from "./select.js";
 import Checklistfield from "./checklist.js";
+import Info from "./info.js";
 
 class ChecklistForm extends Component {
   state = {
@@ -183,21 +184,33 @@ class ChecklistForm extends Component {
           {
             optionLabel:
               "Make sure the new URL(s) are using keywords relevant to the page",
-            optionState: "urlKeyword"
+            optionState: "urlKeyword",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           },
           {
             optionLabel: "URL is within the structure of the website category",
-            optionState: "urlStrucutre"
+            optionState: "urlStrucutre",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           },
           {
             optionLabel: "URL doesn’t have capital letters or special symbols",
-            optionState: "urlCapital"
-          }
-        ],
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            optionState: "urlCapital",
+            tooltiptext: [
+              {
+                tooltipComment: "Please provide info here",
+                class: "123"
+              }
+            ]
           }
         ]
       },
@@ -256,12 +269,12 @@ class ChecklistForm extends Component {
               tooltipmessage={selectValues.domainSubdomain.tooltip}
             />
 
-            {/* <Checklistfield
+            <Checklistfield
               options={checklistValues.pageUrl.options}
               inputLabel={checklistValues.pageUrl.label}
               inputChange={checklistValues.inputChange}
               tooltipmessage={checklistValues.pageUrl.tooltip}
-            /> */}
+            />
 
             <Selectfield
               options={selectValues.rendering.options}
@@ -274,12 +287,14 @@ class ChecklistForm extends Component {
               tooltipmessage={selectValues.rendering.tooltip}
             />
 
-            <Checklistfield
-              options={checklistValues.metaData.options}
-              inputLabel={checklistValues.metaData.label}
-              inputChange={checklistValues.inputChange}
-              tooltipmessage={checklistValues.metaData.tooltip}
-            />
+            <>
+              <Checklistfield
+                options={checklistValues.metaData.options}
+                inputLabel={checklistValues.metaData.label}
+                inputChange={checklistValues.inputChange}
+                tooltipmessage={checklistValues.metaData.tooltip}
+              />
+            </>
 
             <Selectfield
               options={selectValues.schemaMarkups.options}

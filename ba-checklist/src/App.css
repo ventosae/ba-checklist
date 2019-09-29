@@ -90,6 +90,11 @@
   width: 7.5625rem;
 }
 
+.form-b__check-main {
+  display: flex;
+  flex-flow: column wrap;
+}
+
 .form-b__input-container {
   display: flex;
   flex: 1;
@@ -133,8 +138,24 @@
   resize: none;
 }
 
+/* .form-b__check {
+  display: flex !important;
+  flex: 0 1 41%;
+  flex-wrap: wrap;
+  width: auto;
+  width: 41%;
+} */
+
+.form-b__check-lable {
+  max-width: 85% !important;
+}
+
 .form-b__option--select {
   display: none;
+}
+
+.form-b__check-lable--checklist {
+  max-width: 100% !important;
 }
 
 .btn-outline-info {
@@ -342,9 +363,27 @@
   margin-left: -5px;
 }
 
+.tooltips-checklist {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+@media only screen and (max-width: 450px) {
+  .tooltips-checklist {
+    justify-content: space-between;
+  }
+
+  .info-icon--checklist {
+    margin-right: 6px;
+  }
+}
+
 .info-icon {
   width: 25px;
   height: 25px;
+  min-width: 25px;
+  min-height: 25px;
   fill: #00549e;
   position: relative;
   display: flex;
