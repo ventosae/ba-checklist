@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import Selectfield from "./select.js";
 import Checklistfield from "./checklist.js";
-import Info from "./info.js";
+import Textarea from "./textarea.js";
 
 class ChecklistForm extends Component {
   state = {
@@ -251,6 +251,12 @@ class ChecklistForm extends Component {
       }
     };
 
+    const textValues = {
+      inputChange: this.handleInputChange,
+      label: "Any onther information which might be usefull for the team?",
+      id: "content"
+    };
+
     return (
       <section className="form-main__wrapper-m form-main__wrapper--form">
         <div className="form-main__wrapper-m__second">
@@ -318,20 +324,11 @@ class ChecklistForm extends Component {
               tooltipmessage={selectValues.PageLoadSpeed.tooltip}
             />
 
-            <div className="form-group form-b__group">
-              <label for="content">
-                Any onther information which might be usefull for the team?
-              </label>
-              <textarea
-                className="form-control form-b_text"
-                id="content"
-                rows="3"
-                value={this.state.content}
-                onChange={this.handleInputChange}
-                name="content"
-              />
-            </div>
-
+            <Textarea
+              label={textValues.label}
+              id={textValues.id}
+              changeHandler={textValues.inputChange}
+            />
             <button type="submit" className="btn btn-primary form-main__button">
               Submit
             </button>
