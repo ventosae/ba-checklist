@@ -83,35 +83,18 @@ class ProjectInfo extends Component {
         inputLabel: "Project Name",
         isInputValid: this.state.projectNameValid,
         inputId: "projectName",
-        inputPlaceholder: "Project Name",
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
+        inputPlaceholder: "Project Name"
       },
       clientEmail: {
         inputLabel: "Your Email Address",
         isInputValid: this.state.emailValid,
         inputId: "email",
-        inputPlaceholder: "example@sportsbet.com.au",
-        tooltip: [
-          {
-            tooltipComment: "Some Examples Below",
-            class: "tooltip-header"
-          },
-          {
-            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-good"
-          },
-          {
-            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-bad"
-          }
-        ]
+        inputPlaceholder: "example@sportsbet.com.au"
       }
     };
+
+    const values = this.props.value;
+    const type = true;
 
     return (
       <section className="form-main__wrapper-m form-main__wrapper--form">
@@ -120,27 +103,27 @@ class ProjectInfo extends Component {
             {this.state.formTitle}
           </h2>
           <div className="form-group form-b__group">
-            <Inputfield
-              inputChange={inputValues.inputChange}
-              inputLabel={inputValues.projectName.inputLabel}
-              isInputValid={inputValues.projectName.isInputValid}
-              inputId={inputValues.projectName.inputId}
-              inputPlaceholder={inputValues.projectName.inputPlaceholder}
-              //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
-              //   tooltipmessage={inputValues.projectName.tooltip}
-              errorMessage={this.state.formErrors.projectName}
-            />
-
-            <Inputfield
-              inputChange={inputValues.inputChange}
-              inputLabel={inputValues.clientEmail.inputLabel}
-              isInputValid={inputValues.clientEmail.isInputValid}
-              inputId={inputValues.clientEmail.inputId}
-              inputPlaceholder={inputValues.clientEmail.inputPlaceholder}
-              //classes cold be tooltip-good / tooltip-bad / tooltip-comment / tooltip-header
-              //   tooltipmessage={inputValues.clientEmail.tooltip}
-              errorMessage={this.state.formErrors.email}
-            />
+            {values.map(value => {
+              if (type) {
+                <Inputfield
+                  inputChange={this.handleInputChange}
+                  inputLabel="1"
+                  isInputValid={value.projectName.isInputValid}
+                  inputId={value.projectName.inputId}
+                  inputPlaceholder={value.projectName.inputPlaceholder}
+                  errorMessage={this.state.formErrors.projectName}
+                />;
+              } else {
+                <Inputfield
+                  inputChange={this.handleInputChange}
+                  inputLabel="2"
+                  isInputValid={value.projectName.isInputValid}
+                  inputId={value.projectName.inputId}
+                  inputPlaceholder={value.projectName.inputPlaceholder}
+                  errorMessage={this.state.formErrors.projectName}
+                />;
+              }
+            })}
           </div>
         </div>
       </section>

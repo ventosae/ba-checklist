@@ -5,9 +5,21 @@ import AppSelector from "./appselector.js";
 
 class Form extends Component {
   render() {
+    const formElem = [
+      {
+        inputChange: this.handleInputChange,
+        projectName: {
+          inputLabel: "Project Name",
+          isInputValid: "true",
+          inputId: "projectName",
+          inputPlaceholder: "Project Name"
+        }
+      }
+    ];
+
     return (
       <>
-        <ProjectInfo />
+        <ProjectInfo type="1" value={formElem} />
         <AppSelector />
         <ChecklistForm />
       </>
