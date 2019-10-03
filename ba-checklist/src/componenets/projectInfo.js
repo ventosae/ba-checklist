@@ -103,7 +103,7 @@ class ProjectInfo extends Component {
             {this.state.formTitle}
           </h2>
           <div className="form-group form-b__group">
-            {values.map(value => {
+            {/* {values.map(value => {
               if (type) {
                 <Inputfield
                   inputChange={this.handleInputChange}
@@ -123,7 +123,7 @@ class ProjectInfo extends Component {
                   errorMessage={this.state.formErrors.projectName}
                 />;
               }
-            })}
+            })} */}
           </div>
         </div>
       </section>

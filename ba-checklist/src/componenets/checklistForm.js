@@ -3,6 +3,7 @@ import "../App.css";
 import Selectfield from "./select.js";
 import Checklistfield from "./checklist.js";
 import Textarea from "./textarea.js";
+import Fieldsgenerator from "./fields-generator.js";
 
 class ChecklistForm extends Component {
   state = {
@@ -257,6 +258,38 @@ class ChecklistForm extends Component {
       id: "content"
     };
 
+    const textValuesA = [
+      {
+        type: "textarea",
+        inputChange: "this.handleInputChange",
+        label: "Any onther information which might be usefull for the team?",
+        id: "content"
+      },
+      {
+        type: "textarea",
+        inputChange: "this.handleInputChange",
+        label: "Any onther information which might be usefull for the team?",
+        id: "content"
+      },
+      {
+        type: "select",
+        inputLabel:
+          "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
+        isInputValid: this.state.domainValid,
+        inputId: "domain",
+        options: [
+          "is located on separate subdomain/domain",
+          "is NOT located on subdomain/domain"
+        ],
+        tooltip: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      }
+    ];
+
     return (
       <section className="form-main__wrapper-m form-main__wrapper--form">
         <div className="form-main__wrapper-m__second">
@@ -329,6 +362,12 @@ class ChecklistForm extends Component {
               id={textValues.id}
               changeHandler={textValues.inputChange}
             />
+
+            <Fieldsgenerator
+              changeListener={this.handleInputChange}
+              values={textValuesA}
+            />
+
             <button type="submit" className="btn btn-primary form-main__button">
               Submit
             </button>
