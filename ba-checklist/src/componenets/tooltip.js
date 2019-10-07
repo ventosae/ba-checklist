@@ -55,10 +55,8 @@ class ToolTip extends Component {
   }
 
   pastShow(hoverRect) {
-    console.log("1 hoverRect", hoverRect);
     // position the tooltip after showing it
     let ttNode = ReactDOM.findDOMNode(this); // anton: is it still relevant
-    console.log("2 ttNode - finddomenode", ttNode);
     if (ttNode != null) {
       let x = 0,
         y = 0;
@@ -67,9 +65,6 @@ class ToolTip extends Component {
           .clientWidth,
         docHeight = 25;
 
-      console.log("3 width", docWidth);
-      console.log("4 height", docHeight);
-
       // document.documentElement.clientHeight
 
       let rx = hoverRect.x + hoverRect.width, // most right x
@@ -77,12 +72,8 @@ class ToolTip extends Component {
         ty = hoverRect.y + 5, // most top y
         by = hoverRect.y + hoverRect.height; // most bottom y
 
-      console.log("5 hoverRect.width", hoverRect.width);
-      console.log("6 hover rect height", hoverRect.height);
       // tool tip rectange
       let ttRect = ttNode.getBoundingClientRect();
-
-      console.log("7 getBoundingClientRect", ttRect);
 
       let bRight = rx + ttRect.width <= window.scrollX + docWidth;
       let bLeft = lx - ttRect.width >= 0;

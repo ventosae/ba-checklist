@@ -23,10 +23,8 @@ class Info extends Component {
 
   handleOnMouseOver = evt => {
     let el = evt.currentTarget;
-    console.log("el", evt);
     if (el != null) {
       let rect = el.getBoundingClientRect();
-      console.log("rect", rect);
       this.toolTip.current.show(rect);
     }
   };

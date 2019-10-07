@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ChecklistForm from "./checklistForm.js";
 import Inputsform from "./inputsForm.js";
 import AppSelector from "./appselector.js";
 
@@ -156,6 +155,7 @@ class Form extends Component {
           "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
         isInputValid: this.state.domainValid,
         inputId: "domain",
+        errorMessage: "Please pick an answer",
         options: [
           "is located on separate subdomain/domain",
           "is NOT located on subdomain/domain"
@@ -170,6 +170,7 @@ class Form extends Component {
       {
         type: "checklist",
         label: "Web Page URL",
+        errorMessage: "Please pick an answer",
         options: [
           {
             optionLabel:
@@ -209,6 +210,7 @@ class Form extends Component {
         inputLabel:
           "Rendering – confirm the web page is rendering fully for Search Engine Crawlers",
         isInputValid: this.state.renderingValid,
+        errorMessage: "Please pick an answer",
         inputId: "rendering",
         options: [
           "Feature is using client side rendering",
@@ -261,6 +263,7 @@ class Form extends Component {
       {
         type: "select",
         inputLabel: "Schema Markups",
+        errorMessage: "Please pick an answer",
         isInputValid: this.state.schemaValid,
         inputId: "schema",
         options: [
@@ -278,6 +281,7 @@ class Form extends Component {
       {
         type: "select",
         inputLabel: "Page Load Speed",
+        errorMessage: "Please pick an answer",
         isInputValid: this.state.pagespeedValid,
         inputId: "pagespeed",
         options: [
@@ -305,14 +309,17 @@ class Form extends Component {
           changeListener={this.handleInputChange}
           inputValues={inputValues}
           formTitle="Project Information"
+          submitButton={false}
+          sbumitHandler={this.handleSubmit}
         />
         <AppSelector />
         <Inputsform
           changeListener={this.handleInputChange}
           inputValues={inputChecklistValues}
           formTitle="Project Information"
+          submitButton={true}
+          sbumitHandler={this.handleSubmit}
         />
-        <ChecklistForm />
       </>
     );
   }

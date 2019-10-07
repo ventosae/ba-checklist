@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../App.css";
 import Fieldsgenerator from "./fields-generator.js";
+import Submitbutton from "./submit-button.js";
 
 class Inputsform extends Component {
   render() {
@@ -17,10 +18,11 @@ class Inputsform extends Component {
               values={inputValues}
             />
           </div>
-        </div>{" "}
-        <button type="submit" className="btn btn-primary form-main__button">
-          Submit
-        </button>
+          <Submitbutton
+            show={this.props.submitButton}
+            sbumitHandler={this.props.sbumitHandler}
+          />
+        </div>
       </section>
     );
   }

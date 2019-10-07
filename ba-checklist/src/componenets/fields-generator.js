@@ -17,7 +17,7 @@ function Fieldsgenerator(props) {
           isInputValid={value.isInputValid}
           inputId={value.inputId}
           inputChange={changeListener}
-          errorMessage={value.domain}
+          errorMessage={value.errorMessage}
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
           tooltipmessage={value.tooltip}
         />
