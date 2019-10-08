@@ -7,6 +7,7 @@ import Inputfield from "./input.js";
 function Fieldsgenerator(props) {
   const values = props.values;
   const changeListener = props.changeListener;
+  const blurHadnler = props.blurHadnler;
 
   return values.map(value => {
     if (value.type === "select") {
@@ -48,6 +49,7 @@ function Fieldsgenerator(props) {
           inputId={value.inputId}
           inputPlaceholder={value.inputPlaceholder}
           errorMessage={value.errorMessage}
+          blurHadnler={blurHadnler}
         />
       );
     }

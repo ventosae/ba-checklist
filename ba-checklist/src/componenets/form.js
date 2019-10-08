@@ -15,59 +15,35 @@ class Form extends Component {
     schema: "",
     pagespeed: "",
     content: "",
-    projectNameValid: true,
-    emailValid: true,
-    projectNameValid: true,
-    emailValid: true,
+    projectNameValid: " ",
+    emailValid: " ",
     domainValid: true,
     renderingValid: true,
     schemaValid: true,
     pagespeedValid: true,
     contentValid: true,
-    formErrors: {
-      projectName: "Plese enter project name",
-      email: "Email is invalid",
-      projectName: "Plese enter project name",
-      email: "Email is invalid",
-      domain: "Please pick an answer",
-      urlChecklist: "Please pick an answer",
-      rendering: "Please pick an answer",
-      title: "Please pick an answer",
-      description: "Please pick an answer",
-      h1: "Please pick an answer",
-      schema: "Please pick an answer, COME ON",
-      pagespeed: "Please pick an answer"
-    }
+    isAppSelectorActive: false,
+    isProjectInformationActive: false,
+    isAppInformationActive: false
   };
 
-  emailValid(key) {
-    const emailRegex = RegExp(
-      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    );
-
-    let result = emailRegex.test(key);
-    console.log("emailValid", result);
-    return result;
-  }
-
-  formValid = () => {
+  formValid = event => {
+    let eventType = event.target.type;
+    let eventId = event.target.name;
     let valid = true;
     const fields = this.state;
 
-    const fieldsKeys = [
-      "projectName",
-      "email",
-      "domain",
-      "rendering",
-      "schema",
-      "pagespeed",
-      "content"
-    ];
+    let fieldsKeys = [];
 
+    if (eventType === "text") {
+      fieldsKeys.push(eventId);
+    } else {
+      fieldsKeys = ["domain", "rendering", "schema", "pagespeed", "content"]; // weak part need to go through the dom and collect names. Or there is a better way?!
+    }
     for (var i = 0; i < fieldsKeys.length; i++) {
       let key = fieldsKeys[i];
-      console.log(key);
-      const projectNameStatus = this.lenghValid(fields[key]);
+      console.log("the name in state is", key);
+      const projectNameStatus = this.lenghValid(fields[key], eventId);
       let fieldsKeyString = String(key);
       let keyValid = fieldsKeyString.concat("Valid");
       console.log("Key Valid Value", keyValid);
@@ -78,6 +54,7 @@ class Form extends Component {
         this.setState({ [keyValid]: projectNameStatus });
       }
     }
+
     return valid;
   };
 
@@ -92,22 +69,52 @@ class Form extends Component {
     });
   };
 
-  lenghValid(key) {
-    let keyValue = key;
-    let keyValueLength = keyValue.length;
-    console.log("keyValueLength", keyValueLength);
-    return keyValueLength > 0 ? true : false;
+  emailValid(key) {
+    const emailRegex = RegExp(
+      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    );
+
+    let result = emailRegex.test(key);
+
+    return result;
+  }
+
+  lenghValid(key, name) {
+    const keyValue = key;
+    const eventName = name;
+
+    if (eventName === "email") {
+      return this.emailValid(key);
+    } else {
+      let keyValueLength = keyValue.length;
+      return keyValueLength > 0 ? true : false;
+    }
   }
 
   handleSubmit = event => {
     event.preventDefault();
 
-    if (this.formValid()) {
+    if (this.formValid(event)) {
       console.log("form is valid");
     } else {
       console.log("form is invalid");
     }
   };
+
+  handleImput = event => {
+    event.preventDefault();
+    let result = this.formValid(event);
+    if (result) {
+      this.setState({
+        isAppSelectorActive: [
+          this.state.projectNameValid === true && this.state.emailValid === true
+        ]
+          ? true
+          : false
+      });
+    }
+  };
+
   render() {
     const inputValues = [
       {
@@ -309,14 +316,17 @@ class Form extends Component {
           changeListener={this.handleInputChange}
           inputValues={inputValues}
           formTitle="Project Information"
+          render={true}
           submitButton={false}
           sbumitHandler={this.handleSubmit}
+          blurHadnler={this.handleImput}
         />
-        <AppSelector />
+        <AppSelector render={this.state.isAppSelectorActive} />
         <Inputsform
           changeListener={this.handleInputChange}
           inputValues={inputChecklistValues}
           formTitle="Project Information"
+          render={this.state.isProjectInformationActive}
           submitButton={true}
           sbumitHandler={this.handleSubmit}
         />

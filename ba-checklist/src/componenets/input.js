@@ -18,6 +18,7 @@ function Inputfield(props) {
           onChange={props.inputChange}
           name={props.inputId}
           tooltipmessage={props.tooltipmessage}
+          onBlur={props.blurHadnler}
         />
         {/* <Info id={props.inputId} tooltiptextvalue={props.tooltipmessage} /> */}
         <Error errorMessage={props.errorMessage} />
