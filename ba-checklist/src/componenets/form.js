@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Inputsform from "./inputsForm.js";
 import AppSelector from "./appselector.js";
+import { inputValuesForProject } from "./formData.js";
+import { inputValuesForChecklist } from "./formData.js";
 
 class Form extends Component {
   state = {
@@ -15,15 +17,17 @@ class Form extends Component {
     schema: "",
     pagespeed: "",
     content: "",
-    projectNameValid: " ",
-    emailValid: " ",
+    projectNameValid: true,
+    emailValid: true,
     domainValid: true,
     renderingValid: true,
     schemaValid: true,
     pagespeedValid: true,
     contentValid: true,
+    projectNamePass: false,
+    emailPass: false,
     isAppSelectorActive: false,
-    isProjectInformationActive: false,
+    isProjectInformationActive: true,
     isAppInformationActive: false
   };
 
@@ -51,6 +55,9 @@ class Form extends Component {
         this.setState({ [keyValid]: projectNameStatus });
         valid = false;
       } else {
+        // if (eventType === "text ") {
+        //   this.setState({ [keyValid]: projectNameStatus });
+        // }
         this.setState({ [keyValid]: projectNameStatus });
       }
     }
@@ -116,205 +123,12 @@ class Form extends Component {
   };
 
   render() {
-    const inputValues = [
-      {
-        type: "input",
-        inputLabel: "Project Name",
-        isInputValid: this.state.projectNameValid,
-        inputId: "projectName",
-        inputPlaceholder: "Project Name",
-        errorMessage: "Plese enter project name",
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        type: "input",
-        inputLabel: "Your Email Address",
-        isInputValid: this.state.emailValid,
-        inputId: "email",
-        inputPlaceholder: "example@sportsbet.com.au",
-        errorMessage: "Email is invalid",
-        tooltip: [
-          {
-            tooltipComment: "Some Examples Below",
-            class: "tooltip-header"
-          },
-          {
-            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-good"
-          },
-          {
-            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
-            class: "tooltip-bad"
-          }
-        ]
-      }
-    ];
-
-    const inputChecklistValues = [
-      {
-        type: "select",
-        inputLabel:
-          "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
-        isInputValid: this.state.domainValid,
-        inputId: "domain",
-        errorMessage: "Please pick an answer",
-        options: [
-          "is located on separate subdomain/domain",
-          "is NOT located on subdomain/domain"
-        ],
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        type: "checklist",
-        label: "Web Page URL",
-        errorMessage: "Please pick an answer",
-        options: [
-          {
-            optionLabel:
-              "Make sure the new URL(s) are using keywords relevant to the page",
-            optionState: "urlKeyword",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          },
-          {
-            optionLabel: "URL is within the structure of the website category",
-            optionState: "urlStrucutre",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          },
-          {
-            optionLabel: "URL doesn’t have capital letters or special symbols",
-            optionState: "urlCapital",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: "select",
-        inputLabel:
-          "Rendering – confirm the web page is rendering fully for Search Engine Crawlers",
-        isInputValid: this.state.renderingValid,
-        errorMessage: "Please pick an answer",
-        inputId: "rendering",
-        options: [
-          "Feature is using client side rendering",
-          "Feature is NOT using client side rendering",
-          "Not Sure"
-        ],
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        type: "checklist",
-        label: "Meta Data",
-        options: [
-          {
-            optionLabel: "Title tag requirements are fulfilled",
-            optionState: "titleRequirements",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          },
-          {
-            optionLabel: "Description tag requirements are fulfilled",
-            optionState: "descriptionRequirements",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          },
-          {
-            optionLabel: "H1 tag requirements are fulfilled",
-            optionState: "h1Requirements",
-            tooltiptext: [
-              {
-                tooltipComment: "Please provide info here",
-                class: "123"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: "select",
-        inputLabel: "Schema Markups",
-        errorMessage: "Please pick an answer",
-        isInputValid: this.state.schemaValid,
-        inputId: "schema",
-        options: [
-          "Schema Markups are implemented",
-          "Schema Markups are NOT implemented",
-          "Not Sure"
-        ],
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        type: "select",
-        inputLabel: "Page Load Speed",
-        errorMessage: "Please pick an answer",
-        isInputValid: this.state.pagespeedValid,
-        inputId: "pagespeed",
-        options: [
-          "Page load speed is considered as per overall Sportsbet standard",
-          "Page load speed is NOT considered as per overall Sportsbet standard",
-          "Not Sure"
-        ],
-        tooltip: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        type: "textarea",
-        inputChange: "this.handleInputChange",
-        label: "Any onther information which might be usefull for the team?",
-        id: "content"
-      }
-    ];
     return (
       <>
         <Inputsform
           changeListener={this.handleInputChange}
-          inputValues={inputValues}
+          inputValidF={true}
+          inputValues={inputValuesForProject}
           formTitle="Project Information"
           render={true}
           submitButton={false}
@@ -324,11 +138,12 @@ class Form extends Component {
         <AppSelector render={this.state.isAppSelectorActive} />
         <Inputsform
           changeListener={this.handleInputChange}
-          inputValues={inputChecklistValues}
+          inputValues={inputValuesForChecklist}
           formTitle="Project Information"
           render={this.state.isProjectInformationActive}
           submitButton={true}
           sbumitHandler={this.handleSubmit}
+          inputValidF={this.state.emailValid}
         />
       </>
     );
