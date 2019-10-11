@@ -22,6 +22,7 @@ class Inputsform extends Component {
                 changeListener={this.props.changeListener}
                 blurHadnler={this.props.blurHadnler}
                 values={inputValues}
+                isInputValid={this.props.inputValidation}
               />
             </div>
             <Submitbutton

@@ -8,14 +8,14 @@ function Fieldsgenerator(props) {
   const values = props.values;
   const changeListener = props.changeListener;
   const blurHadnler = props.blurHadnler;
-  const inputValidF = props.inputValidF;
+  const isInputValid = props.isInputValid;
   return values.map(value => {
     if (value.type === "select") {
       return (
         <Selectfield
           options={value.options}
           inputLabel={value.inputLabel}
-          isInputValid={inputValidF}
+          isInputValid={isInputValid}
           inputId={value.inputId}
           inputChange={changeListener}
           errorMessage={value.errorMessage}
@@ -45,7 +45,7 @@ function Fieldsgenerator(props) {
         <Inputfield
           inputChange={changeListener}
           inputLabel={value.label}
-          isInputValid={inputValidF}
+          isInputValid={isInputValid}
           inputId={value.inputId}
           inputPlaceholder={value.inputPlaceholder}
           errorMessage={value.errorMessage}

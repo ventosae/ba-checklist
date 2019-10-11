@@ -32,14 +32,14 @@ class Form extends Component {
   };
 
   formValid = event => {
-    let eventType = event.target.type;
+    let targetType = event.target.type;
     let eventId = event.target.name;
     let valid = true;
     const fields = this.state;
-
+    console.log(document.getElementById(eventId).className);
     let fieldsKeys = [];
 
-    if (eventType === "text") {
+    if (targetType === "text") {
       fieldsKeys.push(eventId);
     } else {
       fieldsKeys = ["domain", "rendering", "schema", "pagespeed", "content"]; // weak part need to go through the dom and collect names. Or there is a better way?!
@@ -52,9 +52,20 @@ class Form extends Component {
       let keyValid = fieldsKeyString.concat("Valid");
       console.log("Key Valid Value", keyValid);
       if (!projectNameStatus) {
+        if (targetType === "text") {
+          this.setState({ [keyValid]: projectNameStatus });
+          document.getElementById(eventId).className =
+            "form-control form-b__input form-b__input--input is-invalid";
+          valid = false;
+        }
         this.setState({ [keyValid]: projectNameStatus });
         valid = false;
       } else {
+        if (targetType === "text") {
+          this.setState({ [keyValid]: projectNameStatus });
+          document.getElementById(eventId).className =
+            "form-control form-b__input form-b__input--input";
+        }
         // if (eventType === "text ") {
         //   this.setState({ [keyValid]: projectNameStatus });
         // }
@@ -122,12 +133,19 @@ class Form extends Component {
     }
   };
 
+  inputValidHelper = e => {
+    const inputName = e.target.name;
+    debugger;
+    console.log("imput name", inputName);
+    return true;
+  };
+
   render() {
     return (
       <>
         <Inputsform
           changeListener={this.handleInputChange}
-          inputValidF={true}
+          inputValidation={this.inputValidHelper}
           inputValues={inputValuesForProject}
           formTitle="Project Information"
           render={true}
@@ -143,7 +161,7 @@ class Form extends Component {
           render={this.state.isProjectInformationActive}
           submitButton={true}
           sbumitHandler={this.handleSubmit}
-          inputValidF={this.state.emailValid}
+          inputValidation={this.inputValidHelper}
         />
       </>
     );
