@@ -4,7 +4,7 @@ function Textarea(props) {
   {
     return (
       <div className="form-group form-b__group">
-        <label for="content">{props.label}</label>
+        <label>{props.label}</label>
         <textarea
           className="form-control form-b_text"
           id={props.id}

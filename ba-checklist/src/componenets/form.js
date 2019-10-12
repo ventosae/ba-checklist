@@ -24,11 +24,8 @@ class Form extends Component {
     schemaValid: true,
     pagespeedValid: true,
     contentValid: true,
-    projectNamePass: false,
-    emailPass: false,
-    isAppSelectorActive: false,
-    isProjectInformationActive: true,
-    isAppInformationActive: false
+    emailValidRender: false,
+    projectNameValidRender: false
   };
 
   formValid = event => {
@@ -36,13 +33,13 @@ class Form extends Component {
     let eventId = event.target.name;
     let valid = true;
     const fields = this.state;
-    console.log(document.getElementById(eventId).className);
-    let fieldsKeys = [];
 
+    let fieldsKeys = [];
+    console.log("type is", targetType);
     if (targetType === "text") {
       fieldsKeys.push(eventId);
     } else {
-      fieldsKeys = ["domain", "rendering", "schema", "pagespeed", "content"]; // weak part need to go through the dom and collect names. Or there is a better way?!
+      fieldsKeys = ["domain", "rendering", "schema", "pagespeed"]; // weak part need to go through the dom and collect names. Or there is a better way?!
     }
     for (var i = 0; i < fieldsKeys.length; i++) {
       let key = fieldsKeys[i];
@@ -50,26 +47,32 @@ class Form extends Component {
       const projectNameStatus = this.lenghValid(fields[key], eventId);
       let fieldsKeyString = String(key);
       let keyValid = fieldsKeyString.concat("Valid");
+      let fieldValid = keyValid.concat("Render");
       console.log("Key Valid Value", keyValid);
       if (!projectNameStatus) {
-        if (targetType === "text") {
+        if (targetType == "text") {
           this.setState({ [keyValid]: projectNameStatus });
+          this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input is-invalid";
           valid = false;
+        } else {
+          this.setState({ [keyValid]: projectNameStatus });
+          document.getElementById(fieldsKeyString).className =
+            "form-control form-b__select is-invalid";
+          valid = false;
         }
-        this.setState({ [keyValid]: projectNameStatus });
-        valid = false;
       } else {
         if (targetType === "text") {
           this.setState({ [keyValid]: projectNameStatus });
+          this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input";
+        } else {
+          document.getElementById(fieldsKeyString).className =
+            "form-control form-b__select";
+          this.setState({ [keyValid]: projectNameStatus });
         }
-        // if (eventType === "text ") {
-        //   this.setState({ [keyValid]: projectNameStatus });
-        // }
-        this.setState({ [keyValid]: projectNameStatus });
       }
     }
 
@@ -102,6 +105,7 @@ class Form extends Component {
     const eventName = name;
 
     if (eventName === "email") {
+      console.log(`My name is ${eventName} and return ${this.emailValid(key)}`);
       return this.emailValid(key);
     } else {
       let keyValueLength = keyValue.length;
@@ -109,35 +113,9 @@ class Form extends Component {
     }
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
-
-    if (this.formValid(event)) {
-      console.log("form is valid");
-    } else {
-      console.log("form is invalid");
-    }
-  };
-
   handleImput = event => {
     event.preventDefault();
-    let result = this.formValid(event);
-    if (result) {
-      this.setState({
-        isAppSelectorActive: [
-          this.state.projectNameValid === true && this.state.emailValid === true
-        ]
-          ? true
-          : false
-      });
-    }
-  };
-
-  inputValidHelper = e => {
-    const inputName = e.target.name;
-    debugger;
-    console.log("imput name", inputName);
-    return true;
+    this.formValid(event);
   };
 
   render() {
@@ -145,22 +123,24 @@ class Form extends Component {
       <>
         <Inputsform
           changeListener={this.handleInputChange}
-          inputValidation={this.inputValidHelper}
           inputValues={inputValuesForProject}
           formTitle="Project Information"
-          render={true}
           submitButton={false}
-          sbumitHandler={this.handleSubmit}
+          sbumitHandler={this.handleImput}
           blurHadnler={this.handleImput}
         />
-        <AppSelector render={this.state.isAppSelectorActive} />
+
+        {this.state.emailValidRender === true &&
+        this.state.projectNameValidRender === true ? (
+          <AppSelector render={true} />
+        ) : null}
+
         <Inputsform
           changeListener={this.handleInputChange}
           inputValues={inputValuesForChecklist}
           formTitle="Project Information"
-          render={this.state.isProjectInformationActive}
           submitButton={true}
-          sbumitHandler={this.handleSubmit}
+          sbumitHandler={this.handleImput}
           inputValidation={this.inputValidHelper}
         />
       </>

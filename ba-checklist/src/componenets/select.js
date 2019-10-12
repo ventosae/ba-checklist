@@ -6,14 +6,13 @@ function Selectfield(props) {
   {
     const options = props.options;
     return (
-      <div className="form-group form-b__group form-b__group--select">
-        <label className="form-b__lable" for="question1">
-          {props.inputLabel}
-        </label>
+      <div
+        key={props.inputId}
+        className="form-group form-b__group form-b__group--select"
+      >
+        <label className="form-b__lable">{props.inputLabel}</label>
         <select
-          className={`form-control form-b__select ${
-            props.isInputValid ? "" : "is-invalid"
-          }`}
+          className="form-control form-b__select"
           id={props.inputId}
           onChange={props.inputChange}
           name={props.inputId}
