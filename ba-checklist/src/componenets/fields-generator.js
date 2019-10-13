@@ -12,6 +12,7 @@ function Fieldsgenerator(props) {
     if (value.type === "select") {
       return (
         <Selectfield
+          key={value.inputId + "key"}
           options={value.options}
           inputLabel={value.inputLabel}
           inputId={value.inputId}
@@ -26,12 +27,14 @@ function Fieldsgenerator(props) {
         <Textarea
           label={value.label}
           id={value.id}
+          key={value.id + "key"}
           changeHandler={changeListener}
         />
       );
     } else if (value.type === "checklist") {
       return (
         <Checklistfield
+          key={value.label + "key"}
           options={value.options}
           inputLabel={value.label}
           inputChange={changeListener}
@@ -41,6 +44,7 @@ function Fieldsgenerator(props) {
     } else if (value.type === "input") {
       return (
         <Inputfield
+          key={value.inputId + "key"}
           inputChange={changeListener}
           inputLabel={value.label}
           inputId={value.inputId}

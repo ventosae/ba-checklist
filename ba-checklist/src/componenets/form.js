@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Inputsform from "./inputsForm.js";
 import AppSelector from "./appselector.js";
-import { inputValuesForProject } from "./formData.js";
-import { inputValuesForChecklist } from "./formData.js";
+import {
+  inputValuesForProject,
+  inputValuesForChecklist,
+  inputValuesForAppChecklist
+} from "./formData.js";
+import Appchecklist from "./appChecklist";
+import SlackFeedback, { themes } from "react-slack-feedback";
 
 class Form extends Component {
   state = {
-    formTitle: "Project Information",
-    projectName: "",
-    email: "",
-    formTitle: "Project Checklist",
     projectName: "",
     email: "",
     domain: "",
@@ -17,6 +18,8 @@ class Form extends Component {
     schema: "",
     pagespeed: "",
     content: "",
+    appInfo: "",
+    renderChecklist: "",
     projectNameValid: true,
     emailValid: true,
     domainValid: true,
@@ -50,16 +53,18 @@ class Form extends Component {
       let fieldValid = keyValid.concat("Render");
       console.log("Key Valid Value", keyValid);
       if (!projectNameStatus) {
-        if (targetType == "text") {
+        if (targetType === "text") {
           this.setState({ [keyValid]: projectNameStatus });
           this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input is-invalid";
+          this.setState({ renderChecklist: false });
           valid = false;
         } else {
           this.setState({ [keyValid]: projectNameStatus });
           document.getElementById(fieldsKeyString).className =
             "form-control form-b__select is-invalid";
+          this.setState({ renderChecklist: false });
           valid = false;
         }
       } else {
@@ -118,7 +123,30 @@ class Form extends Component {
     this.formValid(event);
   };
 
+  tabHandler = event => {
+    let eventId = event.target.id;
+    this.setState({ renderChecklist: eventId });
+  };
+
   render() {
+    function sendToServer(payload, success, error) {
+      console.log();
+      return fetch("/api/slack", {
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+        .then(success)
+        .catch(error);
+    }
+
+    function uploadImage(image, success, error) {
+      var form = new FormData();
+      form.append("image", image);
+
+      return fetch("/api/upload", { method: "POST", data: form })
+        .then(({ url }) => success(url))
+        .catch(err => error(err));
+    }
     return (
       <>
         <Inputsform
@@ -129,19 +157,44 @@ class Form extends Component {
           sbumitHandler={this.handleImput}
           blurHadnler={this.handleImput}
         />
-
         {this.state.emailValidRender === true &&
         this.state.projectNameValidRender === true ? (
-          <AppSelector render={true} />
+          <AppSelector tabChangeHandler={this.tabHandler} />
         ) : null}
 
-        <Inputsform
-          changeListener={this.handleInputChange}
-          inputValues={inputValuesForChecklist}
-          formTitle="Project Information"
-          submitButton={true}
-          sbumitHandler={this.handleImput}
-          inputValidation={this.inputValidHelper}
+        {this.state.renderChecklist === "web" ? (
+          <Inputsform
+            changeListener={this.handleInputChange}
+            inputValues={inputValuesForChecklist}
+            formTitle="Project Checklist"
+            submitButton={true}
+            sbumitHandler={this.handleImput}
+            inputValidation={this.inputValidHelper}
+          />
+        ) : this.state.renderChecklist === "app" ? (
+          <Appchecklist
+            changeListener={this.handleInputChange}
+            inputValues={inputValuesForAppChecklist}
+            formTitle="Thank you for reaching out $Name"
+            submitButton={true}
+            sbumitHandler={this.handleImput}
+            inputValidation={this.inputValidHelper}
+          />
+        ) : null}
+        <SlackFeedback
+          channel="#general"
+          theme={themes.dark} // (optional) See src/themes/default for default theme
+          user="Slack Feedback" // The logged in user (default = "Unknown User")
+          onImageUpload={(image, success, error) =>
+            uploadImage(image)
+              .then(({ url }) => success(url))
+              .catch(error)
+          }
+          onSubmit={(payload, success, error) =>
+            sendToServer(payload)
+              .then(success)
+              .catch(error)
+          }
         />
       </>
     );

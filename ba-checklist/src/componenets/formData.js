@@ -191,4 +191,13 @@ export const inputValuesForChecklist = [
   }
 ];
 
+export const inputValuesForAppChecklist = [
+  {
+    type: "textarea",
+    inputChange: "this.handleInputChange",
+    label: "",
+    id: "appInfo"
+  }
+];
+
 export default inputValuesForProject;

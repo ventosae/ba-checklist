@@ -7,7 +7,7 @@ class ToolTip extends Component {
   render() {
     let { state } = this;
 
-    let visibility = state.visible == true ? "on" : "off";
+    let visibility = state.visible === true ? "on" : "off";
 
     let style = {
       left: state.x + window.scrollX + "px",
@@ -16,7 +16,7 @@ class ToolTip extends Component {
 
     let classNames = {};
 
-    if (state.type != null && state.type != "none") {
+    if (state.type != null && state.type !== "none") {
       classNames[state.type] = true;
     }
 
@@ -27,15 +27,14 @@ class ToolTip extends Component {
       <div
         id="tooltip"
         style={style}
-        key={this.props.key}
         className={`tooltip-fade ${Object.keys(classNames).join(" ")}`}
       >
         <div className="tooltip-arrow"></div>
         <div className="tooltip-inner">
           {tooltipText.map(text => (
-            <>
-              <span className={text.class}>{text.tooltipComment}</span>
-            </>
+            <span className={text.class} key={text.toString()}>
+              {text.tooltipComment}
+            </span>
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 function Submitbutton(props) {
   const show = props.show;

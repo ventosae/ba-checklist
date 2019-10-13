@@ -13,12 +13,16 @@ class AppSelector extends Component {
             <button
               type="button"
               className="btn btn btn-outline-info mr-1 form-main__button"
+              id="web"
+              onClick={this.props.tabChangeHandler}
             >
               CXP Web
             </button>
             <button
               type="button"
               className="btn btn btn-outline-info form-main__button"
+              id="app"
+              onClick={this.props.tabChangeHandler}
             >
               APP
             </button>

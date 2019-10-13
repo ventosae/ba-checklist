@@ -8,7 +8,7 @@ function Checklistfield(props) {
       <div className="form-b__check-main" key={props.inputLabel + "div"}>
         <label className="form-b__lable">{props.inputLabel}</label>
         {options.map(option => (
-          <>
+          <React.Fragment key={option.optionState + "key"}>
             <span key={props.inputLabel} className="tooltips-checklist">
               <div
                 className=" form-check form-b__check custom-control custom-checkbox"
@@ -24,7 +24,7 @@ function Checklistfield(props) {
 
                 <label
                   className="form-check-label form-b__check-lable form-b__check-lable--checklist custom-control-label "
-                  // for={option.optionState}
+                  htmlFor={option.optionState}
                 >
                   {option.optionLabel}
                 </label>
@@ -36,7 +36,7 @@ function Checklistfield(props) {
                 type="checklist"
               />
             </span>
-          </>
+          </React.Fragment>
         ))}
       </div>
     );
