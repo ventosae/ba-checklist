@@ -8,6 +8,7 @@ import {
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
 import SlackFeedback, { themes } from "react-slack-feedback";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Form extends Component {
   state = {
