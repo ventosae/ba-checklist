@@ -8,7 +8,6 @@ import {
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
 import SlackFeedback, { themes } from "react-slack-feedback";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Form extends Component {
   state = {
@@ -59,13 +58,13 @@ class Form extends Component {
           this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input is-invalid";
-          this.setState({ renderChecklist: false });
+          // this.setState({ renderChecklist: false });
           valid = false;
         } else {
           this.setState({ [keyValid]: projectNameStatus });
           document.getElementById(fieldsKeyString).className =
             "form-control form-b__select is-invalid";
-          this.setState({ renderChecklist: false });
+          // this.setState({ renderChecklist: false });
           valid = false;
         }
       } else {
@@ -129,6 +128,14 @@ class Form extends Component {
     this.setState({ renderChecklist: eventId });
   };
 
+  sbumitReply = event => {
+    event.preventDefault();
+    const formValid = this.formValid(event);
+    // const stateText = formValid ? JSON.stringify(this.state) : null;
+    // console.log("state", stateText);
+    // console.log("state", JSON.stringify(this.state));
+  };
+
   render() {
     function sendToServer(payload, success, error) {
       console.log();
@@ -169,7 +176,7 @@ class Form extends Component {
             inputValues={inputValuesForChecklist}
             formTitle="Project Checklist"
             submitButton={true}
-            sbumitHandler={this.handleImput}
+            sbumitHandler={this.sbumitReply}
             inputValidation={this.inputValidHelper}
           />
         ) : this.state.renderChecklist === "app" ? (
@@ -178,7 +185,7 @@ class Form extends Component {
             inputValues={inputValuesForAppChecklist}
             formTitle="Thank you for reaching out $Name"
             submitButton={true}
-            sbumitHandler={this.handleImput}
+            sbumitHandler={this.sbumitReply}
             inputValidation={this.inputValidHelper}
           />
         ) : null}
