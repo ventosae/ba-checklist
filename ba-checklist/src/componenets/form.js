@@ -58,7 +58,7 @@ class Form extends Component {
           this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input is-invalid";
-          // this.setState({ renderChecklist: false });
+          this.setState({ renderChecklist: false });
           valid = false;
         } else {
           this.setState({ [keyValid]: projectNameStatus });
@@ -131,30 +131,31 @@ class Form extends Component {
   sbumitReply = event => {
     event.preventDefault();
     const formValid = this.formValid(event);
-    // const stateText = formValid ? JSON.stringify(this.state) : null;
-    // console.log("state", stateText);
-    // console.log("state", JSON.stringify(this.state));
+    const text1 = { text: "Hello, World!" };
+    console.log("is form valid", formValid);
+    const urlSlack =
+      "https://hooks.slack.com/services/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";
+    if (formValid) {
+      const stateText = JSON.stringify(text1);
+
+      fetch(urlSlack, {
+        method: "post",
+        body: stateText,
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(function(response) {
+          console.log(response.text());
+        })
+        .then(function(text) {
+          console.log(text);
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    }
   };
 
   render() {
-    function sendToServer(payload, success, error) {
-      console.log();
-      return fetch("/api/slack", {
-        method: "POST",
-        body: JSON.stringify(payload)
-      })
-        .then(success)
-        .catch(error);
-    }
-
-    function uploadImage(image, success, error) {
-      var form = new FormData();
-      form.append("image", image);
-
-      return fetch("/api/upload", { method: "POST", data: form })
-        .then(({ url }) => success(url))
-        .catch(err => error(err));
-    }
     return (
       <>
         <Inputsform
@@ -189,21 +190,6 @@ class Form extends Component {
             inputValidation={this.inputValidHelper}
           />
         ) : null}
-        <SlackFeedback
-          channel="#general"
-          theme={themes.dark} // (optional) See src/themes/default for default theme
-          user="Slack Feedback" // The logged in user (default = "Unknown User")
-          onImageUpload={(image, success, error) =>
-            uploadImage(image)
-              .then(({ url }) => success(url))
-              .catch(error)
-          }
-          onSubmit={(payload, success, error) =>
-            sendToServer(payload)
-              .then(success)
-              .catch(error)
-          }
-        />
       </>
     );
   }
