@@ -134,7 +134,7 @@ class Form extends Component {
     const text1 = { text: "Hello, World!" };
     console.log("is form valid", formValid);
     const urlSlack =
-      "https://hooks.slack.com/services/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";
+      "https://hooks.slack.com/services/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";
     if (formValid) {
       const stateText = JSON.stringify(text1);
 
