@@ -7,7 +7,6 @@ import {
   inputValuesForAppChecklist
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
-import SlackFeedback, { themes } from "react-slack-feedback";
 
 class Form extends Component {
   state = {
@@ -17,9 +16,15 @@ class Form extends Component {
     rendering: "",
     schema: "",
     pagespeed: "",
-    content: "",
-    appInfo: "",
+    content: "No comment",
+    appInfo: "No comment",
     renderChecklist: "",
+    urlKeyword: "no answer",
+    urlStrucutre: "no answer",
+    urlCapital: "no answer",
+    titleRequirements: "no answer",
+    descriptionRequirements: "no answer",
+    h1Requirements: "no answer",
     projectNameValid: true,
     emailValid: true,
     domainValid: true,
@@ -130,21 +135,309 @@ class Form extends Component {
 
   sbumitReply = event => {
     event.preventDefault();
-    const formValid = this.formValid(event);
-    const text1 = { text: "Hello, World!" };
-    console.log("is form valid", formValid);
-    const urlSlack =
-      "https://hooks.slack.com/services/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";
-    if (formValid) {
-      const stateText = JSON.stringify(text1);
+    let webSlackText;
+    const formValid =
+      this.state.renderChecklist === "web" ? this.formValid(event) : true;
 
+    if (this.state.renderChecklist === "web") {
+      webSlackText = {
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "⚡G'day we have a reply!⚡"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Email:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.email
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Project Name:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.projectName
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*App or Web:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.renderChecklist
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Domain or Subdomain*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.domain
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Web URL Checklist*"
+            }
+          },
+          {
+            type: "section",
+            fields: [
+              {
+                type: "plain_text",
+                text: "Relevant KWs in URL",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.urlKeyword.toString(),
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: "URL is within the structure of the website",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.urlStrucutre.toString(),
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: "URL doesn't have capital letters",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.urlCapital.toString(),
+                emoji: true
+              }
+            ]
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Rendering*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.rendering
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Meta-data Checklist*"
+            }
+          },
+          {
+            type: "section",
+            fields: [
+              {
+                type: "plain_text",
+                text: "Titles are OK",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.titleRequirements.toString(),
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: "Descriptions are OK",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.descriptionRequirements.toString(),
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: "H1s are OK",
+                emoji: true
+              },
+              {
+                type: "plain_text",
+                text: this.state.h1Requirements.toString(),
+                emoji: true
+              }
+            ]
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Is schema present*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.schema
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Page Speed*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.pagespeed
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Comment - web*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.content
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Comment - app*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.appInfo
+            }
+          },
+          {
+            type: "divider"
+          }
+        ]
+      };
+    } else if (this.state.renderChecklist === "app") {
+      webSlackText = {
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "⚡G'day we have a reply!⚡"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Email:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.email
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Project Name:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.projectName
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*App or Web:*"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: this.state.renderChecklist
+            }
+          },
+          {
+            type: "divider"
+          }
+        ]
+      };
+    }
+
+    const urlSlack =
+      "https://hooks.slack.com/services/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";
+    if (formValid) {
+      const stateText = JSON.stringify(webSlackText);
       fetch(urlSlack, {
+        mode: "no-cors",
         method: "post",
         body: stateText,
         headers: { "Content-Type": "application/json" }
       })
         .then(function(response) {
-          console.log(response.text());
+          console.log(response.status);
+          if (response.status === 0) {
+            this.setState({ renderChecklist: "thanks" });
+          }
         })
         .then(function(text) {
           console.log(text);
@@ -185,6 +478,15 @@ class Form extends Component {
             changeListener={this.handleInputChange}
             inputValues={inputValuesForAppChecklist}
             formTitle="Thank you for reaching out $Name"
+            submitButton={true}
+            sbumitHandler={this.sbumitReply}
+            inputValidation={this.inputValidHelper}
+          />
+        ) : this.state.renderChecklist === "thanks" ? (
+          <Appchecklist
+            changeListener={this.handleInputChange}
+            inputValues={inputValuesForAppChecklist}
+            formTitle="Thank you for reaching out $Name. We hared you!"
             submitButton={true}
             sbumitHandler={this.sbumitReply}
             inputValidation={this.inputValidHelper}
