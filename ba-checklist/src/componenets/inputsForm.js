@@ -8,8 +8,20 @@ class Inputsform extends Component {
   render() {
     const inputValues = this.props.inputValues;
     return (
-      <TransitionGroup component={null}>
-        <CSSTransition classNames="fade" timeout={800} in={true} appear={true}>
+      <TransitionGroup
+        childFactory={child => React.cloneElement(child)}
+        component={null}
+      >
+        <CSSTransition
+          classNames="fade"
+          unmountOnExit
+          timeout={800}
+          appear={true}
+          enter={true}
+          exit={true}
+          in={true}
+          unmountOnExit={true}
+        >
           <section className="form-main__wrapper-m form-main__wrapper--form">
             <div className="form-main__wrapper-m__second">
               <h2 className="page-header page-header--h2">

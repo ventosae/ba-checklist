@@ -7,6 +7,7 @@ import {
   inputValuesForAppChecklist
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Form extends Component {
   state = {
@@ -133,12 +134,8 @@ class Form extends Component {
     this.setState({ renderChecklist: eventId });
   };
 
-  sbumitReply = event => {
-    event.preventDefault();
+  sendToSlack = () => {
     let webSlackText;
-    const formValid =
-      this.state.renderChecklist === "web" ? this.formValid(event) : true;
-
     if (this.state.renderChecklist === "web") {
       webSlackText = {
         blocks: [
@@ -424,41 +421,52 @@ class Form extends Component {
     }
 
     const urlSlack =
-      "https://hooks.slack.com/services/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";
+      "https://hooks.slack.com/services/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";
+
+    const stateText = JSON.stringify(webSlackText);
+    fetch(urlSlack, {
+      mode: "no-cors",
+      method: "post",
+      body: stateText,
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response =>
+        response.status === 0
+          ? this.setState({
+              renderChecklist: "thanks",
+              emailValidRender: false,
+              renderingValid: false
+            })
+          : this.renderChecklist
+      )
+      .catch(function(error) {
+        console.error("Fetch brings an error. And it is", error);
+      });
+  };
+
+  sbumitReply = event => {
+    event.preventDefault();
+    const formValid =
+      this.state.renderChecklist === "web" ? this.formValid(event) : true;
     if (formValid) {
-      const stateText = JSON.stringify(webSlackText);
-      fetch(urlSlack, {
-        mode: "no-cors",
-        method: "post",
-        body: stateText,
-        headers: { "Content-Type": "application/json" }
-      })
-        .then(function(response) {
-          console.log(response.status);
-          if (response.status === 0) {
-            this.setState({ renderChecklist: "thanks" });
-          }
-        })
-        .then(function(text) {
-          console.log(text);
-        })
-        .catch(function(error) {
-          console.error(error);
-        });
+      this.sendToSlack();
     }
   };
 
   render() {
     return (
       <>
-        <Inputsform
-          changeListener={this.handleInputChange}
-          inputValues={inputValuesForProject}
-          formTitle="Project Information"
-          submitButton={false}
-          sbumitHandler={this.handleImput}
-          blurHadnler={this.handleImput}
-        />
+        {this.state.renderingValid === true ? (
+          <Inputsform
+            changeListener={this.handleInputChange}
+            inputValues={inputValuesForProject}
+            formTitle="Project Information"
+            submitButton={false}
+            sbumitHandler={this.handleImput}
+            blurHadnler={this.handleImput}
+          />
+        ) : null}
+
         {this.state.emailValidRender === true &&
         this.state.projectNameValidRender === true ? (
           <AppSelector tabChangeHandler={this.tabHandler} />
