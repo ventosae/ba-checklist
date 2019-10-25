@@ -431,7 +431,7 @@ class Form extends Component {
       headers: { "Content-Type": "application/json" }
     })
       .then(response =>
-        response.status === 0
+        response.status === 200
           ? this.setState({
               renderChecklist: "thanks",
               emailValidRender: false,
