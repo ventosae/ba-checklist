@@ -46,6 +46,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  transition: 1s linear;
 }
 
 .form-main__wrapper-m {
@@ -63,6 +64,7 @@
 .form-main__wrapper-m__second {
   padding: 20px 20px;
   width: 100%;
+  transition: 1s linear;
 }
 
 .form-main__wrapper--button {
@@ -448,7 +450,7 @@
 }
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 5000ms linear 5000ms;
+  transition: opacity 300ms ease-in;
 }
 
 .fade-exit {
@@ -456,7 +458,7 @@
 }
 .fade-exit.fade-exit-active {
   opacity: 0;
-  transition: opacity 5000ms linear;
+  transition: opacity 300ms ease-in;
 }
 .fade-exit-done {
   opacity: 0;

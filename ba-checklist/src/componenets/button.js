@@ -1,7 +1,8 @@
 import React from "react";
 
-function Submitbutton(props) {
+function Button(props) {
   const show = props.show;
+
   if (!show) {
     return null;
   } else {
@@ -11,10 +12,10 @@ function Submitbutton(props) {
         onClick={props.sbumitHandler}
         className="btn btn-primary form-main__button"
       >
-        Submit
+        {props.buttonText}
       </button>
     );
   }
 }
 
-export default Submitbutton;
+export default Button;

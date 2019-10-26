@@ -4,10 +4,11 @@ import AppSelector from "./appselector.js";
 import {
   inputValuesForProject,
   inputValuesForChecklist,
-  inputValuesForAppChecklist
+  inputValuesForAppChecklist,
+  defaultState
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Textblock from "./textBlock";
 
 class Form extends Component {
   state = {
@@ -29,12 +30,23 @@ class Form extends Component {
     projectNameValid: true,
     emailValid: true,
     domainValid: true,
-    renderingValid: true,
     schemaValid: true,
     pagespeedValid: true,
     contentValid: true,
     emailValidRender: false,
-    projectNameValidRender: false
+    projectNameValidRender: false,
+    renderAppSelector: true,
+    renderProjectInformation: true,
+    name: ""
+  };
+
+  getName = () => {
+    const userName = this.state.email.split(".").shift();
+    this.setState({ name: userName });
+  };
+
+  stateDefaultHandler = () => {
+    this.setState(defaultState);
   };
 
   formValid = event => {
@@ -86,7 +98,6 @@ class Form extends Component {
         }
       }
     }
-
     return valid;
   };
 
@@ -102,6 +113,7 @@ class Form extends Component {
   };
 
   emailValid(key) {
+    this.getName();
     const emailRegex = RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
@@ -421,7 +433,7 @@ class Form extends Component {
     }
 
     const urlSlack =
-      "https://hooks.slack.com/services/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";
+      "https://hooks.slack.com/services/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";
 
     const stateText = JSON.stringify(webSlackText);
     fetch(urlSlack, {
@@ -431,11 +443,11 @@ class Form extends Component {
       headers: { "Content-Type": "application/json" }
     })
       .then(response =>
-        response.status === 200
+        response.status === 0
           ? this.setState({
               renderChecklist: "thanks",
-              emailValidRender: false,
-              renderingValid: false
+              renderAppSelector: false,
+              renderProjectInformation: false
             })
           : this.renderChecklist
       )
@@ -456,45 +468,48 @@ class Form extends Component {
   render() {
     return (
       <>
-        {this.state.renderingValid === true ? (
-          <Inputsform
-            changeListener={this.handleInputChange}
-            inputValues={inputValuesForProject}
-            formTitle="Project Information"
-            submitButton={false}
-            sbumitHandler={this.handleImput}
-            blurHadnler={this.handleImput}
+        {this.state.renderChecklist === "thanks" ? (
+          <Textblock
+            formTitle={`Seems like you need help! Thank you for reaching out ${this.state.name}.`}
+            text="We've got your submisson and will reach out as soon as possible! Have a good day :)"
+            showButton={true}
+            buttonText={"Submit Another Project"}
+            sbumitHandler={this.stateDefaultHandler}
           />
         ) : null}
 
+        <Inputsform
+          changeListener={this.handleInputChange}
+          inputValues={inputValuesForProject}
+          formTitle="Project Information"
+          submitButton={false}
+          sbumitHandler={this.handleImput}
+          blurHadnler={this.handleImput}
+          renderInputForm={this.state.renderProjectInformation}
+        />
         {this.state.emailValidRender === true &&
         this.state.projectNameValidRender === true ? (
-          <AppSelector tabChangeHandler={this.tabHandler} />
+          <AppSelector
+            tabChangeHandler={this.tabHandler}
+            renderApp={this.state.renderAppSelector}
+          />
         ) : null}
 
         {this.state.renderChecklist === "web" ? (
           <Inputsform
             changeListener={this.handleInputChange}
             inputValues={inputValuesForChecklist}
-            formTitle="Project Checklist"
+            formTitle="Please fill a Checklist below"
             submitButton={true}
             sbumitHandler={this.sbumitReply}
             inputValidation={this.inputValidHelper}
+            renderInputForm={true}
           />
         ) : this.state.renderChecklist === "app" ? (
           <Appchecklist
             changeListener={this.handleInputChange}
             inputValues={inputValuesForAppChecklist}
-            formTitle="Thank you for reaching out $Name"
-            submitButton={true}
-            sbumitHandler={this.sbumitReply}
-            inputValidation={this.inputValidHelper}
-          />
-        ) : this.state.renderChecklist === "thanks" ? (
-          <Appchecklist
-            changeListener={this.handleInputChange}
-            inputValues={inputValuesForAppChecklist}
-            formTitle="Thank you for reaching out $Name. We hared you!"
+            formTitle="It's a little bit different for apps! "
             submitButton={true}
             sbumitHandler={this.sbumitReply}
             inputValidation={this.inputValidHelper}

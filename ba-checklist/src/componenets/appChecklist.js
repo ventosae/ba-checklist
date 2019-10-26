@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import Fieldsgenerator from "./fields-generator.js";
-import Submitbutton from "./submit-button.js";
+import Button from "./button.js";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Appchecklist extends Component {
   render() {
     const inputValues = this.props.inputValues;
+
     return (
       <TransitionGroup component={null}>
-        <CSSTransition classNames="fade" timeout={800} in={true} appear={true}>
+        <CSSTransition
+          classNames="fade"
+          timeout={800}
+          in={true}
+          appear={true}
+          exit
+        >
           <section className="form-main__wrapper-m form-main__wrapper--form">
             <div className="form-main__wrapper-m__second">
               <h2 className="page-header page-header--h2">
@@ -18,7 +25,7 @@ class Appchecklist extends Component {
                 You are good to go! We are working only on CPX web just becauase
                 app optimisation is done on App store. If you want your feature
                 being highlighted on App Store please add a comment below.
-                Cheers!{" "}
+                Cheers!
               </p>
               <div className="form-group form-b__group" key="generator-div">
                 <Fieldsgenerator
@@ -27,9 +34,10 @@ class Appchecklist extends Component {
                   values={inputValues}
                 />
               </div>
-              <Submitbutton
+              <Button
                 show={this.props.submitButton}
                 sbumitHandler={this.props.sbumitHandler}
+                buttonText="Submit"
               />
             </div>
           </section>

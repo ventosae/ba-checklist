@@ -200,4 +200,33 @@ export const inputValuesForAppChecklist = [
   }
 ];
 
+export const defaultState = {
+  projectName: "",
+  email: "",
+  domain: "",
+  rendering: "",
+  schema: "",
+  pagespeed: "",
+  content: "No comment",
+  appInfo: "No comment",
+  renderChecklist: "",
+  urlKeyword: "no answer",
+  urlStrucutre: "no answer",
+  urlCapital: "no answer",
+  titleRequirements: "no answer",
+  descriptionRequirements: "no answer",
+  h1Requirements: "no answer",
+  projectNameValid: true,
+  emailValid: true,
+  domainValid: true,
+  schemaValid: true,
+  pagespeedValid: true,
+  contentValid: true,
+  emailValidRender: false,
+  projectNameValidRender: false,
+  renderAppSelector: true,
+  renderProjectInformation: true,
+  name: ""
+};
+
 export default inputValuesForProject;
