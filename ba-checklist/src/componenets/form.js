@@ -37,7 +37,9 @@ class Form extends Component {
     projectNameValidRender: false,
     renderAppSelector: true,
     renderProjectInformation: true,
-    name: ""
+    name: "",
+    selectChecklistShow: false,
+    pagespeed1:""
   };
 
   getName = () => {
@@ -102,6 +104,7 @@ class Form extends Component {
   };
 
   handleInputChange = event => {
+    console.log(event.target)
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -433,7 +436,7 @@ class Form extends Component {
     }
 
     const urlSlack =
-      "https://hooks.slack.com/services/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";
+      "https://hooks.slack.com/services/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";
 
     const stateText = JSON.stringify(webSlackText);
     fetch(urlSlack, {
@@ -456,6 +459,9 @@ class Form extends Component {
       });
   };
 
+ 
+
+
   sbumitReply = event => {
     event.preventDefault();
     const formValid =
@@ -466,6 +472,8 @@ class Form extends Component {
   };
 
   render() {
+
+
     return (
       <>
         {this.state.renderChecklist === "thanks" ? (
@@ -483,7 +491,6 @@ class Form extends Component {
           inputValues={inputValuesForProject}
           formTitle="Project Information"
           submitButton={false}
-          sbumitHandler={this.handleImput}
           blurHadnler={this.handleImput}
           renderInputForm={this.state.renderProjectInformation}
         />
@@ -502,17 +509,16 @@ class Form extends Component {
             formTitle="Please fill a Checklist below"
             submitButton={true}
             sbumitHandler={this.sbumitReply}
-            inputValidation={this.inputValidHelper}
             renderInputForm={true}
+            selectChecklistFlag={this.state.selectChecklistShow}
           />
         ) : this.state.renderChecklist === "app" ? (
           <Appchecklist
             changeListener={this.handleInputChange}
             inputValues={inputValuesForAppChecklist}
-            formTitle="It's a little bit different for apps! "
+            formTitle="It's a little bit different for apps!"
             submitButton={true}
             sbumitHandler={this.sbumitReply}
-            inputValidation={this.inputValidHelper}
           />
         ) : null}
       </>

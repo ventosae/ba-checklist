@@ -29,6 +29,7 @@ class Inputsform extends Component {
                     changeListener={this.props.changeListener}
                     blurHadnler={this.props.blurHadnler}
                     values={inputValues}
+                    selectChecklistFlag={this.props.selectChecklistFlag}
                   />
                 </div>
                 <Button

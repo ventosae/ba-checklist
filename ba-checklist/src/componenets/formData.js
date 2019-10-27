@@ -188,6 +188,57 @@ export const inputValuesForChecklist = [
     inputChange: "this.handleInputChange",
     label: "Any onther information which might be usefull for the team?",
     id: "content"
+  },
+  {
+    type: "select+checklist",
+    inputLabel: "Page Load Speed1123",
+    errorMessage: "Please pick an answer",
+    isInputValid: "pagespeedValid",
+    inputId: "pagespeed1",
+    options: [
+      "Page load speed is considered as per overall Sportsbet standard",
+      "Page load speed is NOT considered as per overall Sportsbet standard",
+      "Not Sure"
+    ],
+    tooltip: [
+      {
+        tooltipComment: "Please provide info here",
+        class: "123"
+      }
+    ],   
+    labelChecklist: "Meta Data1",
+    optionChecklist: [
+      {
+        optionLabel: "Title tag requirements are fulfilled",
+        optionState: "titleRequirements",
+        tooltiptext: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      {
+        optionLabel: "Description tag requirements are fulfilled",
+        optionState: "descriptionRequirements",
+        tooltiptext: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
+      {
+        optionLabel: "H1 tag requirements are fulfilled",
+        optionState: "h1Requirements",
+        tooltiptext: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      }
+    ]
   }
 ];
 
