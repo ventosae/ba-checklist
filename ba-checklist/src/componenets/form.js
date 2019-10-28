@@ -9,6 +9,10 @@ import {
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
+import SlackMrkdwn from "./slack-mrkdwn-generator.js";
+
+const urlSlack =
+  "https://hooks.slack.com/services/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";
 
 class Form extends Component {
   state = {
@@ -39,7 +43,7 @@ class Form extends Component {
     renderProjectInformation: true,
     name: "",
     selectChecklistShow: false,
-    pagespeed1:""
+    pagespeed1: ""
   };
 
   getName = () => {
@@ -104,7 +108,7 @@ class Form extends Component {
   };
 
   handleInputChange = event => {
-    console.log(event.target)
+    console.log(event.target);
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -149,10 +153,18 @@ class Form extends Component {
     this.setState({ renderChecklist: eventId });
   };
 
+  fetchToSlack = (url, mode, method, body, headers) =>
+    fetch(url, {
+      mode: mode,
+      method: method,
+      body: body,
+      headers: headers
+    });
+
   sendToSlack = () => {
-    let webSlackText;
+    let webSlackJson;
     if (this.state.renderChecklist === "web") {
-      webSlackText = {
+      webSlackJson = {
         blocks: [
           {
             type: "section",
@@ -377,7 +389,7 @@ class Form extends Component {
         ]
       };
     } else if (this.state.renderChecklist === "app") {
-      webSlackText = {
+      webSlackJson = {
         blocks: [
           {
             type: "section",
@@ -435,15 +447,9 @@ class Form extends Component {
       };
     }
 
-    const urlSlack =
-      "https://hooks.slack.com/services/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";
-
-    const stateText = JSON.stringify(webSlackText);
-    fetch(urlSlack, {
-      mode: "no-cors",
-      method: "post",
-      body: stateText,
-      headers: { "Content-Type": "application/json" }
+    const stateText = JSON.stringify(webSlackJson);
+    this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
+      "Content-Type": "application/json"
     })
       .then(response =>
         response.status === 0
@@ -459,9 +465,6 @@ class Form extends Component {
       });
   };
 
- 
-
-
   sbumitReply = event => {
     event.preventDefault();
     const formValid =
@@ -472,8 +475,6 @@ class Form extends Component {
   };
 
   render() {
-
-
     return (
       <>
         {this.state.renderChecklist === "thanks" ? (
@@ -521,6 +522,15 @@ class Form extends Component {
             sbumitHandler={this.sbumitReply}
           />
         ) : null}
+
+        <SlackMrkdwn
+          values={[
+            {
+              header: "test",
+              text: "test2"
+            }
+          ]}
+        />
       </>
     );
   }
