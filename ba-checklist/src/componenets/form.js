@@ -150,9 +150,9 @@ class Form extends Component {
   };
 
   sendToSlack = () => {
-    let webSlackText;
+    let webSlackJSON;
     if (this.state.renderChecklist === "web") {
-      webSlackText = {
+      webSlackJSON = {
         blocks: [
           {
             type: "section",
@@ -377,7 +377,7 @@ class Form extends Component {
         ]
       };
     } else if (this.state.renderChecklist === "app") {
-      webSlackText = {
+      webSlackJSON = {
         blocks: [
           {
             type: "section",
@@ -436,13 +436,13 @@ class Form extends Component {
     }
 
     const urlSlack =
-      "https://hooks.slack.com/services/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";
+      "https://hooks.slack.com/services/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";
 
-    const stateText = JSON.stringify(webSlackText);
+    const webSlackString = JSON.stringify(webSlackJSON);
     fetch(urlSlack, {
       mode: "no-cors",
       method: "post",
-      body: stateText,
+      body: webSlackString,
       headers: { "Content-Type": "application/json" }
     })
       .then(response =>
