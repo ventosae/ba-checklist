@@ -5,11 +5,11 @@ import {
   inputValuesForProject,
   inputValuesForChecklist,
   inputValuesForAppChecklist,
-  defaultState
+  defaultState,
+  SlackMrkdwn
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
-import SlackMrkdwn from "./slack-mrkdwn-generator.js";
 
 const urlSlack =
   "https://hooks.slack.com/services/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";
@@ -108,6 +108,7 @@ class Form extends Component {
   };
 
   handleInputChange = event => {
+    console.log("OU OU OU", SlackMrkdwn());
     console.log(event.target);
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -522,15 +523,6 @@ class Form extends Component {
             sbumitHandler={this.sbumitReply}
           />
         ) : null}
-
-        <SlackMrkdwn
-          values={[
-            {
-              header: "test",
-              text: "test2"
-            }
-          ]}
-        />
       </>
     );
   }

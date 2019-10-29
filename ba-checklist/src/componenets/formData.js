@@ -205,7 +205,7 @@ export const inputValuesForChecklist = [
         tooltipComment: "Please provide info here",
         class: "123"
       }
-    ],   
+    ],
     labelChecklist: "Meta Data1",
     optionChecklist: [
       {
@@ -280,4 +280,40 @@ export const defaultState = {
   name: ""
 };
 
+export function SlackMrkdwn() {
+  var messageValues = [
+    { type: "text", header: "to", text: "vo" },
+    { type: "text", header: "to", text: "vo1" }
+  ];
+  let values = messageValues;
+  return values.map(value => {
+    if (value.type === "text") {
+      return {
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "⚡G'day we have a reply!⚡"
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: value.header
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: value.text
+            }
+          }
+        ]
+      };
+    }
+  });
+}
 export default inputValuesForProject;
