@@ -280,40 +280,55 @@ export const defaultState = {
   name: ""
 };
 
-export function SlackMrkdwn() {
-  var messageValues = [
-    { type: "text", header: "to", text: "vo" },
-    { type: "text", header: "to", text: "vo1" }
-  ];
+export function SlackMrkdwn(messageValues) {
   let values = messageValues;
-  return values.map(value => {
-    if (value.type === "text") {
+
+  let mainObj = {
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "⚡G'day we have a reply!⚡"
+        }
+      }
+    ]
+  };
+
+  let textObj = values.map(value => {
+    if (value.type === "text-header") {
       return {
-        blocks: [
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "*" + value.text + "*"
+        }
+      };
+    } else if (value.type === "text") {
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: value.text
+        }
+      };
+    } else if (value.type === "text-list") {
+      return {
+        type: "section",
+        fields: [
           {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "⚡G'day we have a reply!⚡"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: value.header
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: value.text
-            }
+            type: "plain_text",
+            text: "Relevant KWs in URL",
+            emoji: value.text
           }
         ]
       };
     }
   });
+
+  var objTest = { blocks: textObj };
+  console.log("endObj BOYYYYYYYYYYY", objTest);
+  console.log(textObj);
+  return objTest;
 }
 export default inputValuesForProject;

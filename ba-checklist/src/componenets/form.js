@@ -12,7 +12,7 @@ import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
 
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 class Form extends Component {
   state = {
@@ -108,8 +108,12 @@ class Form extends Component {
   };
 
   handleInputChange = event => {
-    console.log("OU OU OU", SlackMrkdwn());
-    console.log(event.target);
+    console.log(
+      SlackMrkdwn([
+        { type: "text", text: "test" },
+        { type: "text", text: "test" }
+      ])
+    );
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -163,6 +167,10 @@ class Form extends Component {
     });
 
   sendToSlack = () => {
+    let slackTextTest = SlackMrkdwn([
+      { type: "text", text: "test" },
+      { type: "text", text: "test" }
+    ]);
     let webSlackJson;
     if (this.state.renderChecklist === "web") {
       webSlackJson = {
@@ -448,7 +456,7 @@ class Form extends Component {
       };
     }
 
-    const stateText = JSON.stringify(webSlackJson);
+    const stateText = JSON.stringify(slackTextTest);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
       "Content-Type": "application/json"
     })
