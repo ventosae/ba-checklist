@@ -283,18 +283,6 @@ export const defaultState = {
 export function SlackMrkdwn(messageValues) {
   let values = messageValues;
 
-  let mainObj = {
-    blocks: [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "⚡G'day we have a reply!⚡"
-        }
-      }
-    ]
-  };
-
   let textObj = values.map(value => {
     if (value.type === "text-header") {
       return {
@@ -318,17 +306,38 @@ export function SlackMrkdwn(messageValues) {
         fields: [
           {
             type: "plain_text",
-            text: "Relevant KWs in URL",
-            emoji: value.text
+            text: value.text1
+          },
+          {
+            type: "plain_text",
+            text: value.answer1
+          },
+          {
+            type: "plain_text",
+            text: value.text2
+          },
+          {
+            type: "plain_text",
+            text: value.answer2
+          },
+          {
+            type: "plain_text",
+            text: value.text3
+          },
+          {
+            type: "plain_text",
+            text: value.answer3
           }
         ]
+      };
+    } else if (value.type === "devider") {
+      return {
+        type: "divider"
       };
     }
   });
 
-  var objTest = { blocks: textObj };
-  console.log("endObj BOYYYYYYYYYYY", objTest);
-  console.log(textObj);
-  return objTest;
+  let objFinal = { blocks: textObj };
+  return objFinal;
 }
 export default inputValuesForProject;

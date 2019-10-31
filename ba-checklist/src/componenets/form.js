@@ -12,7 +12,7 @@ import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
 
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 class Form extends Component {
   state = {
@@ -110,8 +110,14 @@ class Form extends Component {
   handleInputChange = event => {
     console.log(
       SlackMrkdwn([
-        { type: "text", text: "test" },
-        { type: "text", text: "test" }
+        { type: "text-header", text: "test yo" },
+        {
+          type: "text-list",
+          text: "test 1",
+          text: "test 2",
+          text: "test 3",
+          text: "test 4"
+        }
       ])
     );
     const target = event.target;
@@ -167,296 +173,64 @@ class Form extends Component {
     });
 
   sendToSlack = () => {
-    let slackTextTest = SlackMrkdwn([
-      { type: "text", text: "test" },
-      { type: "text", text: "test" }
-    ]);
-    let webSlackJson;
+    let slackText;
+
     if (this.state.renderChecklist === "web") {
-      webSlackJson = {
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "⚡G'day we have a reply!⚡"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Email:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.email
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Project Name:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.projectName
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*App or Web:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.renderChecklist
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Domain or Subdomain*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.domain
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Web URL Checklist*"
-            }
-          },
-          {
-            type: "section",
-            fields: [
-              {
-                type: "plain_text",
-                text: "Relevant KWs in URL",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.urlKeyword.toString(),
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: "URL is within the structure of the website",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.urlStrucutre.toString(),
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: "URL doesn't have capital letters",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.urlCapital.toString(),
-                emoji: true
-              }
-            ]
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Rendering*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.rendering
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Meta-data Checklist*"
-            }
-          },
-          {
-            type: "section",
-            fields: [
-              {
-                type: "plain_text",
-                text: "Titles are OK",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.titleRequirements.toString(),
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: "Descriptions are OK",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.descriptionRequirements.toString(),
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: "H1s are OK",
-                emoji: true
-              },
-              {
-                type: "plain_text",
-                text: this.state.h1Requirements.toString(),
-                emoji: true
-              }
-            ]
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Is schema present*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.schema
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Page Speed*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.pagespeed
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Comment - web*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.content
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Comment - app*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.appInfo
-            }
-          },
-          {
-            type: "divider"
-          }
-        ]
-      };
+      slackText = SlackMrkdwn([
+        { type: "text-header", text: "⚡G'day we have a reply!⚡" },
+        { type: "text-header", text: "Email:" },
+        { type: "text", text: this.state.email },
+        { type: "text-header", text: "Project Name:" },
+        { type: "text", text: this.state.projectName },
+        { type: "text-header", text: "App or Web:" },
+        { type: "text", text: this.state.renderChecklist },
+        { type: "text-header", text: "Domain or Subdomain:" },
+        { type: "text", text: this.state.domain },
+        { type: "text-header", text: "Web URL Checklist:" },
+        {
+          type: "text-list",
+          text1: "Relevant KWs in URL",
+          answer1: this.state.urlKeyword.toString(),
+          text2: "URL is within the structure of the website",
+          answer2: this.state.urlStrucutre.toString(),
+          text3: "URL doesn't have capital letters",
+          answer3: this.state.urlCapital.toString()
+        },
+        { type: "text-header", text: "Rendering" },
+        { type: "text", text: this.state.rendering },
+        { type: "text-header", text: "Meta-data Checklist:" },
+        {
+          type: "text-list",
+          text1: "Titles are OK",
+          answer1: this.state.titleRequirements.toString(),
+          text2: "Descriptions are OK",
+          answer2: this.state.descriptionRequirements.toString(),
+          text3: "H1s are OK",
+          answer3: this.state.h1Requirements.toString()
+        },
+        { type: "text-header", text: "Is schema present:" },
+        { type: "text", text: this.state.schema },
+        { type: "text-header", text: "Page Speed:" },
+        { type: "text", text: this.state.pagespeed },
+        { type: "text-header", text: "Comment - web:" },
+        { type: "text", text: this.state.content },
+        { type: "devider" }
+      ]);
     } else if (this.state.renderChecklist === "app") {
-      webSlackJson = {
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "⚡G'day we have a reply!⚡"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Email:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.email
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Project Name:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.projectName
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*App or Web:*"
-            }
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: this.state.renderChecklist
-            }
-          },
-          {
-            type: "divider"
-          }
-        ]
-      };
+      slackText = SlackMrkdwn([
+        { type: "text-header", text: "⚡G'day we have a reply!⚡" },
+        { type: "text-header", text: "Email:" },
+        { type: "text", text: this.state.email },
+        { type: "text-header", text: "Project Name:" },
+        { type: "text", text: this.state.projectName },
+        { type: "text-header", text: "App or Web:" },
+        { type: "text", text: this.state.renderChecklist },
+        { type: "text-header", text: "App Comment:" },
+        { type: "text", text: this.state.appInfo }
+      ]);
     }
 
-    const stateText = JSON.stringify(slackTextTest);
+    const stateText = JSON.stringify(slackText);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
       "Content-Type": "application/json"
     })
