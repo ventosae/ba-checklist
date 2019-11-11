@@ -10,6 +10,7 @@ import {
 } from "./formData.js";
 import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
+import FormWrapper from "./formWrapper.js";
 
 const urlSlack =
   "https://hooks.slack.com/services/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";
@@ -42,9 +43,7 @@ class SeoChecklist extends Component {
     renderAppSelector: true,
     renderProjectInformation: true,
     name: ""
-  }; 
-
-   
+  };
 
   getName = () => {
     const userName = this.state.email.split(".").shift();
@@ -248,6 +247,7 @@ class SeoChecklist extends Component {
   render() {
     return (
       <>
+        <FormWrapper />
         {this.state.renderChecklist === "thanks" ? (
           <Textblock
             formTitle={`Seems like you need help! Thank you for reaching out ${this.state.name}.`}
