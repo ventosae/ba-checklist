@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Helmet } from "react-helmet";
 import Logo from "./componenets/sportsbet_logo.png";
-import Form from "./componenets/form.js";
+import SeoChecklist from "./componenets/seo-cheklist";
 
 class App extends Component {
   render() {
@@ -29,7 +29,7 @@ class App extends Component {
           </h1>
         </div>
 
-        <Form />
+        <SeoChecklist />
       </main>
     );
   }

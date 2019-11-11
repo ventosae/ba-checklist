@@ -280,4 +280,65 @@ export const defaultState = {
   name: ""
 };
 
+export function SlackMrkdwn(messageValues) {
+  let values = messageValues;
+
+  let textObj = values.map(value => {
+    if (value.type === "text-header") {
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "*" + value.text + "*"
+        }
+      };
+    } else if (value.type === "text") {
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: value.text
+        }
+      };
+    } else if (value.type === "text-list") {
+      return {
+        type: "section",
+        fields: [
+          {
+            type: "plain_text",
+            text: value.text1
+          },
+          {
+            type: "plain_text",
+            text: value.answer1
+          },
+          {
+            type: "plain_text",
+            text: value.text2
+          },
+          {
+            type: "plain_text",
+            text: value.answer2
+          },
+          {
+            type: "plain_text",
+            text: value.text3
+          },
+          {
+            type: "plain_text",
+            text: value.answer3
+          }
+        ]
+      };
+    } else if (value.type === "devider") {
+      return {
+        type: "divider"
+      };
+    }
+  });
+
+  let objFinal = { blocks: textObj };
+  return objFinal;
+}
+
 export default inputValuesForProject;
