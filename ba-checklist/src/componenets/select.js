@@ -17,6 +17,7 @@ function Selectfield(props) {
           onChange={props.inputChange}
           name={props.inputId}
           tooltipmessage={props.tooltipmessage}
+          valye={props.value}
         >
           <option default className={"form-b__option--select"} value="">
             Select...

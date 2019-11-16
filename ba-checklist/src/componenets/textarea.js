@@ -11,6 +11,7 @@ function Textarea(props) {
         onChange={props.changeHandler}
         name={props.id}
         key={props.id}
+        value={props.value}
       />
     </div>
   );

@@ -22,6 +22,7 @@ class FormWrapper extends Component {
     ev.preventDefault();
     const myNewData = this.state.data.map(item => {
       if (item.inputId === ev.target.id) {
+        console.log(item.inputId);
         return { ...item, value: ev.target.value }; //what's happening here?
       }
       return item;
@@ -32,40 +33,73 @@ class FormWrapper extends Component {
     });
   };
 
-  getName = () => {
-    const userName = this.state.email.split(".").shift();
-    this.setState({ name: userName });
-  };
-
   emailValid(key) {
-    this.getName();
+    let emailValue = key;
+    debugger;
     const emailRegex = RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
 
     let result = emailRegex.test(key);
-
+    if (result) {
+      let userName = emailValue.split(".").shift();
+      this.setState({ name: userName });
+    }
     return result;
   }
 
+  mapData = (eventId, stateInput, result) => {
+    let input = stateInput;
+    this.state.data.map(item => {
+      if (item.inputId === eventId) {
+        return { ...item, [input]: result };
+      }
+      return item;
+    });
+  };
+
   validate = event => {
+    event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
     let valid = true;
-    const fields = this.state;
+    const fields = this.state.data;
 
     let fieldsKeys = [];
-    console.log("type is", targetType);
+
     if (targetType === "text") {
-      fieldsKeys.push(eventId);
+      let currentObject = fields.filter(item => {
+        return item.inputId === eventId;
+      });
+      let inputValueText = currentObject[0]["value"];
+      let isInputValid = this.lenghValid(inputValueText, eventId);
+      if (!isInputValid) {
+        const myNewData = this.mapData(event.target.id, "isValid", false);
+        debugger;
+        this.setState({ data: myNewData });
+        valid = false;
+      } else {
+        const myNewData = this.state.data.map(item => {
+          if (item.inputId === event.target.id) {
+            return { ...item, isValid: true };
+          }
+          return item;
+        });
+        this.setState({ data: myNewData });
+        valid = true;
+      }
     } else {
       fieldsKeys = ["domain", "rendering", "schema", "pagespeed"]; // weak part need to go through the dom and collect names. Or there is a better way?!
     }
     for (var i = 0; i < fieldsKeys.length; i++) {
-      let key = fieldsKeys[i];
+      let currentObject = fields.filter(item => {
+        return item.inputId === fieldsKeys[i];
+      });
+      let inputValue = currentObject[0]["value"];
+      let key = currentObject[0]["inputId"];
       debugger;
       console.log("the name in state is", key);
-      const projectNameStatus = this.lenghValid(fields[key], eventId);
+      const projectNameStatus = this.lenghValid(inputValue, key);
       debugger;
       let fieldsKeyString = String(key);
       let keyValid = fieldsKeyString.concat("Valid");
@@ -77,10 +111,26 @@ class FormWrapper extends Component {
           this.setState({ [fieldValid]: projectNameStatus });
           document.getElementById(eventId).className =
             "form-control form-b__input form-b__input--input is-invalid";
+
           this.setState({ renderChecklist: false });
+          const myNewData = this.state.data.map(item => {
+            if (item.inputId === event.target.id) {
+              return { ...item, isValid: false }; //what's happening here?
+            }
+            return item;
+          });
+          this.setState({ data: myNewData });
+
           valid = false;
         } else {
           this.setState({ [keyValid]: projectNameStatus });
+          const myNewData = this.state.data.map(item => {
+            if (item.inputId === event.target.id) {
+              return { ...item, isValid: true }; //what's happening here?
+            }
+            return item;
+          });
+          this.setState({ data: myNewData });
           document.getElementById(fieldsKeyString).className =
             "form-control form-b__select is-invalid";
           // this.setState({ renderChecklist: false });
@@ -106,7 +156,6 @@ class FormWrapper extends Component {
     const keyValue = key;
     const eventName = name;
 
-    debugger;
     if (eventName === "email") {
       console.log(`My name is ${eventName} and return ${this.emailValid(key)}`);
       return this.emailValid(key);
@@ -119,7 +168,7 @@ class FormWrapper extends Component {
   handleSubmit = ev => {
     ev.preventDefault();
 
-    this.validate();
+    // this.validate();
 
     // Do your validation
     // if you want to change anything in your data change it
@@ -146,12 +195,12 @@ class FormWrapper extends Component {
                 <Fieldsgenerator
                   changeListener={this.onChange}
                   blurHadnler={this.validate}
-                  values={FormFields}
+                  values={this.state.data}
                 />
               </div>
               <Button
                 show={false}
-                sbumitHandler={console.log("meow, you've submitted me")}
+                // sbumitHandler={console.log("meow, you've submitted me")}
                 buttonText="Submit"
               />
             </div>

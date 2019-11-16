@@ -5,6 +5,8 @@ export const inputValuesForProject = [
     inputId: "projectName",
     inputPlaceholder: "Project Name",
     errorMessage: "Plese enter project name",
+    value: "",
+    isValid: true,
     tooltip: [
       {
         tooltipComment: "Please provide info here",
@@ -18,6 +20,8 @@ export const inputValuesForProject = [
     inputId: "email",
     inputPlaceholder: "example@sportsbet.com.au",
     errorMessage: "Email is invalid",
+    value: "",
+    isValid: true,
     tooltip: [
       {
         tooltipComment: "Some Examples Below",
@@ -205,7 +209,7 @@ export const inputValuesForChecklist = [
         tooltipComment: "Please provide info here",
         class: "123"
       }
-    ],   
+    ],
     labelChecklist: "Meta Data1",
     optionChecklist: [
       {
