@@ -35,7 +35,6 @@ class FormWrapper extends Component {
 
   emailValid(key) {
     let emailValue = key;
-    debugger;
     const emailRegex = RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
@@ -65,8 +64,6 @@ class FormWrapper extends Component {
     let valid = true;
     const fields = this.state.data;
 
-    let fieldsKeys = [];
-
     if (targetType === "text") {
       let currentObject = fields.filter(item => {
         return item.inputId === eventId;
@@ -74,8 +71,12 @@ class FormWrapper extends Component {
       let inputValueText = currentObject[0]["value"];
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
-        const myNewData = this.mapData(event.target.id, "isValid", false);
-        debugger;
+        const myNewData = this.state.data.map(item => {
+          if (item.inputId === event.target.id) {
+            return { ...item, isValid: false };
+          }
+          return item;
+        });
         this.setState({ data: myNewData });
         valid = false;
       } else {
@@ -87,74 +88,100 @@ class FormWrapper extends Component {
         });
         this.setState({ data: myNewData });
         valid = true;
-      }
+      } 
     } else {
-      fieldsKeys = ["domain", "rendering", "schema", "pagespeed"]; // weak part need to go through the dom and collect names. Or there is a better way?!
-    }
-    for (var i = 0; i < fieldsKeys.length; i++) {
-      let currentObject = fields.filter(item => {
-        return item.inputId === fieldsKeys[i];
-      });
-      let inputValue = currentObject[0]["value"];
-      let key = currentObject[0]["inputId"];
-      debugger;
-      console.log("the name in state is", key);
-      const projectNameStatus = this.lenghValid(inputValue, key);
-      debugger;
-      let fieldsKeyString = String(key);
-      let keyValid = fieldsKeyString.concat("Valid");
-      let fieldValid = keyValid.concat("Render");
-      console.log("Key Valid Value", keyValid);
-      if (!projectNameStatus) {
-        if (targetType === "text") {
-          this.setState({ [keyValid]: projectNameStatus });
-          this.setState({ [fieldValid]: projectNameStatus });
-          document.getElementById(eventId).className =
-            "form-control form-b__input form-b__input--input is-invalid";
-
-          this.setState({ renderChecklist: false });
-          const myNewData = this.state.data.map(item => {
-            if (item.inputId === event.target.id) {
-              return { ...item, isValid: false }; //what's happening here?
+      let currentObjects = this.state.data
+      currentObjects.forEach((object, index) => {
+        console.log(object["inputId"])
+        console.log(index)
+        let itemId = object["inputId"]
+        let isInputValid = this.lenghValid(object["value"], itemId);
+        if (!isInputValid) {
+          currentObjects = currentObjects.map(item => {
+            if (item.inputId === object["inputId"]) {
+              return { ...item, isValid: false };
             }
             return item;
           });
-          this.setState({ data: myNewData });
-
           valid = false;
         } else {
-          this.setState({ [keyValid]: projectNameStatus });
-          const myNewData = this.state.data.map(item => {
-            if (item.inputId === event.target.id) {
-              return { ...item, isValid: true }; //what's happening here?
+          currentObjects = currentObjects.map(item => {
+            if (item.inputId === object["inputId"]) {
+              return { ...item, isValid: false };
             }
             return item;
           });
-          this.setState({ data: myNewData });
-          document.getElementById(fieldsKeyString).className =
-            "form-control form-b__select is-invalid";
-          // this.setState({ renderChecklist: false });
-          valid = false;
-        }
-      } else {
-        if (targetType === "text") {
-          this.setState({ [keyValid]: projectNameStatus });
-          this.setState({ [fieldValid]: projectNameStatus });
-          document.getElementById(eventId).className =
-            "form-control form-b__input form-b__input--input";
-        } else {
-          document.getElementById(fieldsKeyString).className =
-            "form-control form-b__select";
-          this.setState({ [keyValid]: projectNameStatus });
+          valid = true;
         }
       }
+        )
+        this.setState({ data: currentObjects });
     }
+    // for (var i = 0; i < fieldsKeys.length; i++) {
+    //   let currentObject = fields.filter(item => {
+    //     return item.inputId === fieldsKeys[i];
+    //   });
+    //   let inputValue = currentObject[0]["value"];
+    //   let key = currentObject[0]["inputId"];
+    //   debugger;
+    //   console.log("the name in state is", key);
+    //   const projectNameStatus = this.lenghValid(inputValue, key);
+    //   debugger;
+    //   let fieldsKeyString = String(key);
+    //   let keyValid = fieldsKeyString.concat("Valid");
+    //   let fieldValid = keyValid.concat("Render");
+    //   console.log("Key Valid Value", keyValid);
+    //   if (!projectNameStatus) {
+    //     if (targetType === "text") {
+    //       this.setState({ [keyValid]: projectNameStatus });
+    //       this.setState({ [fieldValid]: projectNameStatus });
+    //       document.getElementById(eventId).className =
+    //         "form-control form-b__input form-b__input--input is-invalid";
+
+    //       this.setState({ renderChecklist: false });
+    //       const myNewData = this.state.data.map(item => {
+    //         if (item.inputId === event.target.id) {
+    //           return { ...item, isValid: false }; //what's happening here?
+    //         }
+    //         return item;
+    //       });
+    //       this.setState({ data: myNewData });
+
+    //       valid = false;
+    //     } else {
+    //       this.setState({ [keyValid]: projectNameStatus });
+    //       const myNewData = this.state.data.map(item => {
+    //         if (item.inputId === event.target.id) {
+    //           return { ...item, isValid: true }; //what's happening here?
+    //         }
+    //         return item;
+    //       });
+    //       this.setState({ data: myNewData });
+    //       document.getElementById(fieldsKeyString).className =
+    //         "form-control form-b__select is-invalid";
+    //       // this.setState({ renderChecklist: false });
+    //       valid = false;
+    //     }
+    //   } else {
+    //     if (targetType === "text") {
+    //       this.setState({ [keyValid]: projectNameStatus });
+    //       this.setState({ [fieldValid]: projectNameStatus });
+    //       document.getElementById(eventId).className =
+    //         "form-control form-b__input form-b__input--input";
+    //     } else {
+    //       document.getElementById(fieldsKeyString).className =
+    //         "form-control form-b__select";
+    //       this.setState({ [keyValid]: projectNameStatus });
+    //     }
+    //   }
+    // }
     return valid;
   };
 
   lenghValid(key, name) {
     const keyValue = key;
     const eventName = name;
+    debugger;
 
     if (eventName === "email") {
       console.log(`My name is ${eventName} and return ${this.emailValid(key)}`);
@@ -199,8 +226,8 @@ class FormWrapper extends Component {
                 />
               </div>
               <Button
-                show={false}
-                // sbumitHandler={console.log("meow, you've submitted me")}
+                show={true}
+                sbumitHandler={this.validate}
                 buttonText="Submit"
               />
             </div>
