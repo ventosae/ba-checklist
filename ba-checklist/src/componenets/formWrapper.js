@@ -3,16 +3,18 @@ import {
   inputValuesForProject,
   inputValuesForChecklist,
   inputValuesForAppChecklist,
-  defaultState,
-  SlackMrkdwn
+  defaultState
+   
 } from "./formData.js";
 import Fieldsgenerator from "./fields-generator.js";
 import Button from "./button.js";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // const axios = require("axios");
-const FormFields = inputValuesForProject;
-
+const FormFields = inputValuesForChecklist;
+const urlSlack =
+  "https://hooks.slack.com/services/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";
+  
 class FormWrapper extends Component {
   state = {
     data: FormFields
@@ -47,14 +49,15 @@ class FormWrapper extends Component {
     return result;
   }
 
-  mapData = (eventId, stateInput, result) => {
-    let input = stateInput;
-    this.state.data.map(item => {
+  mapData = (mapThrough, eventId, result) => {
+     
+    let mapResult = mapThrough.map(item => {
       if (item.inputId === eventId) {
-        return { ...item, [input]: result };
+        return { ...item, isValid: result };
       }
       return item;
     });
+    return mapResult
   };
 
   validate = event => {
@@ -71,117 +74,37 @@ class FormWrapper extends Component {
       let inputValueText = currentObject[0]["value"];
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
-        const myNewData = this.state.data.map(item => {
-          if (item.inputId === event.target.id) {
-            return { ...item, isValid: false };
-          }
-          return item;
-        });
+        const myNewData = this.mapData(this.state.data, event.target.id, false)
         this.setState({ data: myNewData });
         valid = false;
       } else {
-        const myNewData = this.state.data.map(item => {
-          if (item.inputId === event.target.id) {
-            return { ...item, isValid: true };
-          }
-          return item;
-        });
+        const myNewData = this.mapData(this.state.data, event.target.id, true)
         this.setState({ data: myNewData });
         valid = true;
       } 
     } else {
       let currentObjects = this.state.data
-      currentObjects.forEach((object, index) => {
-        console.log(object["inputId"])
-        console.log(index)
+      currentObjects.forEach((object) => {
         let itemId = object["inputId"]
         let isInputValid = this.lenghValid(object["value"], itemId);
         if (!isInputValid) {
-          currentObjects = currentObjects.map(item => {
-            if (item.inputId === object["inputId"]) {
-              return { ...item, isValid: false };
-            }
-            return item;
-          });
+          currentObjects = this.mapData(currentObjects, object["inputId"], false)
           valid = false;
         } else {
-          currentObjects = currentObjects.map(item => {
-            if (item.inputId === object["inputId"]) {
-              return { ...item, isValid: false };
-            }
-            return item;
-          });
+          currentObjects = this.mapData(currentObjects, object["inputId"], true)
           valid = true;
         }
       }
         )
         this.setState({ data: currentObjects });
     }
-    // for (var i = 0; i < fieldsKeys.length; i++) {
-    //   let currentObject = fields.filter(item => {
-    //     return item.inputId === fieldsKeys[i];
-    //   });
-    //   let inputValue = currentObject[0]["value"];
-    //   let key = currentObject[0]["inputId"];
-    //   debugger;
-    //   console.log("the name in state is", key);
-    //   const projectNameStatus = this.lenghValid(inputValue, key);
-    //   debugger;
-    //   let fieldsKeyString = String(key);
-    //   let keyValid = fieldsKeyString.concat("Valid");
-    //   let fieldValid = keyValid.concat("Render");
-    //   console.log("Key Valid Value", keyValid);
-    //   if (!projectNameStatus) {
-    //     if (targetType === "text") {
-    //       this.setState({ [keyValid]: projectNameStatus });
-    //       this.setState({ [fieldValid]: projectNameStatus });
-    //       document.getElementById(eventId).className =
-    //         "form-control form-b__input form-b__input--input is-invalid";
-
-    //       this.setState({ renderChecklist: false });
-    //       const myNewData = this.state.data.map(item => {
-    //         if (item.inputId === event.target.id) {
-    //           return { ...item, isValid: false }; //what's happening here?
-    //         }
-    //         return item;
-    //       });
-    //       this.setState({ data: myNewData });
-
-    //       valid = false;
-    //     } else {
-    //       this.setState({ [keyValid]: projectNameStatus });
-    //       const myNewData = this.state.data.map(item => {
-    //         if (item.inputId === event.target.id) {
-    //           return { ...item, isValid: true }; //what's happening here?
-    //         }
-    //         return item;
-    //       });
-    //       this.setState({ data: myNewData });
-    //       document.getElementById(fieldsKeyString).className =
-    //         "form-control form-b__select is-invalid";
-    //       // this.setState({ renderChecklist: false });
-    //       valid = false;
-    //     }
-    //   } else {
-    //     if (targetType === "text") {
-    //       this.setState({ [keyValid]: projectNameStatus });
-    //       this.setState({ [fieldValid]: projectNameStatus });
-    //       document.getElementById(eventId).className =
-    //         "form-control form-b__input form-b__input--input";
-    //     } else {
-    //       document.getElementById(fieldsKeyString).className =
-    //         "form-control form-b__select";
-    //       this.setState({ [keyValid]: projectNameStatus });
-    //     }
-    //   }
-    // }
     return valid;
   };
 
   lenghValid(key, name) {
     const keyValue = key;
     const eventName = name;
-    debugger;
+    ;
 
     if (eventName === "email") {
       console.log(`My name is ${eventName} and return ${this.emailValid(key)}`);
@@ -201,7 +124,103 @@ class FormWrapper extends Component {
     // if you want to change anything in your data change it
 
     // if all is validated send
-    this.props.send(this.state.data);
+    // this.props.send(this.state.data);
+    console.log(this.SlackMrkdwn())
+    sendToSlack()
+  };
+
+ SlackMrkdwn() {
+    let values = this.state.data;
+  
+    let textObj = values.map(value => {
+      return {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "*" + value.inputId + "*"
+        } 
+      };
+
+
+      if (value.type === "text-header") {
+        return {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "*" + value.text + "*"
+          }
+        };
+      } else if (value.type === "text") {
+        return {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: value.text
+          }
+        };
+      } else if (value.type === "text-list") {
+        return {
+          type: "section",
+          fields: [
+            {
+              type: "plain_text",
+              text: value.text1
+            },
+            {
+              type: "plain_text",
+              text: value.answer1
+            },
+            {
+              type: "plain_text",
+              text: value.text2
+            },
+            {
+              type: "plain_text",
+              text: value.answer2
+            },
+            {
+              type: "plain_text",
+              text: value.text3
+            },
+            {
+              type: "plain_text",
+              text: value.answer3
+            }
+          ]
+        };
+      } else if (value.type === "devider") {
+        return {
+          type: "divider"
+        };
+      }
+    });
+  
+    let objFinal = { blocks: textObj };
+    return objFinal;
+  }
+
+  sendToSlack = () => {
+    let slackText;
+ 
+    slackText = SlackMrkdwn( )
+
+    console.log(slackText)
+    const stateText = JSON.stringify(slackText);
+    this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
+      "Content-Type": "application/json"
+    })
+      .then(response =>
+        response.status === 0
+          ? this.setState({
+              renderChecklist: "thanks",
+              renderAppSelector: false,
+              renderProjectInformation: false
+            })
+          : this.renderChecklist
+      )
+      .catch(function(error) {
+        console.error("Fetch brings an error. And it is", error);
+      });
   };
 
   render() {
@@ -227,7 +246,7 @@ class FormWrapper extends Component {
               </div>
               <Button
                 show={true}
-                sbumitHandler={this.validate}
+                sbumitHandler={this.handleSubmit}
                 buttonText="Submit"
               />
             </div>

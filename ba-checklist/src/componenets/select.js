@@ -12,12 +12,17 @@ function Selectfield(props) {
       >
         <label className="form-b__lable">{props.inputLabel}</label>
         <select
-          className="form-control form-b__select"
+          className={
+            props.isValid
+              ? "form-control form-b__select"
+              : "form-control form-b__select is-invalid"
+          }
           id={props.inputId}
           onChange={props.inputChange}
           name={props.inputId}
           tooltipmessage={props.tooltipmessage}
-          valye={props.value}
+          value={props.value}
+          onBlur={props.blurHadnler}
         >
           <option default className={"form-b__option--select"} value="">
             Select...

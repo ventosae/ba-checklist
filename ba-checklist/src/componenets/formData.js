@@ -47,6 +47,8 @@ export const inputValuesForChecklist = [
     isInputValid: "domainValid",
     inputId: "domain",
     errorMessage: "Please pick an answer",
+    value: "",
+    isValid: true,
     options: [
       "is located on separate subdomain/domain",
       "is NOT located on subdomain/domain"
@@ -62,6 +64,7 @@ export const inputValuesForChecklist = [
     type: "checklist",
     label: "Web Page URL",
     errorMessage: "Please pick an answer",
+    value: "",
     options: [
       {
         optionLabel:
@@ -103,6 +106,8 @@ export const inputValuesForChecklist = [
     isInputValid: "renderingValid",
     errorMessage: "Please pick an answer",
     inputId: "rendering",
+    value: "",
+    isValid: true,
     options: [
       "Feature is using client side rendering",
       "Feature is NOT using client side rendering",
@@ -118,6 +123,7 @@ export const inputValuesForChecklist = [
   {
     type: "checklist",
     label: "Meta Data",
+    value: "",
     options: [
       {
         optionLabel: "Title tag requirements are fulfilled",
@@ -157,6 +163,8 @@ export const inputValuesForChecklist = [
     errorMessage: "Please pick an answer",
     isInputValid: "schemaValid",
     inputId: "schema",
+    value: "",
+    isValid: true,
     options: [
       "Schema Markups are implemented",
       "Schema Markups are NOT implemented",
@@ -175,6 +183,8 @@ export const inputValuesForChecklist = [
     errorMessage: "Please pick an answer",
     isInputValid: "pagespeedValid",
     inputId: "pagespeed",
+    value: "",
+    isValid: true,
     options: [
       "Page load speed is considered as per overall Sportsbet standard",
       "Page load speed is NOT considered as per overall Sportsbet standard",
@@ -191,13 +201,16 @@ export const inputValuesForChecklist = [
     type: "textarea",
     inputChange: "this.handleInputChange",
     label: "Any onther information which might be usefull for the team?",
-    id: "content"
+    id: "content",
+    value: ""
   },
   {
     type: "select+checklist",
     inputLabel: "Page Load Speed1123",
     errorMessage: "Please pick an answer",
     isInputValid: "pagespeedValid",
+    value: "",
+    isValid: true,
     inputId: "pagespeed1",
     options: [
       "Page load speed is considered as per overall Sportsbet standard",
@@ -251,7 +264,8 @@ export const inputValuesForAppChecklist = [
     type: "textarea",
     inputChange: "this.handleInputChange",
     label: "",
-    id: "appInfo"
+    id: "appInfo",
+    value: ""
   }
 ];
 

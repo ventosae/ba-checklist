@@ -217,6 +217,7 @@ class SeoChecklist extends Component {
       ]);
     }
 
+    console.log(slackText)
     const stateText = JSON.stringify(slackText);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
       "Content-Type": "application/json"

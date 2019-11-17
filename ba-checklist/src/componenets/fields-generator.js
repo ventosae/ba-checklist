@@ -22,6 +22,8 @@ function Fieldsgenerator(props) {
           //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
           tooltipmessage={value.tooltip}
           value={value.value}
+          isValid={value.isValid}
+          blurHadnler={blurHadnler}
         />
       );
     } else if (value.type === "textarea") {
