@@ -20,7 +20,7 @@ function Checklistfield(props) {
                   onChange={props.inputChange}
                   name={option.optionState}
                   id={option.optionState}
-                  value={props.value}
+                  value={option.value}
                 />
 
                 <label

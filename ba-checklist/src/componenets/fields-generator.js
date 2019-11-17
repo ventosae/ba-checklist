@@ -44,7 +44,6 @@ function Fieldsgenerator(props) {
           inputLabel={value.label}
           inputChange={changeListener}
           tooltipmessage={value.tooltip}
-          value={value.value}
         />
       );
     } else if (value.type === "input") {

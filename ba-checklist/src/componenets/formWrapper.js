@@ -4,7 +4,6 @@ import {
   inputValuesForChecklist,
   inputValuesForAppChecklist,
   defaultState
-   
 } from "./formData.js";
 import Fieldsgenerator from "./fields-generator.js";
 import Button from "./button.js";
@@ -13,8 +12,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 // const axios = require("axios");
 const FormFields = inputValuesForChecklist;
 const urlSlack =
-  "https://hooks.slack.com/services/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";
-  
+  "https://hooks.slack.com/services/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";
+
 class FormWrapper extends Component {
   state = {
     data: FormFields
@@ -23,9 +22,11 @@ class FormWrapper extends Component {
   onChange = ev => {
     ev.preventDefault();
     const myNewData = this.state.data.map(item => {
-      if (item.inputId === ev.target.id) {
-        console.log(item.inputId);
-        return { ...item, value: ev.target.value }; //what's happening here?
+      if (item.type !== "checklist") {
+        if (item.inputId === ev.target.id) {
+          console.log(item.inputId);
+          return { ...item, value: ev.target.value }; //what's happening here?
+        }
       }
       return item;
     });
@@ -50,14 +51,13 @@ class FormWrapper extends Component {
   }
 
   mapData = (mapThrough, eventId, result) => {
-     
     let mapResult = mapThrough.map(item => {
       if (item.inputId === eventId) {
         return { ...item, isValid: result };
       }
       return item;
     });
-    return mapResult
+    return mapResult;
   };
 
   validate = event => {
@@ -74,29 +74,36 @@ class FormWrapper extends Component {
       let inputValueText = currentObject[0]["value"];
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
-        const myNewData = this.mapData(this.state.data, event.target.id, false)
+        const myNewData = this.mapData(this.state.data, event.target.id, false);
         this.setState({ data: myNewData });
         valid = false;
       } else {
-        const myNewData = this.mapData(this.state.data, event.target.id, true)
+        const myNewData = this.mapData(this.state.data, event.target.id, true);
         this.setState({ data: myNewData });
         valid = true;
-      } 
+      }
     } else {
-      let currentObjects = this.state.data
-      currentObjects.forEach((object) => {
-        let itemId = object["inputId"]
+      let currentObjects = this.state.data;
+      currentObjects.forEach(object => {
+        let itemId = object["inputId"];
         let isInputValid = this.lenghValid(object["value"], itemId);
         if (!isInputValid) {
-          currentObjects = this.mapData(currentObjects, object["inputId"], false)
+          currentObjects = this.mapData(
+            currentObjects,
+            object["inputId"],
+            false
+          );
           valid = false;
         } else {
-          currentObjects = this.mapData(currentObjects, object["inputId"], true)
+          currentObjects = this.mapData(
+            currentObjects,
+            object["inputId"],
+            true
+          );
           valid = true;
         }
-      }
-        )
-        this.setState({ data: currentObjects });
+      });
+      this.setState({ data: currentObjects });
     }
     return valid;
   };
@@ -104,8 +111,6 @@ class FormWrapper extends Component {
   lenghValid(key, name) {
     const keyValue = key;
     const eventName = name;
-    ;
-
     if (eventName === "email") {
       console.log(`My name is ${eventName} and return ${this.emailValid(key)}`);
       return this.emailValid(key);
@@ -125,86 +130,61 @@ class FormWrapper extends Component {
 
     // if all is validated send
     // this.props.send(this.state.data);
-    console.log(this.SlackMrkdwn())
-    sendToSlack()
+    console.log(this.SlackMrkdwn());
+    this.sendToSlack();
   };
 
- SlackMrkdwn() {
+  SlackMrkdwn() {
     let values = this.state.data;
-  
+    let topMessage = {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: "⚡G'day we have a reply!⚡"
+      }
+    };
+    let devider = {
+      type: "divider"
+    };
+
     let textObj = values.map(value => {
-      return {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "*" + value.inputId + "*"
-        } 
-      };
-
-
-      if (value.type === "text-header") {
-        return {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "*" + value.text + "*"
-          }
-        };
-      } else if (value.type === "text") {
-        return {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: value.text
-          }
-        };
-      } else if (value.type === "text-list") {
+      if (value.type != "checklist") {
         return {
           type: "section",
           fields: [
             {
-              type: "plain_text",
-              text: value.text1
+              type: "mrkdwn",
+              text: "*" + value.inputId + "*"
             },
             {
               type: "plain_text",
-              text: value.answer1
-            },
-            {
-              type: "plain_text",
-              text: value.text2
-            },
-            {
-              type: "plain_text",
-              text: value.answer2
-            },
-            {
-              type: "plain_text",
-              text: value.text3
-            },
-            {
-              type: "plain_text",
-              text: value.answer3
+              text: value.value
             }
           ]
         };
-      } else if (value.type === "devider") {
-        return {
-          type: "divider"
-        };
+      } else {
       }
     });
-  
+    textObj.unshift(topMessage);
     let objFinal = { blocks: textObj };
+    textObj.push(devider);
     return objFinal;
   }
 
+  fetchToSlack = (url, mode, method, body, headers) =>
+    fetch(url, {
+      mode: mode,
+      method: method,
+      body: body,
+      headers: headers
+    });
+
   sendToSlack = () => {
     let slackText;
- 
-    slackText = SlackMrkdwn( )
 
-    console.log(slackText)
+    slackText = this.SlackMrkdwn();
+
+    console.log(slackText);
     const stateText = JSON.stringify(slackText);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
       "Content-Type": "application/json"
