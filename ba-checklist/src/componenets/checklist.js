@@ -21,6 +21,7 @@ function Checklistfield(props) {
                   name={option.optionState}
                   id={option.optionState}
                   value={option.value}
+                  checked={option.checked}
                 />
 
                 <label

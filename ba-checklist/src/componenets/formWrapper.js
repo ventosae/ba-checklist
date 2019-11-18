@@ -21,13 +21,25 @@ class FormWrapper extends Component {
 
   onChange = ev => {
     ev.preventDefault();
+    console.log("target value is", ev.target.value);
     const myNewData = this.state.data.map(item => {
+      console.log(item.type);
       if (item.type !== "checklist") {
         if (item.inputId === ev.target.id) {
           console.log(item.inputId);
           return { ...item, value: ev.target.value }; //what's happening here?
         }
+      } else if (item.type === "checklist") {
+        debugger;
+        if (item.options[0].optionState === ev.target.id) {
+          if (item.options[0].checked === true) {
+            return { ...item.options, checked: false };
+          } else {
+            return { ...item.options, checked: true };
+          }
+        }
       }
+      console.log("checlist value test", item);
       return item;
     });
 
