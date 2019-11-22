@@ -8,25 +8,25 @@ function Checklistfield(props) {
       <div className="form-b__check-main" key={props.inputLabel + "div"}>
         <label className="form-b__lable">{props.inputLabel}</label>
         {options.map(option => (
-          <React.Fragment key={option.optionState + "key"}>
+          <React.Fragment key={option.id + "key"}>
             <span key={props.inputLabel} className="tooltips-checklist">
               <div
                 className=" form-check form-b__check custom-control custom-checkbox"
-                key={option.optionState}
+                key={option.id}
               >
                 <input
                   className="form-check-input custom-control-input"
                   type="checkbox"
                   onChange={props.inputChange}
-                  name={option.optionState}
-                  id={option.optionState}
+                  name={option.id}
+                  id={option.id}
                   value={option.value}
                   checked={option.checked}
                 />
 
                 <label
                   className="form-check-label form-b__check-lable form-b__check-lable--checklist custom-control-label "
-                  htmlFor={option.optionState}
+                  htmlFor={option.id}
                 >
                   {option.optionLabel}
                 </label>

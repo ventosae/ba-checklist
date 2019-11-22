@@ -68,7 +68,7 @@ export const inputValuesForChecklist = [
       {
         optionLabel:
           "Make sure the new URL(s) are using keywords relevant to the page",
-        optionState: "urlKeyword",
+        id: "urlKeyword",
         value: "URLs are using keywords relevant to the page",
         checked: true,
         tooltiptext: [
@@ -80,7 +80,7 @@ export const inputValuesForChecklist = [
       },
       {
         optionLabel: "URL is within the structure of the website category",
-        optionState: "urlStrucutre",
+        id: "urlStrucutre",
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -90,7 +90,7 @@ export const inputValuesForChecklist = [
       },
       {
         optionLabel: "URL doesn’t have capital letters or special symbols",
-        optionState: "urlCapital",
+        id: "urlCapital",
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -128,7 +128,7 @@ export const inputValuesForChecklist = [
     options: [
       {
         optionLabel: "Title tag requirements are fulfilled",
-        optionState: "titleRequirements",
+        id: "titleRequirements",
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -138,7 +138,7 @@ export const inputValuesForChecklist = [
       },
       {
         optionLabel: "Description tag requirements are fulfilled",
-        optionState: "descriptionRequirements",
+        id: "descriptionRequirements",
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -148,7 +148,7 @@ export const inputValuesForChecklist = [
       },
       {
         optionLabel: "H1 tag requirements are fulfilled",
-        optionState: "h1Requirements",
+        id: "h1Requirements",
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -228,7 +228,7 @@ export const inputValuesForChecklist = [
   //   optionChecklist: [
   //     {
   //       optionLabel: "Title tag requirements are fulfilled",
-  //       optionState: "titleRequirements",
+  //       id: "titleRequirements",
   //       tooltiptext: [
   //         {
   //           tooltipComment: "Please provide info here",
@@ -238,7 +238,7 @@ export const inputValuesForChecklist = [
   //     },
   //     {
   //       optionLabel: "Description tag requirements are fulfilled",
-  //       optionState: "descriptionRequirements",
+  //       id: "descriptionRequirements",
   //       tooltiptext: [
   //         {
   //           tooltipComment: "Please provide info here",
@@ -248,7 +248,7 @@ export const inputValuesForChecklist = [
   //     },
   //     {
   //       optionLabel: "H1 tag requirements are fulfilled",
-  //       optionState: "h1Requirements",
+  //       id: "h1Requirements",
   //       tooltiptext: [
   //         {
   //           tooltipComment: "Please provide info here",
@@ -258,6 +258,50 @@ export const inputValuesForChecklist = [
   //     }
   //   ]
   // }
+];
+
+export const testData = [
+  {
+    type: "select",
+    inputLabel:
+      "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
+    isInputValid: "domainValid",
+    inputId: "domain",
+    errorMessage: "Please pick an answer",
+    value: "",
+    isValid: true,
+    options: [
+      "is located on separate subdomain/domain",
+      "is NOT located on subdomain/domain"
+    ],
+    tooltip: [
+      {
+        tooltipComment: "Please provide info here",
+        class: "123"
+      }
+    ]
+  },
+  {
+    type: "checklist",
+    label: "Web Page URL",
+    errorMessage: "Please pick an answer",
+
+    options: [
+      {
+        optionLabel:
+          "Make sure the new URL(s) are using keywords relevant to the page",
+        id: "urlKeyword",
+        value: "URLs are using keywords relevant to the page",
+        checked: true,
+        tooltiptext: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 export const inputValuesForAppChecklist = [

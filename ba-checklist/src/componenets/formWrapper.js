@@ -3,14 +3,15 @@ import {
   inputValuesForProject,
   inputValuesForChecklist,
   inputValuesForAppChecklist,
-  defaultState
+  defaultState,
+  testData
 } from "./formData.js";
 import Fieldsgenerator from "./fields-generator.js";
 import Button from "./button.js";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // const axios = require("axios");
-const FormFields = inputValuesForChecklist;
+const FormFields = testData;
 const urlSlack =
   "https://hooks.slack.com/services/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";
 
@@ -21,25 +22,26 @@ class FormWrapper extends Component {
 
   onChange = ev => {
     ev.preventDefault();
-    console.log("target value is", ev.target.value);
-    const myNewData = this.state.data.map(item => {
-      console.log(item.type);
-      if (item.type !== "checklist") {
-        if (item.inputId === ev.target.id) {
-          console.log(item.inputId);
-          return { ...item, value: ev.target.value }; //what's happening here?
-        }
-      } else if (item.type === "checklist") {
+    let myNewData;
+
+    myNewData = this.state.data.map(item => {
+      console.log("item type is", item.type);
+      if (item.type === "checklist") {
         debugger;
-        if (item.options[0].optionState === ev.target.id) {
+        if (item.options[0].id === ev.target.id) {
+          debugger;
           if (item.options[0].checked === true) {
-            return { ...item.options, checked: false };
+            return { ...item.options[0], checked: false };
           } else {
             return { ...item.options, checked: true };
           }
         }
+      } else if (item.inputId === ev.target.id) {
+        if (item.type !== "checklist") {
+          return { ...item, value: ev.target.value };
+        }
       }
-      console.log("checlist value test", item);
+      // console.log("checlist value test", item);
       return item;
     });
 
@@ -73,12 +75,14 @@ class FormWrapper extends Component {
   };
 
   validate = event => {
+    debugger;
+
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
     let valid = true;
     const fields = this.state.data;
-
+    console.log(eventId);
     if (targetType === "text") {
       let currentObject = fields.filter(item => {
         return item.inputId === eventId;
@@ -97,22 +101,26 @@ class FormWrapper extends Component {
     } else {
       let currentObjects = this.state.data;
       currentObjects.forEach(object => {
-        let itemId = object["inputId"];
-        let isInputValid = this.lenghValid(object["value"], itemId);
-        if (!isInputValid) {
-          currentObjects = this.mapData(
-            currentObjects,
-            object["inputId"],
-            false
-          );
-          valid = false;
-        } else {
-          currentObjects = this.mapData(
-            currentObjects,
-            object["inputId"],
-            true
-          );
-          valid = true;
+        if (object.type !== "checklist") {
+          let itemId = object["inputId"];
+          console.log("object[inputId]", object["inputId"]);
+          debugger;
+          let isInputValid = this.lenghValid(object["value"], itemId);
+          if (!isInputValid) {
+            currentObjects = this.mapData(
+              currentObjects,
+              object["inputId"],
+              false
+            );
+            valid = false;
+          } else {
+            currentObjects = this.mapData(
+              currentObjects,
+              object["inputId"],
+              true
+            );
+            valid = true;
+          }
         }
       });
       this.setState({ data: currentObjects });
