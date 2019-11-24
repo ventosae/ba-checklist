@@ -23,23 +23,23 @@ class FormWrapper extends Component {
   onChange = ev => {
     ev.preventDefault();
     let myNewData;
-
+    console.log(this.state.data);
     myNewData = this.state.data.map(item => {
       console.log("item type is", item.type);
       if (item.type === "checklist") {
-        debugger;
+        console.log("meow 1");
         if (item.options[0].id === ev.target.id) {
           debugger;
           if (item.options[0].checked === true) {
-            return { ...item.options[0], checked: false };
+            let temp = { ...item.options[0], checked: false };
+            return { ...item, options: temp };
           } else {
             return { ...item.options, checked: true };
           }
         }
       } else if (item.inputId === ev.target.id) {
-        if (item.type !== "checklist") {
-          return { ...item, value: ev.target.value };
-        }
+        console.log("meow 2");
+        return { ...item, value: ev.target.value };
       }
       // console.log("checlist value test", item);
       return item;
