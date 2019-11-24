@@ -21,9 +21,9 @@ class FormWrapper extends Component {
   };
 
   onChange = ev => {
-    ev.preventDefault();
+    ev.stopPropagation();
     let myNewData;
-    console.log(this.state.data);
+    console.log("the original state is",this.state.data);
     myNewData = this.state.data.map(item => {
       console.log("item type is", item.type);
       if (item.type === "checklist") {
@@ -31,10 +31,21 @@ class FormWrapper extends Component {
         if (item.options[0].id === ev.target.id) {
           debugger;
           if (item.options[0].checked === true) {
-            let temp = { ...item.options[0], checked: false };
-            return { ...item, options: temp };
-          } else {
-            return { ...item.options, checked: true };
+            return { 
+              ...item, 
+              options: [{
+                  ...item.options[0],
+                  checked:false
+              } ]
+          }
+          } else if (item.options[0].checked === false)  {
+            return { 
+              ...item, 
+              options: [{
+                  ...item.options[0],
+                  checked:true
+              } ]
+          }
           }
         }
       } else if (item.inputId === ev.target.id) {
@@ -42,12 +53,17 @@ class FormWrapper extends Component {
         return { ...item, value: ev.target.value };
       }
       // console.log("checlist value test", item);
+      console.log("and the item is", item)
       return item;
+      
     });
+
+    console.log(`and new MyNewData is`,myNewData)
 
     this.setState({
       data: myNewData
     });
+    
   };
 
   emailValid(key) {
