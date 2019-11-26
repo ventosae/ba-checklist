@@ -25,31 +25,31 @@ class FormWrapper extends Component {
     let myNewData;
     console.log("the original state is",this.state.data);
     myNewData = this.state.data.map(item => {
-      console.log("item type is", item.type);
       if (item.type === "checklist") {
-        console.log("meow 1");
-        if (item.options[0].id === ev.target.id) {
+        let i;
+        for (i = 0; i < item.options.length; i++) {
+        if (item.options[i].id === ev.target.id) {
           debugger;
-          if (item.options[0].checked === true) {
+          if (item.options[i].checked === true) {
             return { 
               ...item, 
               options: [{
-                  ...item.options[0],
+                  ...item.options[i],
                   checked:false
               } ]
           }
-          } else if (item.options[0].checked === false)  {
+          } else if (item.options[i].checked === false)  {
             return { 
               ...item, 
               options: [{
-                  ...item.options[0],
+                  ...item.options[i],
                   checked:true
               } ]
           }
           }
         }
-      } else if (item.inputId === ev.target.id) {
-        console.log("meow 2");
+      } }
+      else if (item.inputId === ev.target.id) {
         return { ...item, value: ev.target.value };
       }
       // console.log("checlist value test", item);

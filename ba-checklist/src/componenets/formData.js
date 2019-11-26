@@ -291,27 +291,18 @@ export const testData = [
           "Make sure the new URL(s) are using keywords relevant to the page",
         id: "urlKeyword",
         value: "URLs are using keywords relevant to the page",
-        
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
             class: "123"
           }
         ]
-      }
-    ]
-  }, 
-  {
-    type: "checklist",
-    label: "Web Page URL",
-    errorMessage: "Please pick an answer",
-    options: [
+      },
       {
-        optionLabel:
-          "Make sure the new URL(s) are using keywords relevant to the page",
-        id: "urlKeyword",
-        value: "URLs are using keywords relevant to the page",
-        
+        optionLabel: "Description tag requirements are fulfilled",
+        id: "descriptionRequirements",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
