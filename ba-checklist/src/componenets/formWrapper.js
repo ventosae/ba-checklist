@@ -20,6 +20,7 @@ class FormWrapper extends Component {
     data: FormFields
   };
 
+<<<<<<< HEAD
   onChange = ev => {
     ev.stopPropagation();
     let myNewData;
@@ -50,8 +51,21 @@ class FormWrapper extends Component {
         }
       } }
       else if (item.inputId === ev.target.id) {
+=======
+  inputEqualTarget(event, input) {
+    return event === input;
+  }
+
+  updateInputs(ev) {
+    let result;
+    result = this.state.data.map(item => {
+      if (this.inputEqualTarget(ev.target.id, item.inputId)) {
+>>>>>>> 169a1096eb9ba7cd09674d685c506208c5810dcd
         return { ...item, value: ev.target.value };
+      } else {
+        return item;
       }
+<<<<<<< HEAD
       // console.log("checlist value test", item);
       console.log("and the item is", item)
       return item;
@@ -59,6 +73,41 @@ class FormWrapper extends Component {
     });
 
     console.log(`and new MyNewData is`,myNewData)
+=======
+    });
+
+    return result;
+  }
+
+  checkboxInChecklist(ev) {
+    debugger;
+    return ev.options.some(item => item.id === ev.target.id);
+  }
+
+  updateChecklist(ev) {
+    let result;
+    result = this.state.data.map(item => {
+      if (this.checkboxInChecklist(item)) {
+        console.log("move forward");
+      } else {
+        return item;
+      }
+    });
+
+    return result;
+  }
+
+  onChange = ev => {
+    ev.preventDefault();
+    let myNewData;
+    console.log("event type is", ev.target.type);
+    if (ev.target.type != "checkbox") {
+      myNewData = this.updateInputs(ev);
+    } else {
+      console.log("new data checklist", myNewData);
+      this.updateChecklist(ev);
+    }
+>>>>>>> 169a1096eb9ba7cd09674d685c506208c5810dcd
 
     this.setState({
       data: myNewData
@@ -91,8 +140,6 @@ class FormWrapper extends Component {
   };
 
   validate = event => {
-    debugger;
-
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
@@ -120,7 +167,6 @@ class FormWrapper extends Component {
         if (object.type !== "checklist") {
           let itemId = object["inputId"];
           console.log("object[inputId]", object["inputId"]);
-          debugger;
           let isInputValid = this.lenghValid(object["value"], itemId);
           if (!isInputValid) {
             currentObjects = this.mapData(
@@ -274,12 +320,3 @@ class FormWrapper extends Component {
 }
 
 export default FormWrapper;
-
-// const SEOChecklist = function() {
-//   function sendToSlack(data) {
-//     // send data to slack
-//     axios.post("url", { data });
-//   }
-
-//   return <FormWrapper send={sendToSlack} />;
-// };
