@@ -20,30 +20,51 @@ class FormWrapper extends Component {
     data: FormFields
   };
 
+  inputEqualTarget(event, input) {
+    return event === input;
+  }
+
+  updateInputs(ev) {
+    let result;
+    result = this.state.data.map(item => {
+      if (this.inputEqualTarget(ev.target.id, item.inputId)) {
+        return { ...item, value: ev.target.value };
+      } else {
+        return item;
+      }
+    });
+
+    return result;
+  }
+
+  checkboxInChecklist(ev) {
+    debugger;
+    return ev.options.some(item => item.id === ev.target.id);
+  }
+
+  updateChecklist(ev) {
+    let result;
+    result = this.state.data.map(item => {
+      if (this.checkboxInChecklist(item)) {
+        console.log("move forward");
+      } else {
+        return item;
+      }
+    });
+
+    return result;
+  }
+
   onChange = ev => {
     ev.preventDefault();
     let myNewData;
-    console.log(this.state.data);
-    myNewData = this.state.data.map(item => {
-      console.log("item type is", item.type);
-      if (item.type === "checklist") {
-        console.log("meow 1");
-        if (item.options[0].id === ev.target.id) {
-          debugger;
-          if (item.options[0].checked === true) {
-            let temp = { ...item.options[0], checked: false };
-            return { ...item, options: temp };
-          } else {
-            return { ...item.options, checked: true };
-          }
-        }
-      } else if (item.inputId === ev.target.id) {
-        console.log("meow 2");
-        return { ...item, value: ev.target.value };
-      }
-      // console.log("checlist value test", item);
-      return item;
-    });
+    console.log("event type is", ev.target.type);
+    if (ev.target.type != "checkbox") {
+      myNewData = this.updateInputs(ev);
+    } else {
+      console.log("new data checklist", myNewData);
+      this.updateChecklist(ev);
+    }
 
     this.setState({
       data: myNewData
@@ -75,8 +96,6 @@ class FormWrapper extends Component {
   };
 
   validate = event => {
-    debugger;
-
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
@@ -104,7 +123,6 @@ class FormWrapper extends Component {
         if (object.type !== "checklist") {
           let itemId = object["inputId"];
           console.log("object[inputId]", object["inputId"]);
-          debugger;
           let isInputValid = this.lenghValid(object["value"], itemId);
           if (!isInputValid) {
             currentObjects = this.mapData(
@@ -258,12 +276,3 @@ class FormWrapper extends Component {
 }
 
 export default FormWrapper;
-
-// const SEOChecklist = function() {
-//   function sendToSlack(data) {
-//     // send data to slack
-//     axios.post("url", { data });
-//   }
-
-//   return <FormWrapper send={sendToSlack} />;
-// };

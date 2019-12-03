@@ -282,11 +282,38 @@ export const testData = [
     ]
   },
   {
+    type: "input",
+    inputLabel: "Project Name",
+    inputId: "projectName",
+    inputPlaceholder: "Project Name",
+    errorMessage: "Plese enter project name",
+    value: "",
+    isValid: true,
+    tooltip: [
+      {
+        tooltipComment: "Please provide info here",
+        class: "123"
+      }
+    ]
+  },
+  {
     type: "checklist",
     label: "Web Page URL",
     errorMessage: "Please pick an answer",
-
     options: [
+      {
+        optionLabel:
+          "Make sure the new URL(s) are using keywords relevant to the page",
+        id: "urlKeyword123",
+        value: "URLs are using keywords relevant to the page",
+        checked: true,
+        tooltiptext: [
+          {
+            tooltipComment: "Please provide info here",
+            class: "123"
+          }
+        ]
+      },
       {
         optionLabel:
           "Make sure the new URL(s) are using keywords relevant to the page",
