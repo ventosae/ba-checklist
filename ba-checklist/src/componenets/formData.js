@@ -300,13 +300,14 @@ export const testData = [
     type: "checklist",
     label: "Web Page URL",
     errorMessage: "Please pick an answer",
+    inputId: "WebPageURL",
     options: [
       {
         optionLabel:
           "Make sure the new URL(s) are using keywords relevant to the page",
         id: "urlKeyword123",
         value: "URLs are using keywords relevant to the page",
-        checked: true,
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",

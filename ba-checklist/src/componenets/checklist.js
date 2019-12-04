@@ -17,10 +17,10 @@ function Checklistfield(props) {
                 <input
                   className="form-check-input custom-control-input"
                   type="checkbox"
-                  onClick={props.inputChange}
+                  onChange={props.inputChange}
                   name={option.id}
                   id={option.id}
-                  value={option.value}
+                  value={option.checked}
                   checked={option.checked}
                 />
 

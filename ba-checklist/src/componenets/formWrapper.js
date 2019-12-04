@@ -20,99 +20,87 @@ class FormWrapper extends Component {
     data: FormFields
   };
 
-<<<<<<< HEAD
-  onChange = ev => {
-    ev.stopPropagation();
-    let myNewData;
-    console.log("the original state is",this.state.data);
-    myNewData = this.state.data.map(item => {
-      if (item.type === "checklist") {
-        let i;
-        for (i = 0; i < item.options.length; i++) {
-        if (item.options[i].id === ev.target.id) {
-          debugger;
-          if (item.options[i].checked === true) {
-            return { 
-              ...item, 
-              options: [{
-                  ...item.options[i],
-                  checked:false
-              } ]
-          }
-          } else if (item.options[i].checked === false)  {
-            return { 
-              ...item, 
-              options: [{
-                  ...item.options[i],
-                  checked:true
-              } ]
-          }
-          }
-        }
-      } }
-      else if (item.inputId === ev.target.id) {
-=======
   inputEqualTarget(event, input) {
     return event === input;
   }
 
   updateInputs(ev) {
     let result;
+    console.log('So we are will loop through an array with length of ', this.state.data.length)
     result = this.state.data.map(item => {
-      if (this.inputEqualTarget(ev.target.id, item.inputId)) {
->>>>>>> 169a1096eb9ba7cd09674d685c506208c5810dcd
-        return { ...item, value: ev.target.value };
-      } else {
-        return item;
-      }
-<<<<<<< HEAD
-      // console.log("checlist value test", item);
-      console.log("and the item is", item)
-      return item;
       
-    });
-
-    console.log(`and new MyNewData is`,myNewData)
-=======
-    });
-
-    return result;
-  }
-
-  checkboxInChecklist(ev) {
-    debugger;
-    return ev.options.some(item => item.id === ev.target.id);
-  }
-
-  updateChecklist(ev) {
-    let result;
-    result = this.state.data.map(item => {
-      if (this.checkboxInChecklist(item)) {
-        console.log("move forward");
+      if (ev.target.id === item.inputId) {
+        console.log("is the target id equal to the item inputId ", (ev.target.id === item.inputId))
+        const updatedItem = { ...item, value: ev.target.value }
+        console.log("the updated item is ", updatedItem)
+        return updatedItem;
       } else {
         return item;
       }
     });
 
     return result;
+  }
+
+ 
+
+  checkboxInChecklist(ev, obj) {
+     return obj.options.some(item => item.id === ev.target.id);
+  }
+
+  findChecklistIntTheFormData(ev) {
+    let result;
+    return 
   }
 
   onChange = ev => {
-    ev.preventDefault();
-    let myNewData;
-    console.log("event type is", ev.target.type);
-    if (ev.target.type != "checkbox") {
-      myNewData = this.updateInputs(ev);
-    } else {
-      console.log("new data checklist", myNewData);
-      this.updateChecklist(ev);
-    }
->>>>>>> 169a1096eb9ba7cd09674d685c506208c5810dcd
-
-    this.setState({
-      data: myNewData
-    });
+    ev.stopPropagation();
+    console.log("The first time the change is handled")
+    let updatedState;
     
+    if (ev.target.type !== "checkbox") {
+      console.log("the event type is should be 'checkbox' ", ev.target.type !== 'checkbox');
+      updatedState = this.updateInputs(ev);
+    } else {
+
+
+       const checkList = this.state.data.find(item => item.type === 'checklist')
+ 
+      const triggeredCheckBox = checkList.options.find(item => item.id === ev.target.id)
+
+     
+      const updatedCheckbox = {...triggeredCheckBox, checked: !triggeredCheckBox.checked };
+
+  
+      const checkboxIndex = checkList.options.findIndex(item => item.id === ev.target.id);
+      
+ 
+
+      checkList.options[checkboxIndex] = updatedCheckbox
+     
+ 
+      const checklistIndex = this.state.data.findIndex(item => item.inputId === checkList.inputId) 
+
+      const updatedData = this.state.data
+      updatedData[checklistIndex] = checkList
+ 
+
+    
+     
+      updatedState = updatedData
+      console.log('we have are  updatedState tada ', updatedState)
+    
+    }
+  
+    console.log('we have are  myNewData tada ', updatedState)
+
+
+    console.log('OLD STATE', this.state.data)
+
+    
+    this.setState({ data: updatedState }, console.log('NEWS STATE', updatedState));
+    
+     
   };
 
   emailValid(key) {
