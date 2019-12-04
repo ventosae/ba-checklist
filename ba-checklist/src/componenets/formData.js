@@ -63,14 +63,14 @@ export const inputValuesForChecklist = [
   {
     type: "checklist",
     label: "Web Page URL",
-    errorMessage: "Please pick an answer",
+    inputId: "WebPageURL",
     options: [
       {
         optionLabel:
           "Make sure the new URL(s) are using keywords relevant to the page",
         id: "urlKeyword",
         value: "URLs are using keywords relevant to the page",
-        checked: true,
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -81,6 +81,7 @@ export const inputValuesForChecklist = [
       {
         optionLabel: "URL is within the structure of the website category",
         id: "urlStrucutre",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -91,6 +92,7 @@ export const inputValuesForChecklist = [
       {
         optionLabel: "URL doesn’t have capital letters or special symbols",
         id: "urlCapital",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -124,11 +126,12 @@ export const inputValuesForChecklist = [
   {
     type: "checklist",
     label: "Meta Data",
-    value: "",
+    inputId: "MetaData",
     options: [
       {
         optionLabel: "Title tag requirements are fulfilled",
         id: "titleRequirements",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -139,6 +142,7 @@ export const inputValuesForChecklist = [
       {
         optionLabel: "Description tag requirements are fulfilled",
         id: "descriptionRequirements",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -149,6 +153,7 @@ export const inputValuesForChecklist = [
       {
         optionLabel: "H1 tag requirements are fulfilled",
         id: "h1Requirements",
+        checked: false,
         tooltiptext: [
           {
             tooltipComment: "Please provide info here",
@@ -205,59 +210,6 @@ export const inputValuesForChecklist = [
     id: "content",
     value: ""
   }
-  // {
-  //   type: "select+checklist",
-  //   inputLabel: "Page Load Speed1123",
-  //   errorMessage: "Please pick an answer",
-  //   isInputValid: "pagespeedValid",
-  //   value: "",
-  //   isValid: true,
-  //   inputId: "pagespeed1",
-  //   options: [
-  //     "Page load speed is considered as per overall Sportsbet standard",
-  //     "Page load speed is NOT considered as per overall Sportsbet standard",
-  //     "Not Sure"
-  //   ],
-  //   tooltip: [
-  //     {
-  //       tooltipComment: "Please provide info here",
-  //       class: "123"
-  //     }
-  //   ],
-  //   labelChecklist: "Meta Data1",
-  //   optionChecklist: [
-  //     {
-  //       optionLabel: "Title tag requirements are fulfilled",
-  //       id: "titleRequirements",
-  //       tooltiptext: [
-  //         {
-  //           tooltipComment: "Please provide info here",
-  //           class: "123"
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       optionLabel: "Description tag requirements are fulfilled",
-  //       id: "descriptionRequirements",
-  //       tooltiptext: [
-  //         {
-  //           tooltipComment: "Please provide info here",
-  //           class: "123"
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       optionLabel: "H1 tag requirements are fulfilled",
-  //       id: "h1Requirements",
-  //       tooltiptext: [
-  //         {
-  //           tooltipComment: "Please provide info here",
-  //           class: "123"
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
 ];
 
 export const testData = [

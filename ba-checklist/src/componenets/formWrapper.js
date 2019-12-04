@@ -10,8 +10,7 @@ import Fieldsgenerator from "./fields-generator.js";
 import Button from "./button.js";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-// const axios = require("axios");
-const FormFields = testData;
+const FormFields = inputValuesForChecklist;
 const urlSlack =
   "https://hooks.slack.com/services/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";
 
@@ -26,13 +25,14 @@ class FormWrapper extends Component {
 
   updateInputs(ev) {
     let result;
-    console.log('So we are will loop through an array with length of ', this.state.data.length)
+    console.log(
+      "So we are will loop through an array with length of ",
+      this.state.data.length
+    );
     result = this.state.data.map(item => {
-      
       if (ev.target.id === item.inputId) {
-        console.log("is the target id equal to the item inputId ", (ev.target.id === item.inputId))
-        const updatedItem = { ...item, value: ev.target.value }
-        console.log("the updated item is ", updatedItem)
+        const updatedItem = { ...item, value: ev.target.value };
+
         return updatedItem;
       } else {
         return item;
@@ -42,65 +42,44 @@ class FormWrapper extends Component {
     return result;
   }
 
- 
-
-  checkboxInChecklist(ev, obj) {
-     return obj.options.some(item => item.id === ev.target.id);
-  }
-
-  findChecklistIntTheFormData(ev) {
-    let result;
-    return 
-  }
-
   onChange = ev => {
     ev.stopPropagation();
-    console.log("The first time the change is handled")
     let updatedState;
-    
     if (ev.target.type !== "checkbox") {
-      console.log("the event type is should be 'checkbox' ", ev.target.type !== 'checkbox');
+      console.log(
+        "the event type is should be 'checkbox' ",
+        ev.target.type !== "checkbox"
+      );
       updatedState = this.updateInputs(ev);
     } else {
+      const checkListSelection = this.state.data.filter(
+        item => item.type === "checklist"
+      );
 
+      let checkList = checkListSelection.find(
+        item => item.inputId === ev.target.parentElement.id
+      );
 
-       const checkList = this.state.data.find(item => item.type === 'checklist')
- 
-      const triggeredCheckBox = checkList.options.find(item => item.id === ev.target.id)
-
-     
-      const updatedCheckbox = {...triggeredCheckBox, checked: !triggeredCheckBox.checked };
-
-  
-      const checkboxIndex = checkList.options.findIndex(item => item.id === ev.target.id);
-      
- 
-
-      checkList.options[checkboxIndex] = updatedCheckbox
-     
- 
-      const checklistIndex = this.state.data.findIndex(item => item.inputId === checkList.inputId) 
-
-      const updatedData = this.state.data
-      updatedData[checklistIndex] = checkList
- 
-
-    
-     
-      updatedState = updatedData
-      console.log('we have are  updatedState tada ', updatedState)
-    
+      debugger;
+      const triggeredCheckBox = checkList.options.find(
+        item => item.id === ev.target.id
+      );
+      const updatedCheckbox = {
+        ...triggeredCheckBox,
+        checked: !triggeredCheckBox.checked
+      };
+      const checkboxIndex = checkList.options.findIndex(
+        item => item.id === ev.target.id
+      );
+      checkList.options[checkboxIndex] = updatedCheckbox;
+      const checklistIndex = this.state.data.findIndex(
+        item => item.inputId === checkList.inputId
+      );
+      const updatedData = this.state.data;
+      updatedData[checklistIndex] = checkList;
+      updatedState = updatedData;
     }
-  
-    console.log('we have are  myNewData tada ', updatedState)
-
-
-    console.log('OLD STATE', this.state.data)
-
-    
-    this.setState({ data: updatedState }, console.log('NEWS STATE', updatedState));
-    
-     
+    this.setState({ data: updatedState });
   };
 
   emailValid(key) {

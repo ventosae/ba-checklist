@@ -13,6 +13,7 @@ function Checklistfield(props) {
               <div
                 className=" form-check form-b__check custom-control custom-checkbox"
                 key={option.id}
+                id={props.inputId}
               >
                 <input
                   className="form-check-input custom-control-input"
