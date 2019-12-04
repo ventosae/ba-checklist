@@ -46,21 +46,14 @@ class FormWrapper extends Component {
     ev.stopPropagation();
     let updatedState;
     if (ev.target.type !== "checkbox") {
-      console.log(
-        "the event type is should be 'checkbox' ",
-        ev.target.type !== "checkbox"
-      );
       updatedState = this.updateInputs(ev);
     } else {
       const checkListSelection = this.state.data.filter(
         item => item.type === "checklist"
       );
-
       let checkList = checkListSelection.find(
         item => item.inputId === ev.target.parentElement.id
       );
-
-      debugger;
       const triggeredCheckBox = checkList.options.find(
         item => item.id === ev.target.id
       );
