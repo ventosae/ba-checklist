@@ -190,7 +190,7 @@ class FormWrapper extends Component {
     };
 
     let textObj = values.map(value => {
-      if (value.type != "checklist") {
+      if (value.type !== "checkbox") {
         return {
           type: "section",
           fields: [
