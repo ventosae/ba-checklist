@@ -10,9 +10,9 @@ import Fieldsgenerator from "./fields-generator.js";
 import Button from "./button.js";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-const FormFields = inputValuesForChecklist;
+const FormFields = testData;
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 class FormWrapper extends Component {
   state = {
@@ -25,10 +25,6 @@ class FormWrapper extends Component {
 
   updateInputs(ev) {
     let result;
-    console.log(
-      "So we are will loop through an array with length of ",
-      this.state.data.length
-    );
     result = this.state.data.map(item => {
       if (ev.target.id === item.inputId) {
         const updatedItem = { ...item, value: ev.target.value };
@@ -104,12 +100,13 @@ class FormWrapper extends Component {
     let targetType = event.target.type;
     let eventId = event.target.name;
     let valid = true;
+
     const fields = this.state.data;
-    console.log(eventId);
     if (targetType === "text") {
       let currentObject = fields.filter(item => {
         return item.inputId === eventId;
       });
+
       let inputValueText = currentObject[0]["value"];
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
@@ -123,10 +120,10 @@ class FormWrapper extends Component {
       }
     } else {
       let currentObjects = this.state.data;
+
       currentObjects.forEach(object => {
-        if (object.type !== "checklist") {
+        if (object.type !== "checklist" && object.type !== "textarea") {
           let itemId = object["inputId"];
-          console.log("object[inputId]", object["inputId"]);
           let isInputValid = this.lenghValid(object["value"], itemId);
           if (!isInputValid) {
             currentObjects = this.mapData(
@@ -147,6 +144,7 @@ class FormWrapper extends Component {
       });
       this.setState({ data: currentObjects });
     }
+
     return valid;
   };
 
@@ -162,20 +160,6 @@ class FormWrapper extends Component {
     }
   }
 
-  handleSubmit = ev => {
-    ev.preventDefault();
-
-    // this.validate();
-
-    // Do your validation
-    // if you want to change anything in your data change it
-
-    // if all is validated send
-    // this.props.send(this.state.data);
-    console.log(this.SlackMrkdwn());
-    this.sendToSlack();
-  };
-
   SlackMrkdwn() {
     let values = this.state.data;
     let topMessage = {
@@ -190,7 +174,7 @@ class FormWrapper extends Component {
     };
 
     let textObj = values.map(value => {
-      if (value.type !== "checkbox") {
+      if (value.type !== "checklist") {
         return {
           type: "section",
           fields: [
@@ -205,11 +189,50 @@ class FormWrapper extends Component {
           ]
         };
       } else {
+        return {
+          type: "section",
+          fields: [
+            {
+              type: "mrkdwn",
+              text: "*" + value.label + "*"
+            },
+            {
+              type: "plain_text",
+              text: ""
+            },
+            {
+              type: "plain_text",
+              text: value.options[0].optionLabel
+            },
+            {
+              type: "plain_text",
+              text: value.options[0].checked.toString()
+            },
+            {
+              type: "plain_text",
+              text: value.options[1].optionLabel
+            },
+            {
+              type: "plain_text",
+              text: value.options[1].checked.toString()
+            },
+            {
+              type: "plain_text",
+              text: value.options[2].optionLabel
+            },
+            {
+              type: "plain_text",
+              text: value.options[2].checked.toString()
+            }
+          ]
+        };
       }
     });
+
     textObj.unshift(topMessage);
     let objFinal = { blocks: textObj };
     textObj.push(devider);
+    console.log("Slack Final Object", objFinal);
     return objFinal;
   }
 
@@ -225,8 +248,8 @@ class FormWrapper extends Component {
     let slackText;
 
     slackText = this.SlackMrkdwn();
-
     console.log(slackText);
+
     const stateText = JSON.stringify(slackText);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
       "Content-Type": "application/json"
@@ -243,6 +266,16 @@ class FormWrapper extends Component {
       .catch(function(error) {
         console.error("Fetch brings an error. And it is", error);
       });
+  };
+
+  handleSubmit = ev => {
+    ev.preventDefault();
+    let valid;
+    valid = this.validate(ev);
+    console.log("handleSubmit validation is", valid);
+    if (valid) {
+      this.sendToSlack();
+    }
   };
 
   render() {
