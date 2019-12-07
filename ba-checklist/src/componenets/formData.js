@@ -205,10 +205,9 @@ export const inputValuesForChecklist = [
   },
   {
     type: "textarea",
-    inputChange: "this.handleInputChange",
     label: "Any onther information which might be usefull for the team?",
-    id: "content",
-    value: ""
+    inputId: "comment-web",
+    value: " "
   }
 ];
 
