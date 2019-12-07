@@ -13,11 +13,11 @@ import FormWrapper from "./formWrapper.js";
 
 const FormFields = inputValuesForProject;
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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s";
 
 class SeoChecklist extends Component {
   state = {
-    data: FormFields
+    projectValue: inputValuesForProject
   };
 
   getName = () => {
@@ -34,9 +34,11 @@ class SeoChecklist extends Component {
     this.setState({ renderChecklist: eventId });
   };
 
-  updateInputs(ev) {
+  updateInputs(ev, stateValues) {
     let result;
-    result = this.state.data.map(item => {
+    let stateValue = this.state[stateValues];
+
+    result = stateValue.map(item => {
       if (ev.target.id === item.inputId) {
         const updatedItem = { ...item, value: ev.target.value };
 
@@ -49,13 +51,16 @@ class SeoChecklist extends Component {
     return result;
   }
 
-  onChange = ev => {
+  onChange = (ev, stateValues) => {
     ev.stopPropagation();
     let updatedState;
+
+    console.log("test state", this.state[stateValues]);
     if (ev.target.type !== "checkbox") {
-      updatedState = this.updateInputs(ev);
+      updatedState = this.updateInputs(ev, stateValues);
+      debugger;
     } else {
-      const checkListSelection = this.state.data.filter(
+      const checkListSelection = this.state[stateValues].filter(
         item => item.type === "checklist"
       );
       let checkList = checkListSelection.find(
@@ -72,14 +77,14 @@ class SeoChecklist extends Component {
         item => item.id === ev.target.id
       );
       checkList.options[checkboxIndex] = updatedCheckbox;
-      const checklistIndex = this.state.data.findIndex(
+      const checklistIndex = this.state[stateValues].findIndex(
         item => item.inputId === checkList.inputId
       );
-      const updatedData = this.state.data;
+      const updatedData = this.state[stateValues];
       updatedData[checklistIndex] = checkList;
       updatedState = updatedData;
     }
-    this.setState({ data: updatedState });
+    this.setState({ [stateValues]: updatedState });
   };
 
   emailValid(key) {
@@ -106,7 +111,7 @@ class SeoChecklist extends Component {
     return mapResult;
   };
 
-  validate = event => {
+  validate = (event, stateValues) => {
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
@@ -329,9 +334,11 @@ class SeoChecklist extends Component {
     return (
       <>
         <FormWrapper
-          onChange={this.onChange}
+          onChange={e => {
+            this.onChange(e, "projectValue");
+          }}
           validateOnBlur={this.validateOnBlur}
-          values={this.state.data}
+          values={this.state.projectValue}
           button={true}
           submitHandlerProps={this.handleSubmit}
           name={"Project Information"}
