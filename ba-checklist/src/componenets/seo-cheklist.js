@@ -11,13 +11,16 @@ import Appchecklist from "./appChecklist";
 import Textblock from "./textBlock";
 import FormWrapper from "./formWrapper.js";
 
-const FormFields = inputValuesForProject;
 const urlSlack =
-  "https://hooks.slack.com/services/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s";
+  "https://hooks.slack.com/services/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";
 
 class SeoChecklist extends Component {
   state = {
-    projectValue: inputValuesForProject
+    projectValue: inputValuesForProject,
+    checklistValue: inputValuesForChecklist,
+    appChecklistValue: inputValuesForAppChecklist,
+    displayProjectValue: true,
+    displayThanks: false
   };
 
   getName = () => {
@@ -27,6 +30,14 @@ class SeoChecklist extends Component {
 
   stateDefaultHandler = () => {
     this.setState(defaultState);
+  };
+
+  appSelectorValidator = () => {
+    debugger;
+    let nameValid = this.lenghValid(this.state.projectValue[0].value, "text");
+    let emailValid = this.lenghValid(this.state.projectValue[1].value, "text");
+    let renderAppSelector = nameValid && emailValid ? true : false;
+    this.setState({ displayAppChecklist: renderAppSelector });
   };
 
   tabHandler = event => {
@@ -58,7 +69,6 @@ class SeoChecklist extends Component {
     console.log("test state", this.state[stateValues]);
     if (ev.target.type !== "checkbox") {
       updatedState = this.updateInputs(ev, stateValues);
-      debugger;
     } else {
       const checkListSelection = this.state[stateValues].filter(
         item => item.type === "checklist"
@@ -116,8 +126,9 @@ class SeoChecklist extends Component {
     let targetType = event.target.type;
     let eventId = event.target.name;
     let valid = true;
-
-    const fields = this.state.data;
+    let stateValidName = stateValues + "Valid";
+    console.log("stateValidName", stateValidName);
+    const fields = this.state[stateValues];
     if (targetType === "text") {
       let currentObject = fields.filter(item => {
         return item.inputId === eventId;
@@ -126,16 +137,25 @@ class SeoChecklist extends Component {
       let inputValueText = currentObject[0]["value"];
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
-        const myNewData = this.mapData(this.state.data, event.target.id, false);
-        this.setState({ data: myNewData });
+        const myNewData = this.mapData(
+          this.state[stateValues],
+          event.target.id,
+          false
+        );
+        this.setState({ [stateValues]: myNewData });
+        this.setState({ stateValues: false });
         valid = false;
       } else {
-        const myNewData = this.mapData(this.state.data, event.target.id, true);
-        this.setState({ data: myNewData });
+        const myNewData = this.mapData(
+          this.state[stateValues],
+          event.target.id,
+          true
+        );
+        this.setState({ [stateValues]: myNewData });
         valid = true;
       }
     } else {
-      let currentObjects = this.state.data;
+      let currentObjects = this.state[stateValues];
       currentObjects.forEach(object => {
         if (object.type !== "checklist" && object.type !== "textarea") {
           let itemId = object["inputId"];
@@ -157,13 +177,13 @@ class SeoChecklist extends Component {
           }
         }
       });
-      this.setState({ data: currentObjects });
+      this.setState({ [stateValues]: currentObjects });
     }
 
     return valid;
   };
 
-  validateOnBlur = event => {
+  validateOnBlur = (event, stateValues) => {
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
@@ -174,16 +194,24 @@ class SeoChecklist extends Component {
       let inputValueText = eventValue;
       let isInputValid = this.lenghValid(inputValueText, eventId);
       if (!isInputValid) {
-        const myNewData = this.mapData(this.state.data, event.target.id, false);
+        const myNewData = this.mapData(
+          this.state[stateValues],
+          event.target.id,
+          false
+        );
         this.setState({ data: myNewData });
         valid = false;
       } else {
-        const myNewData = this.mapData(this.state.data, event.target.id, true);
-        this.setState({ data: myNewData });
+        const myNewData = this.mapData(
+          this.state[stateValues],
+          event.target.id,
+          true
+        );
+        this.setState({ [stateValues]: myNewData });
         valid = true;
       }
     } else {
-      let currentObjects = this.state.data;
+      let currentObjects = this.state[stateValues];
       if (targetType !== "checklist" && targetType !== "textarea") {
         let itemId = event.target.id;
         let isInputValid = this.lenghValid(eventValue, itemId);
@@ -195,8 +223,9 @@ class SeoChecklist extends Component {
           valid = true;
         }
       }
-      this.setState({ data: currentObjects });
+      this.setState({ [stateValues]: currentObjects });
     }
+    this.appSelectorValidator();
     return valid;
   };
 
@@ -213,7 +242,7 @@ class SeoChecklist extends Component {
   }
 
   SlackMrkdwn() {
-    let values = this.state.data;
+    let values = [...this.state.projectValue, ...this.state.checklistValue];
     let topMessage = {
       type: "section",
       text: {
@@ -319,14 +348,15 @@ class SeoChecklist extends Component {
       });
   };
 
-  handleSubmit = ev => {
+  handleSubmit = (ev, stateValues) => {
     console.log("submitting");
     ev.preventDefault();
     let valid;
-    valid = this.validate(ev);
+    valid = this.validate(ev, stateValues);
 
     if (valid) {
       this.sendToSlack();
+      this.setState({ displayProjectValue: false, displayThanks: true });
     }
   };
 
@@ -337,12 +367,23 @@ class SeoChecklist extends Component {
           onChange={e => {
             this.onChange(e, "projectValue");
           }}
-          validateOnBlur={this.validateOnBlur}
+          validateOnBlur={e => {
+            this.validateOnBlur(e, "projectValue");
+          }}
           values={this.state.projectValue}
-          button={true}
-          submitHandlerProps={this.handleSubmit}
+          button={false}
+          submitHandlerProps={e => {
+            this.handleSubmit(e, "projectValue");
+          }}
           name={"Project Information"}
         />
+
+        <AppSelector
+          tabChangeHandler={this.tabHandler}
+          renderApp={this.state.displayAppChecklist}
+        />
+
+        
 
         {/* {this.state.renderChecklist === "thanks" ? (
           <Textblock
@@ -362,33 +403,9 @@ class SeoChecklist extends Component {
           blurHadnler={this.handleImput}
           renderInputForm={this.state.renderProjectInformation}
         />
-        {this.state.emailValidRender === true &&
-        this.state.projectNameValidRender === true ? (
-          <AppSelector
-            tabChangeHandler={this.tabHandler}
-            renderApp={this.state.renderAppSelector}
-          />
-        ) : null}
 
-        {this.state.renderChecklist === "web" ? (
-          <Inputsform
-            changeListener={this.handleInputChange}
-            inputValues={inputValuesForChecklist}
-            formTitle="Please fill a Checklist below"
-            submitButton={true}
-            sbumitHandler={this.sbumitReply}
-            renderInputForm={true}
-            selectChecklistFlag={this.state.selectChecklistShow}
-          />
-        ) : this.state.renderChecklist === "app" ? (
-          <Appchecklist
-            changeListener={this.handleInputChange}
-            inputValues={inputValuesForAppChecklist}
-            formTitle="It's a little bit different for apps!"
-            submitButton={true}
-            sbumitHandler={this.sbumitReply}
-          />
-        ) : null} */}
+
+
       </>
     );
   }
