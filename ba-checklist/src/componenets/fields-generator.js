@@ -29,7 +29,7 @@ function Fieldsgenerator(props) {
       return (
         <Textarea
           label={value.label}
-          id={value.inputId}
+          inputId={value.inputId}
           key={value.inputId + "key"}
           changeHandler={changeListener}
           value={value.value}

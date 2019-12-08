@@ -20,7 +20,7 @@ class SeoChecklist extends Component {
     checklistValue: inputValuesForChecklist,
     appChecklistValue: inputValuesForAppChecklist,
     displayProjectValue: true,
-    displayThanks: false
+    displayInputProject: true
   };
 
   getName = () => {
@@ -33,7 +33,6 @@ class SeoChecklist extends Component {
   };
 
   appSelectorValidator = () => {
-    debugger;
     let nameValid = this.lenghValid(this.state.projectValue[0].value, "text");
     let emailValid = this.lenghValid(this.state.projectValue[1].value, "text");
     let renderAppSelector = nameValid && emailValid ? true : false;
@@ -65,8 +64,6 @@ class SeoChecklist extends Component {
   onChange = (ev, stateValues) => {
     ev.stopPropagation();
     let updatedState;
-
-    console.log("test state", this.state[stateValues]);
     if (ev.target.type !== "checkbox") {
       updatedState = this.updateInputs(ev, stateValues);
     } else {
@@ -242,13 +239,32 @@ class SeoChecklist extends Component {
   }
 
   SlackMrkdwn() {
-    let values = [...this.state.projectValue, ...this.state.checklistValue];
+    let values;
+    if (this.state.renderChecklist !== "app") {
+      values = [...this.state.projectValue, ...this.state.checklistValue];
+    } else {
+      values = [...this.state.projectValue, ...this.state.appChecklistValue];
+    }
     let topMessage = {
       type: "section",
       text: {
         type: "mrkdwn",
         text: "⚡G'day we have a reply!⚡"
       }
+    };
+
+    let typeMessage = {
+      type: "section",
+      fields: [
+        {
+          type: "mrkdwn",
+          text: "Okay, is it App or Web? It is:"
+        },
+        {
+          type: "plain_text",
+          text: this.state.renderChecklist
+        }
+      ]
     };
     let devider = {
       type: "divider"
@@ -310,6 +326,7 @@ class SeoChecklist extends Component {
       }
     });
 
+    textObj.unshift(typeMessage);
     textObj.unshift(topMessage);
     let objFinal = { blocks: textObj };
     textObj.push(devider);
@@ -338,8 +355,8 @@ class SeoChecklist extends Component {
         response.status === 0
           ? this.setState({
               renderChecklist: "thanks",
-              renderAppSelector: false,
-              renderProjectInformation: false
+              displayAppChecklist: false,
+              displayInputProject: false
             })
           : this.renderChecklist
       )
@@ -356,36 +373,13 @@ class SeoChecklist extends Component {
 
     if (valid) {
       this.sendToSlack();
-      this.setState({ displayProjectValue: false, displayThanks: true });
     }
   };
 
   render() {
     return (
       <>
-        <FormWrapper
-          onChange={e => {
-            this.onChange(e, "projectValue");
-          }}
-          validateOnBlur={e => {
-            this.validateOnBlur(e, "projectValue");
-          }}
-          values={this.state.projectValue}
-          button={false}
-          submitHandlerProps={e => {
-            this.handleSubmit(e, "projectValue");
-          }}
-          name={"Project Information"}
-        />
-
-        <AppSelector
-          tabChangeHandler={this.tabHandler}
-          renderApp={this.state.displayAppChecklist}
-        />
-
-        
-
-        {/* {this.state.renderChecklist === "thanks" ? (
+        {this.state.renderChecklist === "thanks" ? (
           <Textblock
             formTitle={`Seems like you need help! Thank you for reaching out ${this.state.name}.`}
             text="We've got your submisson and will reach out as soon as possible! Have a good day :)"
@@ -394,18 +388,56 @@ class SeoChecklist extends Component {
             sbumitHandler={this.stateDefaultHandler}
           />
         ) : null}
+        {this.state.displayInputProject === true ? (
+          <FormWrapper
+            onChange={e => {
+              this.onChange(e, "projectValue");
+            }}
+            validateOnBlur={e => {
+              this.validateOnBlur(e, "projectValue");
+            }}
+            values={this.state.projectValue}
+            button={false}
+            submitHandlerProps={e => {
+              this.handleSubmit(e, "projectValue");
+            }}
+            name={"Project Information"}
+          />
+        ) : null}
 
-        <Inputsform
-          changeListener={this.handleInputChange}
-          inputValues={inputValuesForProject}
-          formTitle="Project Information"
-          submitButton={false}
-          blurHadnler={this.handleImput}
-          renderInputForm={this.state.renderProjectInformation}
+        <AppSelector
+          tabChangeHandler={this.tabHandler}
+          renderApp={this.state.displayAppChecklist}
         />
 
-
-
+        {this.state.renderChecklist === "web" ? (
+          <FormWrapper
+            onChange={e => {
+              this.onChange(e, "checklistValue");
+            }}
+            validateOnBlur={e => {
+              this.validateOnBlur(e, "checklistValue");
+            }}
+            values={this.state.checklistValue}
+            button={true}
+            submitHandlerProps={e => {
+              this.handleSubmit(e, "checklistValue");
+            }}
+            name={"Please fill the checklist below"}
+          />
+        ) : this.state.renderChecklist === "app" ? (
+          <Appchecklist
+            changeListener={e => {
+              this.onChange(e, "appChecklistValue");
+            }}
+            inputValues={this.state.appChecklistValue}
+            formTitle="It's a little bit different for apps!"
+            submitButton={true}
+            sbumitHandler={e => {
+              this.handleSubmit(e, "appChecklistValue");
+            }}
+          />
+        ) : null}
       </>
     );
   }

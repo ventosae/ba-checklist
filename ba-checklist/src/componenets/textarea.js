@@ -6,7 +6,7 @@ function Textarea(props) {
       <label>{props.label}</label>
       <textarea
         className="form-control form-b_text"
-        id={props.id}
+        id={props.inputId}
         rows="3"
         onChange={props.changeHandler}
         name={props.id}

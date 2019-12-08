@@ -299,38 +299,18 @@ export const inputValuesForAppChecklist = [
     type: "textarea",
     inputChange: "this.handleInputChange",
     label: "",
-    id: "appInfo",
-    value: ""
+    inputId: "appInfoComment",
+    value: " "
   }
 ];
 
 export const defaultState = {
-  projectName: "",
-  email: "",
-  domain: "",
-  rendering: "",
-  schema: "",
-  pagespeed: "",
-  content: "No comment",
-  appInfo: "No comment",
-  renderChecklist: "",
-  urlKeyword: "no answer",
-  urlStrucutre: "no answer",
-  urlCapital: "no answer",
-  titleRequirements: "no answer",
-  descriptionRequirements: "no answer",
-  h1Requirements: "no answer",
-  projectNameValid: true,
-  emailValid: true,
-  domainValid: true,
-  schemaValid: true,
-  pagespeedValid: true,
-  contentValid: true,
-  emailValidRender: false,
-  projectNameValidRender: false,
-  renderAppSelector: true,
-  renderProjectInformation: true,
-  name: ""
+  projectValue: inputValuesForProject,
+  checklistValue: inputValuesForChecklist,
+  appChecklistValue: inputValuesForAppChecklist,
+  displayProjectValue: true,
+  displayInputProject: true,
+  renderChecklist: null
 };
 
 export function SlackMrkdwn(messageValues) {
