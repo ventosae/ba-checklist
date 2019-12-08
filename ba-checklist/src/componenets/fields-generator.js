@@ -5,10 +5,6 @@ import Textarea from "./textarea.js";
 import Inputfield from "./input.js";
 
 function Fieldsgenerator(props) {
-<<<<<<< HEAD
-=======
-  const selectChecklistFlag = props.selectChecklistFlag;
->>>>>>> master
   const values = props.values;
   const changeListener = props.changeListener;
   const blurHadnler = props.blurHadnler;
@@ -64,33 +60,6 @@ function Fieldsgenerator(props) {
           isValid={value.isValid}
         />
       );
-<<<<<<< HEAD
-=======
-    } else if (value.type === "select+checklist") {
-      return (
-        <>
-          <Selectfield
-            key={value.inputId + "key"}
-            options={value.options}
-            inputLabel={value.inputLabel}
-            inputId={value.inputId}
-            inputChange={changeListener}
-            errorMessage={value.errorMessage}
-            //classes cold be .tooltip-good / .tooltip-bad / .tooltip-comment
-            tooltipmessage={value.tooltip}
-          />
-          {selectChecklistFlag ? (
-            <Checklistfield
-              key={value.labelChecklist + "key"}
-              options={value.optionChecklist}
-              inputLabel={value.labelChecklist}
-              inputChange={changeListener}
-              tooltipmessage={value.tooltipChecklist}
-            />
-          ) : null}
-        </>
-      );
->>>>>>> master
     }
   });
 }

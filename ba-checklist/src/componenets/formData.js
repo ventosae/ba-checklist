@@ -230,7 +230,6 @@ export const testData = [
         tooltipComment: "Please provide info here",
         class: "123"
       }
-<<<<<<< HEAD
     ]
   },
   {
@@ -242,11 +241,6 @@ export const testData = [
     value: "",
     isValid: true,
     tooltip: [
-=======
-    ],
-    labelChecklist: "Meta Data1",
-    optionChecklist: [
->>>>>>> master
       {
         tooltipComment: "Please provide info here",
         class: "123"
@@ -379,8 +373,4 @@ export function SlackMrkdwn(messageValues) {
   let objFinal = { blocks: textObj };
   return objFinal;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 export default inputValuesForProject;
