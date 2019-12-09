@@ -10,7 +10,7 @@ function Button(props) {
       <button
         type="submit"
         onClick={props.sbumitHandler}
-        className="btn btn-primary form-main__button"
+        className="btn btn-primary form-main__button form-main__button--submit"
       >
         {props.buttonText}
       </button>

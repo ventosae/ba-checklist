@@ -34,7 +34,7 @@ class SeoChecklist extends Component {
 
   appSelectorValidator = () => {
     let nameValid = this.lenghValid(this.state.projectValue[0].value, "text");
-    let emailValid = this.lenghValid(this.state.projectValue[1].value, "text");
+    let emailValid = this.lenghValid(this.state.projectValue[1].value, "email");
     let renderAppSelector = nameValid && emailValid ? true : false;
     this.setState({ displayAppChecklist: renderAppSelector });
   };
@@ -196,7 +196,7 @@ class SeoChecklist extends Component {
           event.target.id,
           false
         );
-        this.setState({ data: myNewData });
+        this.setState({ [stateValues]: myNewData });
         valid = false;
       } else {
         const myNewData = this.mapData(
