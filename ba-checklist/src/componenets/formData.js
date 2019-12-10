@@ -229,9 +229,9 @@ export const inputValuesForAppChecklist = [
   {
     type: "textarea",
     inputChange: "this.handleInputChange",
-    label: "",
+    label: "Please provide any comments below",
     inputId: "appInfoComment",
-    value: " "
+    value: ""
   }
 ];
 
