@@ -70,7 +70,7 @@
 .form-main__wrapper--button {
   display: flex;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .form-main__wrapper--button button {
@@ -95,12 +95,14 @@
 .form-b__check-main {
   display: flex;
   flex-flow: column wrap;
+  padding-bottom: 15px;
 }
 
 .form-b__input-container {
   display: flex;
   flex: 1;
   flex-wrap: wrap;
+  padding-bottom: 15px;
 }
 
 .form-b__lable {
@@ -134,6 +136,7 @@
   display: flex;
   flex: 1 1;
   flex-wrap: wrap;
+  padding-bottom: 15px;
 }
 
 .form-b_text {
@@ -528,4 +531,18 @@
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+.invalid-feedback {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 0;
+}
+
+.form-group {
+  margin-bottom: 0 !important;
+}
+
+.form-b__group__textarea {
+  padding-bottom: 15px;
 }

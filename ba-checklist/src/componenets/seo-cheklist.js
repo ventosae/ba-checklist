@@ -36,7 +36,16 @@ class SeoChecklist extends Component {
     let nameValid = this.lenghValid(this.state.projectValue[0].value, "text");
     let emailValid = this.lenghValid(this.state.projectValue[1].value, "email");
     let renderAppSelector = nameValid && emailValid ? true : false;
-    this.setState({ displayAppChecklist: renderAppSelector });
+    if (!renderAppSelector) {
+      this.setState({
+        displayAppChecklist: renderAppSelector,
+        renderChecklist: false
+      });
+    } else {
+      this.setState({
+        displayAppChecklist: renderAppSelector
+      });
+    }
   };
 
   tabHandler = event => {

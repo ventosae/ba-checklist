@@ -2,7 +2,7 @@ import React from "react";
 
 function Textarea(props) {
   return (
-    <div className="form-group form-b__group">
+    <div className="form-group form-b__group form-b__group__textarea">
       <label>{props.label}</label>
       <textarea
         className="form-control form-b_text"

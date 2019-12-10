@@ -55,8 +55,12 @@ export const inputValuesForChecklist = [
     ],
     tooltip: [
       {
-        tooltipComment: "Please provide info here",
-        class: "123"
+        tooltipComment: "a bad example below",
+        class: "tooltip-header"
+      },
+      {
+        tooltipComment: "https://hotshotracing.sportsbet.com.au/ ",
+        class: "tooltip-bad"
       }
     ]
   },
@@ -73,8 +77,18 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment:
+              "SEO Team can provide keywords for this unless already provided",
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment: "https://www.sportsbet.com.au/betting/boxing",
+            class: "tooltip-good"
+          },
+          {
+            tooltipComment:
+              "https://www.sportsbet.com.au/betting/basketball-us/nba-matches/washington-wizards-at-charlotte-hornets-5003448/sgm",
+            class: "tooltip-bad"
           }
         ]
       },
@@ -208,89 +222,6 @@ export const inputValuesForChecklist = [
     label: "Any onther information which might be usefull for the team?",
     inputId: "comment-web",
     value: " "
-  }
-];
-
-export const testData = [
-  {
-    type: "select",
-    inputLabel:
-      "Subdomain/new domain: is this new content/feature located on a separate domain/subdomain",
-    isInputValid: "domainValid",
-    inputId: "domain",
-    errorMessage: "Please pick an answer",
-    value: "",
-    isValid: true,
-    options: [
-      "is located on separate subdomain/domain",
-      "is NOT located on subdomain/domain"
-    ],
-    tooltip: [
-      {
-        tooltipComment: "Please provide info here",
-        class: "123"
-      }
-    ]
-  },
-  {
-    type: "input",
-    inputLabel: "Project Name",
-    inputId: "projectName",
-    inputPlaceholder: "Project Name",
-    errorMessage: "Plese enter project name",
-    value: "",
-    isValid: true,
-    tooltip: [
-      {
-        tooltipComment: "Please provide info here",
-        class: "123"
-      }
-    ]
-  },
-  {
-    type: "checklist",
-    label: "Web Page URL",
-    errorMessage: "Please pick an answer",
-    inputId: "WebPageURL",
-    options: [
-      {
-        optionLabel:
-          "Make sure the new URL(s) are using keywords relevant to the page",
-        id: "urlKeyword123",
-        value: "URLs are using keywords relevant to the page",
-        checked: false,
-        tooltiptext: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        optionLabel:
-          "Make sure the new URL(s) are using keywords relevant to the page",
-        id: "urlKeyword",
-        value: "URLs are using keywords relevant to the page",
-        checked: false,
-        tooltiptext: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      },
-      {
-        optionLabel: "Description tag requirements are fulfilled",
-        id: "descriptionRequirements",
-        checked: false,
-        tooltiptext: [
-          {
-            tooltipComment: "Please provide info here",
-            class: "123"
-          }
-        ]
-      }
-    ]
   }
 ];
 
