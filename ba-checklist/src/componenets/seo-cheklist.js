@@ -361,7 +361,7 @@ class SeoChecklist extends Component {
       "Content-Type": "application/json"
     })
       .then(response =>
-        response.status === 0
+        response.status === 200
           ? this.setState({
               renderChecklist: "thanks",
               displayAppChecklist: false,
