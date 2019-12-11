@@ -98,8 +98,17 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment: 'Example for "Rugby League" keyword',
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
+            class: "tooltip-good"
+          },
+          {
+            tooltipComment:
+              "https://www.sportsbet.com.au/betting/novelty/rugby-league",
+            class: "tooltip-bad"
           }
         ]
       },
@@ -109,8 +118,16 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment: "Special Symbols can cause duplication",
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment: "https://www.sportsbet.com.au/betting/rugby-league",
+            class: "tooltip-good"
+          },
+          {
+            tooltipComment: "https://www.sportsbet.com.au/betting/Rugby-lËague",
+            class: "tooltip-bad"
           }
         ]
       }
@@ -132,14 +149,14 @@ export const inputValuesForChecklist = [
     ],
     tooltip: [
       {
-        tooltipComment: "Please provide info here",
-        class: "123"
+        tooltipComment:
+          "Please let us know if new feature/product uses Client Side Rendering."
       }
     ]
   },
   {
     type: "checklist",
-    label: "Meta Data",
+    label: "Meta Data ",
     inputId: "MetaData",
     options: [
       {
@@ -148,8 +165,21 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment: "Title Best practices and examples below",
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment:
+              "Max length: 50 – 65 symbols - Keywords included, brand included"
+          },
+          {
+            tooltipComment:
+              "Todays Horse Racing Schedule - Upcoming Races | Sportsbet",
+            class: "tooltip-good"
+          },
+          {
+            tooltipComment: "Races | Sportsbet",
+            class: "tooltip-bad"
           }
         ]
       },
@@ -159,8 +189,21 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment: "Description tag best practices and examples below",
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment:
+              "Max length: 130 - 160 symbols - Keywords included, brand included, CTA included"
+          },
+          {
+            tooltipComment:
+              "View the latest odds and bet on Bayern Munich v Tottenham with Sportsbet. Join Australia's Favourite Online Betting and Entertainment Website.",
+            class: "tooltip-good"
+          },
+          {
+            tooltipComment: "Never miss on betting.",
+            class: "tooltip-bad"
           }
         ]
       },
@@ -170,8 +213,14 @@ export const inputValuesForChecklist = [
         checked: false,
         tooltiptext: [
           {
-            tooltipComment: "Please provide info here",
-            class: "123"
+            tooltipComment:
+              "H1 – must be included in every page. Only one H1 should be added to the page.",
+            class: "tooltip-header"
+          },
+          {
+            tooltipComment:
+              "Page contains H1, H2 and H4 tags (without H3tags) should be in order H1, H2 and H3 tags",
+            class: "tooltip-bad"
           }
         ]
       }
@@ -192,8 +241,13 @@ export const inputValuesForChecklist = [
     ],
     tooltip: [
       {
-        tooltipComment: "Please provide info here",
-        class: "123"
+        tooltipComment:
+          "Reach out to SEO team to identify the available mark ups and code for them.",
+        class: "tooltip-header"
+      },
+      {
+        tooltipComment:
+          "Get Chrome extension for markup verefication. Serarch: Structured Data Testing Tool"
       }
     ]
   },
@@ -212,8 +266,8 @@ export const inputValuesForChecklist = [
     ],
     tooltip: [
       {
-        tooltipComment: "Please provide info here",
-        class: "123"
+        tooltipComment:
+          "Page speed is very important ranking factor for google. We use lighthouse for benchmarking"
       }
     ]
   },
