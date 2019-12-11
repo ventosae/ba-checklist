@@ -32,7 +32,7 @@ class ToolTip extends Component {
         <div className="tooltip-arrow"></div>
         <div className="tooltip-inner">
           {tooltipText.map(text => (
-            <span className={text.class} key={text.toString()}>
+            <span className={text.class} key={text.toString() +"key"}>
               {text.tooltipComment}
             </span>
           ))}
