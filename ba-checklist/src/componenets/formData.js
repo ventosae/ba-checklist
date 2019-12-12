@@ -285,7 +285,7 @@ export const inputValuesForAppChecklist = [
     inputChange: "this.handleInputChange",
     label: "Please provide any comments below",
     inputId: "appInfoComment",
-    value: ""
+    value: "Your Comment"
   }
 ];
 

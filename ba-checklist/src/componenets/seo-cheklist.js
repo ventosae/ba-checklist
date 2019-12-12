@@ -358,7 +358,7 @@ class SeoChecklist extends Component {
 
     const stateText = JSON.stringify(slackText);
     this.fetchToSlack(urlSlack, "no-cors", "post", stateText, {
-      "Content-Type": "application/json"
+      "text": "json"
     })
       .then(response =>
         response.status === 0

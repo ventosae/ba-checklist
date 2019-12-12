@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MdInfo } from "react-icons/md";
-import Tooltip from "./tooltip";
+import ToolTip from "./tooltip";
 import { IoIosInformation } from "react-icons/io";
 
 class Info extends Component {
@@ -59,7 +59,7 @@ class Info extends Component {
     return (
       <>
         {icon}
-        <Tooltip
+        <ToolTip
           ref={this.toolTip}
           key={this.props.tooltiptextvalue}
           tooltiptext={this.props.tooltiptextvalue}
