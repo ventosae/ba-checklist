@@ -190,6 +190,7 @@ class SeoChecklist extends Component {
   };
 
   validateOnBlur = (event, stateValues) => {
+    console.log("checklistValue")
     event.preventDefault();
     let targetType = event.target.type;
     let eventId = event.target.name;
@@ -388,13 +389,23 @@ class SeoChecklist extends Component {
   render() {
     return (
       <>
-        {this.state.renderChecklist === "thanks" ? (
+        {this.state.renderChecklist === "thanks" & this.state.checklistValue[0].value === 'It is NOT is creating a new URL/Page' ? (
+
           <Textblock
-            formTitle={`Seems like you need help! Thank you for reaching out ${this.state.name}.`}
-            text="We've got your submisson and will reach out as soon as possible! Have a good day :)"
+            formTitle={`You are good to go!`}
+            text={`Since there is no page to be created the SEO Support is not needed. If you have any other questions drop a message to seo@sportsbet.com.au Thank you 
+            for a sumbission ${this.state.name}.😊`}
             showButton={true}
             buttonText={"Submit Another Project"}
-            sbumitHandler={this.stateDefaultHandler}
+            sbumitHandler={this.stateDefaultHandler} 
+          />
+        ) : this.state.renderChecklist === "thanks" ? (
+          <Textblock
+            formTitle={`Seems like we can help! Thank you for reaching out ${this.state.name}.`}
+            text="We've got your submisson and will reach out as soon as possible! Otherwise drop us a message on seo@sportsbet.com.au. Have a good day :)"
+            showButton={true}
+            buttonText={"Submit Another Project"}
+            sbumitHandler={this.stateDefaultHandler} 
           />
         ) : null}
         {this.state.displayInputProject === true ? (

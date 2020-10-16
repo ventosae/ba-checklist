@@ -13,7 +13,7 @@ class App extends Component {
             style:
               "background: linear-gradient(to bottom, #00549E, #1C75BC); min-height: 100vh;"
           }}
-          title="BA SEO Checklist - SEO Team"
+          title="SEO Support Checklist - SEO Team"
         />
         <div className="form-main__header-container">
           <img
@@ -25,7 +25,7 @@ class App extends Component {
         <div className="page-header--wrapper">
           <h1 className="page-header">
             {" "}
-            SEOs compatibility <br></br>check{" "}
+            SEO Support <br></br>Checklist{" "}
           </h1>
         </div>
 
