@@ -45,7 +45,7 @@ export const inputValuesForChecklist = [
     inputLabel:
       "Does this feature/product creates a new URL on SB.com? 📃",
     isInputValid: "domainValid",
-    inputId: "domain",
+    inputId: "new_url",
     errorMessage: "Please pick an answer",
     value: "",
     isValid: true,
@@ -70,7 +70,7 @@ export const inputValuesForChecklist = [
       "Does this feature/product changes content on an existing page? 📝",
     isInputValid: "renderingValid",
     errorMessage: "Please pick an answer",
-    inputId: "rendering",
+    inputId: "existing_page",
     value: "",
     isValid: true,
     options: [
@@ -89,7 +89,7 @@ export const inputValuesForChecklist = [
     inputLabel: "Does this new feature/product is hosted on new domain or subdomain? 🌐",
     errorMessage: "Please pick an answer",
     isInputValid: "schemaValid",
-    inputId: "schema",
+    inputId: "domain_subdomain",
     value: "",
     isValid: true,
     options: [

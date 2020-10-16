@@ -12,7 +12,7 @@ import Textblock from "./textBlock";
 import FormWrapper from "./formWrapper.js";
 
 const urlSlack =
-  "https://0e6xozda97.execute-api.ap-southeast-2.amazonaws.com/slack-send/send-to-slack-seo";
+  "https://hooks.slack.com/services/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";
 
 class SeoChecklist extends Component {
   state = {
