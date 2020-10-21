@@ -43,6 +43,26 @@ export const inputValuesForChecklist = [
   {
     type: "select",
     inputLabel:
+      "Does this feature/product accessible to non-logged in users? 👽",
+    isInputValid: "domainValid",
+    inputId: "login_state",
+    errorMessage: "Please pick an answer",
+    value: "",
+    isValid: true,
+    options: [
+      "It is accessible to non-logged users",
+      "It is NOT accessible to non-logged users"
+    ],
+    tooltip: [
+      {
+        tooltipComment: "If this feature/product requires users to log in that means that Search Engine bots can't access this content.",
+        class: "tooltip-comment"
+      }
+    ]
+  },
+  {
+    type: "select",
+    inputLabel:
       "Does this feature/product creates a new URL on SB.com? 📃",
     isInputValid: "domainValid",
     inputId: "new_url",

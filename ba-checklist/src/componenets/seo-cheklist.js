@@ -12,7 +12,7 @@ import Textblock from "./textBlock";
 import FormWrapper from "./formWrapper.js";
 
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 class SeoChecklist extends Component {
   state = {
@@ -389,11 +389,11 @@ class SeoChecklist extends Component {
   render() {
     return (
       <>
-        {this.state.renderChecklist === "thanks" & this.state.checklistValue[0].value === 'It is NOT is creating a new URL/Page' ? (
+        {this.state.renderChecklist === "thanks" & this.state.checklistValue[0].value === 'It is NOT accessible to non-logged users' ? (
 
           <Textblock
             formTitle={`You are good to go!`}
-            text={`Since there is no page to be created the SEO Support is not needed. If you have any other questions drop a message to seo@sportsbet.com.au Thank you 
+            text={`Since the product/feature requires useres to log in search enginges can't see or crawl this content. Meaning the SEO support is not required. If you have any other questions drop a message to seo@sportsbet.com.au Thank you 
             for a sumbission ${this.state.name}.😊`}
             showButton={true}
             buttonText={"Submit Another Project"}
