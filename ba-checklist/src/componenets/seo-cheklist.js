@@ -12,7 +12,7 @@ import Textblock from "./textBlock";
 import FormWrapper from "./formWrapper.js";
 
 const urlSlack =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 class SeoChecklist extends Component {
   state = {
@@ -393,7 +393,7 @@ class SeoChecklist extends Component {
 
           <Textblock
             formTitle={`You are good to go!`}
-            text={`Since the product/feature requires useres to log in search enginges can't see or crawl this content. Meaning the SEO support is not required. If you have any other questions drop a message to seo@sportsbet.com.au Thank you 
+            text={`Since the product/feature requires useres to log in, search enginges can't see or crawl this content. Meaning the SEO support is not required. If you have any other questions drop a message to seo@sportsbet.com.au Thank you 
             for a sumbission ${this.state.name}.😊`}
             showButton={true}
             buttonText={"Submit Another Project"}
